@@ -1,0 +1,9 @@
+<h2><%= (["<strong>#{h(category.title).s}</strong> (#{ts(:english)})"] + category.translated_titles.collect{|t| "#{h(t.title).s} (#{h(t.language.title).s})" }).join(', ') %></h2>
+<% if !category.description.blank? %>
+<%= category.description.s %>
+<% end %>
+<%= render :partial => 'associated_objects_count', :locals => {:media_count => category.media_count, :feature_count => category.associated_objects_count} %>
+<p>&nbsp;</p>
+<p>
+<%= link_to ts('metadata.for', :what => h(category.title.titleize)), category_path(category) %>
+</p>

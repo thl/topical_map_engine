@@ -1,0 +1,21 @@
+# == Schema Information
+# Schema version: 20090731042553
+#
+# Table name: translated_titles
+#
+#  id          :integer(4)      not null, primary key
+#  title       :string(255)     not null
+#  language_id :integer(4)      not null
+#  category_id :integer(4)      not null
+#  creator_id  :integer(4)      not null
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
+one:
+  title: MyString
+  language_id: 1
+
+two:
+  title: MyString
+  language_id: 1

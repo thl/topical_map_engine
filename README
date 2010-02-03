@@ -1,0 +1,28 @@
+TmbEngine
+=========
+
+Kmaps engine provides a way to run the whole kmaps application with several themes. Currently two themes are supported: thdl_integration engine (https://ndlb.svn.sourceforge.net/svnroot/ndlb/portal/ror/plugins/thdl_integration/trunk) and basic_engine (https://ndlb.svn.sourceforge.net/svnroot/ndlb/portal/ror/plugins/basic_engine/trunk).
+
+Besides either of these two, the required plugins are:
+- acts_as_tree:				git://github.com/rails/acts_as_tree.git
+- annotate_models			git://github.com/ctran/annotate_models.git
+- authenticated_system:		git://github.com/thl/authenticated_system.git
+- complex_scripts:			git://github.com/thl/complex_scripts.git
+- globalize2:				git://github.com/joshmh/globalize2.git
+- mms_integration:			git://github.com/thl/mms_integration.git
+- open_id_authentication:	git://github.com/rails/open_id_authentication.git
+- places_integration: 		git://github.com/thl/places_integration.git
+- restful-authentication: 	git://github.com/technoweenie/restful-authentication.git
+- tiny_mce: 				git://github.com/kete/tiny_mce.git
+
+Also recommended but not required are:
+- annotate_models: http://repo.pragprog.com/svn/Public/plugins/annotate_models
+- newrelic_rpm: http://newrelic.rubyforge.org/svn/newrelic_rpm
+
+Example
+=======
+
+Example goes here.
+
+
+Copyright (c) 2009 Andres Montano, released under the MIT license

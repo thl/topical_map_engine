@@ -1,0 +1,12 @@
+<% if @main_category.nil? %>
+     <h1>Select a category</h1>
+<% else %>
+     <h1>Select a <%=h @main_category.title %></h1>
+<% end %>
+<p>
+<%= submit_tag 'Select', :class => 'lbAction', :name => 'deactivate_and_update' %>
+<%= submit_tag 'Cancel', :class => 'lbAction', :name => 'deactivate' %>
+</p>
+<div id="pop_up_navigation">
+<%= render :partial => 'index', :locals => { :categories => categories, :margin_depth => 0 } %>
+</div>

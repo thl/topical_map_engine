@@ -1,0 +1,31 @@
+<h2>Knowledge Maps
+<%  authorized_only hash_for_new_category_path do %>
+	  (<%= link_to ts('add.this'), new_category_path %>)
+<%  end
+    cols = 3
+    col_size = @categories.size / cols
+    row = 1 %>
+</h2>
+<table border="0" width="99%" class="normal">
+  <tr>
+	<td valign="top" width="<%= 100/3 %>%">
+      <ul class='main_list'>
+<%      for category in @categories do %>
+<%        if category.published? %>
+            <li><%= link_to h(category.title.pluralize), category_children_path(category) %></li>
+<%        else %>
+            <li class='unpublished'><%= link_to h(category.title.pluralize), category_children_path(category) %></li>
+<%        end %>            
+<%        if row>col_size %>
+      </ul>
+    </td>
+    <td valign="top">
+      <ul class='main_list'>
+<%          row = 0	
+          end
+          row+=1 %>
+<%      end %>
+      </ul>
+    </td>
+  <tr>
+</table>

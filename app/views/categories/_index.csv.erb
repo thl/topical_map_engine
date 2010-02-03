@@ -1,0 +1,6 @@
+<%  if !category.nil?
+	  translated_titles = @languages.collect{|language| category.translated_titles.find(:first, :conditions => {:language_id => language.id})}.collect{|translated_title| translated_title.nil? ? '' : translated_title.title}
+%><%= CSV.generate_line [category.id, "#{'  ' * margin_depth}#{category.title}"] + translated_titles %>
+<%	  margin_depth += 1
+    end
+%><%= render(:partial => 'category', :collection => categories, :locals => {:margin_depth => margin_depth}) if !categories.empty? %>

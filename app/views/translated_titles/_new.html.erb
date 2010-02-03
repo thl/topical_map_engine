@@ -1,0 +1,32 @@
+<h1><%= ts :for, :what => t('translat.ion').capitalize, :whom => "<em>#{h(@category.title)}</em>" %></h1>
+<%= error_messages_for :translated_title %>
+<% remote_form_for(:translated_title, :url => category_translated_titles_path(@category), :before => "document.getElementById(\'submit_button\').disabled = true;", :update => 'info') do |f| %>
+  <p>
+    <b>Language of Translation</b><br />
+<%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
+  </p>
+  <p>
+    <b>Translation</b><br />
+<%= f.text_field :title, fixed_language_options(:lang => @translated_title.language.code) %>
+  </p>
+  <p>
+  <%= link_to_remote 'Add new Author', :url => { :action => 'add_author', :category_id => @category}, :update => 'update_div', :position => 'before', :method => 'get' %>
+  </p>
+  <div id="authors_div">
+<% if @translated_title.authors.empty? && !current_user.person.nil? %>
+<%=  render :partial => 'authors_selector', :locals => {:selected => current_user.person_id} %>
+<% else
+     for author in @translated_title.authors %>
+<%=    render :partial => 'authors_selector', :locals => {:selected => author.id} %>
+<%   end
+   end %>
+  </div>  
+  <div id="update_div">  
+  </div>
+  <p>
+<%= submit_tag te('create.record', :what => t('translat.ion')), language_options(:disabled_with => 'Posting...') %>
+  </p>
+<% end %>
+<p>
+<%= link_to_remote ts('cancel.this'), :url => category_child_path(@main_category, @category), :method => :get %>
+</p>

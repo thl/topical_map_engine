@@ -1,0 +1,26 @@
+<h1>Listing translated_sources</h1>
+
+<table class="normal">
+  <tr>
+    <th>Title</th>
+    <th>Language</th>
+    <th>Source</th>
+    <th>Creator</th>
+  </tr>
+
+<% for translated_source in @translated_sources %>
+  <tr>
+    <td><%=h translated_source.title %></td>
+    <td><%=h translated_source.language_id %></td>
+    <td><%=h translated_source.source_id %></td>
+    <td><%=h translated_source.creator_id %></td>
+    <td><%= link_to 'Show', translated_source %></td>
+    <td><%= link_to 'Edit', edit_translated_source_path(translated_source) %></td>
+    <td><%= link_to 'Destroy', translated_source, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New translated_source', new_translated_source_path %>

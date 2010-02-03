@@ -1,0 +1,24 @@
+# == Schema Information
+# Schema version: 20090731042553
+#
+# Table name: categories
+#
+#  id         :integer(4)      not null, primary key
+#  title      :string(255)     not null
+#  parent_id  :integer(4)
+#  creator_id :integer(4)      not null
+#  created_at :datetime
+#  updated_at :datetime
+#  published  :boolean(1)      not null
+#  cumulative :boolean(1)      default(TRUE), not null
+#
+
+one:
+  title: MyString
+  description: MyText
+  creator_id: 1
+
+two:
+  title: MyString
+  description: MyText
+  creator_id: 1

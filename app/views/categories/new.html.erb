@@ -1,0 +1,17 @@
+<div id="container-right-5050" class="container-right-5050">
+  <div class="shell-2">
+    <h1><%= ts 'topical_map.of', :what => h(@main_category.title.titleize.pluralize) %></h1>
+    <div id="navigation" class="normal">
+<%=   render :partial => 'index', :locals => {:margin_depth => 0, :categories => @categories} %>
+    </div>
+    <p>&nbsp;</p>
+<%= render :partial => 'persistent_links' %>
+  </div>
+</div>
+<div id="container-left-5050" class="container-left-5050">
+  <div class="shell-2">
+    <div id="info">
+<%=   render :partial => 'new' %>
+	</div>
+  </div>
+</div>

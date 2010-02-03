@@ -1,0 +1,23 @@
+<p>
+  <b>Mms:</b>
+  <%=h @source.mms_id %>
+</p>
+
+<p>
+  <b>Page:</b>
+  <%=h @source.page %>
+</p>
+
+<p>
+  <b>Line:</b>
+  <%=h @source.line %>
+</p>
+
+<p>
+  <b>Creator:</b>
+  <%=h @source.creator_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_source_path(@source) %> |
+<%= link_to 'Back', sources_path %>

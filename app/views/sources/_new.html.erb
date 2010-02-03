@@ -1,0 +1,17 @@
+<% if params[:description_id].nil? %>
+<%   path = category_sources_path(@category) %>
+     <h1><%= ts :for, :what => Source.human_name.capitalize, :whom => "<em>#{h(@category.title)}</em>" %></h1>
+<% else %>
+<%   path = category_description_sources_path(@category,description) %>
+     <h1><%= ts :for, :what => Source.human_name.capitalize, :whom => Description.human_name %></h1>
+<% end %>
+<%= error_messages_for :source %>
+<%   remote_form_for(:source, :url => path, :before => "tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true;", :update => 'info') do |f| %>
+<%=  render :partial => 'form', :locals => {:f => f} %>
+     <p>
+<%=    submit_tag te('create.record', :what => Source.human_name.capitalize), language_options(:disabled_with => 'Posting...') %>
+     </p>
+<% end %>
+<p>
+<%= link_to_remote ts('cancel.this'), :url => category_child_path(@main_category, @category), :method => :get %>
+</p>

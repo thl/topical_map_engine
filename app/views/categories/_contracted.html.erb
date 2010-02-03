@@ -1,0 +1,20 @@
+<%= Util::MARGIN * margin_depth %>
+<%  has_no_children = (logged_in? ? contracted.children : contracted.published_children).empty?
+    if has_no_children
+      html_options = contracted.published? ? { :class => 'treeempty' } : { :class => 'treeempty_unpublished' } %>
+<%=   link_to_remote h(contracted.title.capitalize_first_letter).s, {:url => category_child_path(@main_category, contracted), :method => 'get'}, html_options  %>
+<%  else
+      html_options = contracted.published? ? { :class => 'treeplus' } : { :class => 'treeplus_unpublished' } %>
+<%=   link_to_remote h(contracted.title.capitalize_first_letter).s, {:url => category_child_path(@main_category, contracted), :method => 'get'}, html_options %>  
+<%  end
+    if base_language?
+      if has_no_children
+        authorized_only hash_for_new_category_child_path do
+          html_options = contracted.published? ? {} : { :class => 'treeminus_unpublished' } %>
+          (<%= link_to_remote(ts('new.record', :what => t(:subcategory)), {:url => new_category_child_path(@main_category, :parent_id => contracted), :method => 'get', :update => 'info'}, html_options) %>)
+<%      end
+      end
+    else %>
+      (<%= link_to ts('translat.e'), edit_category_child_path(@main_category, contracted) %>)
+<%  end %>
+<br/>

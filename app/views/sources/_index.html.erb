@@ -1,0 +1,14 @@
+<p><b>Detail for textual sources:</b></p>
+<%   resource.sources.find(:all).each do |s| %>
+	   <div id="<%= "#{s.id}_sourcediv" %>">
+<%     if @source.nil? 	%>	
+<%=      render :partial => 'sources/contracted', :locals => {:resource => resource, :s => s} %>
+<%     else %>
+<%       if s == @source %>
+<%=        render :partial => 'sources/expanded', :locals => {:resource => resource, :s => s} %>
+<%	     else %>
+<%=        render :partial => 'sources/contracted', :locals => {:resource => resource, :s => s} %>
+<%       end %>
+<%     end %>
+       </div>
+<%   end %>

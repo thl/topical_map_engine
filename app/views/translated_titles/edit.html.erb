@@ -1,0 +1,20 @@
+<h1><%= "Editing Translation for <em>#{h(@category.title)}</em> in #{h(@translated_title.language.title)}" %></h1>
+<%= error_messages_for :translated_title %>
+<% form_for(:translated_title, :url => category_translated_title_path(@category, @translated_title), :html => { :method => :put }) do |f| %>
+  <p>
+    <b>Translation</b><br />
+<%= f.text_field :title, fixed_language_options(:lang => @translated_title.language.code) %>
+  </p>
+<%= f.hidden_field :category_id %>
+<%= f.hidden_field :creator_id %>
+<%= f.hidden_field :language_id %>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+<p>
+<% authorized_only hash_for_category_translated_title_path(:action => 'destroy') do %>
+<%=  link_to 'Delete', category_translated_title_path(@category, @translated_title), :confirm => 'Are you sure?', :method => :delete %> |
+<% end %>
+<%= link_to ts('cancel.this'), @category %>
+</p>

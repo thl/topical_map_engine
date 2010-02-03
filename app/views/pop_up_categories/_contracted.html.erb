@@ -1,0 +1,9 @@
+<%= Util::MARGIN * margin_depth %>
+<%  has_no_children = contracted.children.empty? 
+    if has_no_children %>
+      &#9674;
+<%  else %>
+<%=   link_to_remote '+', { :update => "pop_up_#{contracted.id}_div", :url => expand_pop_up_category_path(contracted, :margin_depth => margin_depth), :method => 'get' }, { :class => 'collapsable' } %>
+<%  end %>
+<%= render :partial => 'selectable_category', :locals => { :category => contracted } %>
+<br/>

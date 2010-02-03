@@ -1,0 +1,41 @@
+<% if !category.curators.empty? %>
+<%=  display_if_not_blank 'Curated by', "<i>#{join_with_and(category.curators.collect{|c| c.fullname}) if !category.curators.empty?}</i>" %>
+<% end
+   if logged_in? 
+	 user = category.creator 
+	 screen_name = user.screen_name 
+	 person = user.person %>
+<%=	 display_if_not_blank 'Entered by', "#{person.nil? ? screen_name : link_to(h(screen_name), person_user_path(person))} (#{ts('update.d', :when => h(category.updated_at.to_date.to_formatted_s(:long)))})" %>
+<% end %>
+<%  if !category.sources.empty? %>
+      <div id='catsources_div' class='padded'>
+<%=     render :partial => 'sources/index', :locals => {:resource => category} %>
+      </div>
+<%  end %>
+<p><div class='padded'>
+<% form_remote_tag :url => new_category_source_path(category), :update => 'info', :method => :get do %>
+<%   authorized_only hash_for_new_category_source_path do %>
+<%=    submit_tag 'add category source' %>
+<%   end 
+   end %>
+</div></p>
+<%  if !category.descriptions.empty? %>
+      <div id='descriptions_div'>
+<%=     render :partial => 'descriptions/index', :locals => {:category => category} %>
+      </div>
+<%    if !category.descriptions.empty? %>
+      <p>
+<%      authorized_only hash_for_set_primary_description_category_path do %>
+<%=       link_to_remote 'set primary description', :url => set_primary_description_category_path(category), :update => 'info', :method => 'get' %>
+<%      end %>
+      </p>
+<%    end %>
+<%  end %>
+<p>
+<% form_remote_tag :url => new_category_description_path(category), :update => 'info', :method => :get do %>
+<%   authorized_only hash_for_new_category_description_path do %>
+<%=    submit_tag 'add description' %>
+<%   end 
+   end %>
+</p>
+

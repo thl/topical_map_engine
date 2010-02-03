@@ -1,0 +1,10 @@
+<% if media_count['Medium'] > 0
+	 counts = []
+     counts << ts(:count, :what => t(:picture), :count => media_count['Picture']) if media_count['Picture'] > 0
+	 counts << ts(:count, :what => t(:video), :count => media_count['Video']) if media_count['Video'] > 0
+	 counts << ts(:count, :what => t(:document), :count => media_count['Document']) if media_count['Document'] > 0 %>
+<%=	 display_if_not_blank ts(:count, :what => t('associate.d', :what => t(:medium, :count => :many)), :count => media_count['Medium']), counts.join(', ') %>
+<% end
+   if feature_count>0 %>
+<%=	 display_if_not_blank ts('associate.d', :what => t(:place, :count => feature_count)), feature_count %>
+<% end %>

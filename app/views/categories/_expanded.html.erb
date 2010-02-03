@@ -1,0 +1,26 @@
+<%= Util::MARGIN * margin_depth %>
+<%  children = logged_in? ? expanded.children : expanded.published_children
+    has_no_children = children.empty?
+    selected = expanded==@category 
+    if selected %>
+      <span class="selected_branch">
+<%  end
+    if has_no_children
+      html_options = expanded.published? ? { :class => 'treeempty' } : { :class => 'treeempty_unpublished' } %>
+<%=   link_to_remote h(expanded.title.capitalize_first_letter).s, {:url => category_child_path(@main_category, expanded), :method => 'get'}, html_options %>
+<%  else %>
+<%=   link_to_remote '.', { :update => "#{expanded.id}_div", :url => contract_category_child_path(@main_category, expanded, :margin_depth => margin_depth), :method => 'get' }, { :class => 'treeminus_icon' } %>
+<%    html_options = expanded.published? ? {} : { :class => 'treeminus_unpublished' } %>
+<%=   link_to_remote h(expanded.title.capitalize_first_letter).s, {:url => category_child_path(@main_category, expanded), :method => 'get'}, html_options %>
+<%  end
+    if selected %>
+      </span>
+<%  end
+    base_language_only do
+      authorized_only hash_for_new_category_child_path do
+        html_options = expanded.published? ? {} : { :class => 'unpublished' } %>
+        (<%= link_to_remote ts('new.record', :what => t(:subcategory)), {:url => new_category_child_path(@main_category, :parent_id => expanded), :method => 'get', :update => 'info'}, html_options %>)
+<%    end
+    end %>
+<br/>
+<%= render :partial => 'index', :locals => {:margin_depth => margin_depth+1, :categories => children} %>

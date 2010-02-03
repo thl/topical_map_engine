@@ -1,0 +1,10 @@
+<h1><%= ts 'new.record', :what => t('topical_map.this', :count => 1) %></h1>
+<%= error_messages_for :category %>
+<%   
+form_for(@category) do |f| %>
+<%=  render :partial => 'form', :locals => {:changing_parent_allowed => false, :f => f, :default_curator_id => session[:default_curator_id]} %>
+    <p>
+<%=  globalized_submit_tag 'create.this' %>
+    </p>
+<% end %>
+<p><%= link_to ts('cancel.this'), root_path %></p>

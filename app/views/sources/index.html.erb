@@ -1,0 +1,26 @@
+<h1>Listing sources</h1>
+
+<table class="normal">
+  <tr>
+    <th>Mms</th>
+    <th>Page</th>
+    <th>Line</th>
+    <th>Creator</th>
+  </tr>
+
+<% for source in @sources %>
+  <tr>
+    <td><%=h source.mms_id %></td>
+    <td><%=h source.page %></td>
+    <td><%=h source.line %></td>
+    <td><%=h source.creator_id %></td>
+    <td><%= link_to 'Show', source %></td>
+    <td><%= link_to 'Edit', edit_source_path(source) %></td>
+    <td><%= link_to 'Destroy', source, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New source', new_source_path %>

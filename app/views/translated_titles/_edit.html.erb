@@ -1,0 +1,34 @@
+<h1><%= "Editing Translation for <em>#{h(@category.title)}</em> in #{h(@translated_title.language.title)}" %></h1>
+<%= error_messages_for :translated_title %>
+<% remote_form_for(:translated_title, :url => category_translated_title_path(@category, @translated_title), :before => "document.getElementById(\'submit_button\').disabled = true;", :update => 'info', :method => :put) do |f| %>
+  <p>
+    <b>Translation</b><br />
+<%= f.text_field :title, fixed_language_options(:lang => @translated_title.language.code) %>
+  </p>
+<%= f.hidden_field :category_id %>
+<%= f.hidden_field :creator_id %>
+<%= f.hidden_field :language_id %>
+  <p>
+   <%= link_to_remote 'Add new Author', :url => { :action => 'add_author', :category_id => @category}, :update => 'update_div', :position => 'before', :method => 'get' %>
+  </p>
+  <div id="authors_div">
+<% if !@translated_title.authors.empty? %>
+<%     for author in @translated_title.authors %>
+     <%=    render :partial => 'authors_selector', :locals => {:selected => author.id} %>   
+<%   end
+   end %>
+  </div>  
+
+  <p>
+  <div id="update_div">
+    <%= globalized_submit_tag 'update.this' %>
+  </div> 
+  </p>
+<% end %>
+
+<p>
+<% authorized_only hash_for_category_translated_title_path(:action => 'destroy') do %>
+<%=  link_to_remote ts('delete.this'), :url => category_translated_title_path(@category, @translated_title), :confirm => 'Are you sure?', :update => 'info', :method => :delete %> |
+<% end %>
+<%= link_to_remote ts('cancel.this'), :url => category_child_path(@main_category, @category), :method => :get %>
+</p>

@@ -1,0 +1,34 @@
+<p><b><%= ts 'name.in', :what => t(:english) %></b><br />
+<%= f.text_field :title %>
+</p>
+<%= f.hidden_field :creator_id %>
+<% if !changing_parent_allowed %>
+<%=  f.hidden_field :parent_id %>
+<% else %>
+     <p><b><%= ts 'parent.of', :who => Category.human_name %></b><br />
+<%=    category_selector(:category, :parent) %>
+     </p>
+<% end %>
+<p><b>Published</b>&nbsp;
+<%= f.radio_button :published, "true" %> <%= f.label :published, ts(:affirmation) %>&nbsp;
+<%= f.radio_button :published, "false" %> <%= f.label :unpublished, ts(:negation) %>  
+</p>
+<p><b>Cumulative</b>&nbsp;
+<%= f.radio_button :cumulative, "true" %> <%= f.label :cumulative, ts(:affirmation) %>&nbsp;
+<%= f.radio_button :cumulative, "false" %> <%= f.label :noncumulative, ts(:negation) %>  
+</p>
+<p>
+<%= link_to_remote 'Add new curator', :url => add_curator_categories_path, :update => 'update_div', :position => 'before', :method => 'get' %>
+</p>
+<div id="curators_div">
+<% if default_curator_id.nil?
+     for curator in @category.curators %>
+<%=    render :partial => 'curators_selector', :locals => {:selected => curator.id} %>   
+<%   end 
+   else 
+     if @main_category.nil? %>
+<%=    render :partial => 'curators_selector', :locals => {:selected => default_curator_id} %>
+<%   end
+   end %>
+</div>
+<div id="update_div"></div>

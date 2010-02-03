@@ -1,0 +1,36 @@
+<% form_remote_tag(:url => new_category_translated_title_path(category), :update => 'info', :method => :get) do %>
+<p>
+<%= "<b>The #{h(category.title.pluralize)} Knowledge Map</b> (#{authorized?(hash_for_modify_title_category_path) ? link_to_remote("<i>#{ts(:english)}</i>", {:url => modify_title_category_path(category), :update => 'info', :method => :get}) : "<i>#{ts(:english)}</i>"})" %>                                                              
+<%  authorized_only hash_for_new_category_translated_title_path do %>
+<%=   submit_tag 'add translation' %>
+<%  end %>	
+<% end %>
+<p class="indented">
+<%  if !category.translated_titles.empty? %>
+<b>Translations:</b>
+<%  end %>
+<%= ( category.translated_titles.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_translated_title_path) ? link_to_remote("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", {:url => edit_category_translated_title_path(category, t), :update => 'info', :method => :get})  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>
+</p>
+<%= render :partial => 'categories/info', :locals => {:category => category} %>
+<p>&nbsp;</p>
+<% media_count = category.media_count 
+   feature_count = category.feature_count %>
+<%= render :partial => 'categories/associated_objects_count', :locals => {:media_count => media_count, :feature_count => feature_count} %>
+<%= display_if_not_blank Category.human_attribute_name('cumulative').s, category.cumulative? ? ts(:affirmation) : ts(:negation) %>
+<p>
+<%  previous = false
+    if media_count['Medium']==0 && feature_count==0 && authorized?(hash_for_category_path(:action => 'destroy'))
+      previous = true %>
+<%=   link_to ts('delete.this'), category_path(category), :confirm => 'Are you sure? Please be aware that deleting a parent also deletes its children.', :method => :delete %>
+<%  end
+    authorized_only hash_for_edit_category_path do %>
+<%=   '|' if previous %>
+<%= link_to_remote ts('edit.this'), :url => edit_category_path(category), :update => 'info', :method => :get %>
+<%    previous = true
+    end %>
+<%= '|' if previous %>
+<span id='unframe'><%= link_to ts('home.for', :what => t('topical_map.this', :count => :many)), root_path %> |</span>
+<%= link_to ts('home.for', :what => h(category.title.pluralize)), category_children_path(category) %>
+    <script type="text/javascript">scrollTo(0,0);</script>
+| <%= link_to 'Export to CSV', category_children_path(category, :format => 'csv') %>
+</p>

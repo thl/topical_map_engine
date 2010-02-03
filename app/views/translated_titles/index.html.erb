@@ -1,0 +1,21 @@
+<h1>Listing translated_titles</h1>
+
+<table class="normal">
+  <tr>
+    <th>Title</th>
+    <th>Language</th>
+  </tr>
+
+<% for translated_title in @translated_titles %>
+  <tr>
+    <td><%=h translated_title.title %></td>
+    <td><%=h translated_title.language_id %></td>
+    <td><%= link_to 'Show', category_translated_title_path(@category, translated_title) %></td>
+    <td><%= link_to 'Edit', edit_category_translated_title_path(@category, translated_title) %></td>
+    <td><%= link_to 'Destroy', category_translated_title_path(@category, translated_title), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<p>
+<%= link_to 'New translated_title', new_category_translated_title_path(@category) %>
+</p>

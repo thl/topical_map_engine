@@ -1,0 +1,23 @@
+<p>
+  <b>Title:</b>
+  <%=h @description.title %>
+</p>
+
+<p>
+  <b>Language:</b>
+  <%=h @description.language_id %>
+</p>
+
+<p>
+  <b>Is main:</b>
+  <%=h @description.is_main %>
+</p>
+
+<p>
+  <b>Creator:</b>
+  <%=h @description.creator_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_description_path(@description) %> |
+<%= link_to 'Back', descriptions_path %>

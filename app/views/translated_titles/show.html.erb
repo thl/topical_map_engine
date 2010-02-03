@@ -1,0 +1,13 @@
+<p>
+  <b>Title:</b>
+  <%=h @translated_title.title %>
+</p>
+
+<p>
+  <b>Language:</b>
+  <%=h @translated_title.language_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_translated_title_path(@translated_title) %> |
+<%= link_to 'Back', translated_titles_path %>

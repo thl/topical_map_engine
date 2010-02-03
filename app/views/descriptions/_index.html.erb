@@ -1,0 +1,17 @@
+<%  category.descriptions.find(:all, :order => 'is_main DESC').each do |d| %>
+	<div id="<%= "#{d.id}_descdiv" %>">
+<%  if @description.nil? 		
+      if d.is_main? %>
+		<%=   render :partial => 'descriptions/expanded', :locals => {:category => category, :d => d} %>
+<%	  else %>
+		<%=   render :partial => 'descriptions/contracted', :locals => {:category => category, :d => d} %>
+<%    end
+    else
+      if d == @description %>
+<%=     render :partial => 'descriptions/expanded', :locals => {:category => category, :d => d} %>
+<%	  else %>
+<%=     render :partial => 'descriptions/contracted', :locals => {:category => category, :d => d} %>
+<%    end
+    end %>
+    </div>
+<%  end %>

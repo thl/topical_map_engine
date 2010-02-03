@@ -1,0 +1,23 @@
+<p>
+  <b>Title:</b>
+  <%=h @translated_source.title %>
+</p>
+
+<p>
+  <b>Language:</b>
+  <%=h @translated_source.language_id %>
+</p>
+
+<p>
+  <b>Source:</b>
+  <%=h @translated_source.source_id %>
+</p>
+
+<p>
+  <b>Creator:</b>
+  <%=h @translated_source.creator_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_translated_source_path(@translated_source) %> |
+<%= link_to 'Back', translated_sources_path %>

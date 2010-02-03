@@ -1,0 +1,31 @@
+# Views localization file for Dzongkha.
+# View messages are capitalized.
+dz:
+    primary_description:
+        select:
+            ing: 'Selecting Primary'
+            message: 'Select Primary Description for {{what}}'
+        set: 'Set Primary'
+    document: 'ཡིག་ཆ་'
+        # one: 
+        # other:
+    topical_map:
+        of: '{{what}} Knowledge Map'
+        this:
+            one: 'Knowledge map'
+            other: 'Knowledge maps'
+    medium: 'བརྡ་སྟོན་ལམ་'
+        # one
+        # other
+    metadata:
+        for: 'Metadata for {{what}}'
+    picture: 'པར་'
+        # one: 
+        # other:
+    place:
+        one: 'Place'
+        other: 'Places'
+    subcategory: 'Subcategory'
+    video: 'བརྙན་སྟོན་'
+        # one:
+        # other:

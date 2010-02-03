@@ -1,0 +1,26 @@
+# Model localization file for Dzongkha.
+dz:
+    activerecord:
+        # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
+        models:
+            category: 'category'
+            description: 'description'
+            source: 'source'
+        # Attribute names will be titleized.
+        attributes:
+            category:
+                title: 'Category Name'
+                cumulative: 'Is Cumulative'
+            description:
+                title: 'Title'
+                content: 'Description'
+            source:
+                mms_id: 'MMS Id'
+                volume_number: 'Volume Number'
+                start_page: 'Start Page'
+                start_line: 'Start Line'
+                end_page: 'End Page'
+                end_line: 'End Line'
+                language: 'Language of Passage'
+                passage: 'Passage'
+                note: 'Note'

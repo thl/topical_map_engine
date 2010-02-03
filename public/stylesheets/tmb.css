@@ -1,0 +1,60 @@
+a.treeempty { background:transparent url(http://thlib.org/global/images/btn-empty-lg.gif) no-repeat scroll 2px center; padding:0 0 0 19px;}
+a.treeplus { background:transparent url(http://thlib.org/global/images/btn-plus-lg.gif) no-repeat scroll 2px center; padding:0 0 0 19px;}
+a.treeplus_icon { background:transparent url(http://thlib.org/global/images/btn-plus-lg.gif) no-repeat scroll 2px center; padding:0 0 0 11px; border-bottom:0px; text-decoration: none;}
+a.treeminus_icon { background:transparent url(http://thlib.org/global/images/btn-minus-lg.gif) no-repeat scroll 2px center; padding:0 0 0 11px; border-bottom:0px; text-decoration: none;}
+a.treeminus { padding:0 0 0 19px;}
+
+a.treeempty_unpublished { background:transparent url(http://thlib.org/global/images/btn-empty-lg.gif) no-repeat scroll 2px center; padding:0 0 0 19px; color: #989898;}
+a.treeplus_unpublished{ background:transparent url(http://thlib.org/global/images/btn-plus-lg.gif) no-repeat scroll 2px center; padding:0 0 0 19px; color: #989898;}
+a.treeminus_unpublished { color: #989898;}
+  
+a.unpublished { color: #989898;}
+    
+a.descriptionplus_icon { background:transparent url(http://thlib.org/global/images/btn-plus-lg.gif) no-repeat scroll 2px center; padding:0 0 0 11px; border-bottom:0px; text-decoration: none;}
+a.descriptionminus_icon { background:transparent url(http://thlib.org/global/images/btn-minus-lg.gif) no-repeat scroll 2px center; padding:0 0 0 11px; border-bottom:0px; text-decoration: none;}
+
+/* styling for descriptions */
+.content_by { font-variant:small-caps;}
+
+#container-right-5050 .shell-2 { float:right; margin:0 auto; width:98%; padding-right:5px; }
+
+#container-left-5050 .shell-2 { float:right; width:93%; }
+
+.container-left-5050 h1 { padding-left:4px; margin:-4px 0 10px !important; margin:-4px 0 10px; position:relative; z-index:10; }
+.container-right-5050 h1 { padding-left:4px; margin:-4px 0 10px !important; margin:-4px 0 10px; position:relative; z-index:10; width: 75%; }
+
+.selected_branch { background-color: #FFDDB5;}
+ 
+div.padded {   
+ padding-left: 2em;  
+}
+  		
+ul.main_list
+{
+	list-style-type:square;
+}
+
+.shell-2 ul li, .shell-2 ol li {   
+	font-size:1.32em;  
+	letter-spacing:normal;  
+	line-height:1.5em;  
+	text-align:left; 
+}
+
+li.unpublished { color: #989898;}
+
+.italic_link {
+	font-size: 6px;
+	font-weight: bold;
+	color: #333;
+}
+
+.indented {
+	padding-left: 0.66cm;
+}
+
+.pop_up_navigation
+{
+	font-size: 12px;
+	line-height: 18px;
+}

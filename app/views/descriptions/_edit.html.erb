@@ -1,0 +1,14 @@
+<h1><%= "Editing Description for <em>#{h(@category.title)}</em> in #{h(@description.language.title)}" %></h1>
+<%= error_messages_for :description %>
+<% remote_form_for(:description, :url => category_description_path(@category, @description), :before => "tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true", :update => 'info', :html => { :method => :put}) do |f| %>
+<%= render :partial => 'form', :locals => {:f => f, :default_author_id => nil} %>
+  <p>
+    <%= globalized_submit_tag 'update.this' %> 
+  </p>
+<% end %>
+<p>
+<% authorized_only hash_for_category_description_path(:action => 'destroy') do %>
+<%=  link_to_remote ts('delete.this'), :url => category_description_path(@category, @description), :confirm => 'Are you sure?', :update => 'info', :method => :delete %> |
+<% end %>
+<%= link_to_remote ts('cancel.this'), :url => category_child_path(@main_category, @category), :method => :get %>
+</p>

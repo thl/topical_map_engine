@@ -1,0 +1,2 @@
+<%= CSV.generate_line ['id', 'Category Title'] + @languages.collect(&:title) %>
+<%= render :partial => 'index', :locals => {:category => @main_category, :categories => @categories, :margin_depth => 0} %>
