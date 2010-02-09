@@ -3,7 +3,7 @@ class CategoriesController < AclController
   helper :pop_up_categories
   caches_page :index, :show, :all, :all_with_features, :list, :list_with_features, :if => :api_response?.to_proc
   cache_sweeper :category_sweeper, :only => [:create, :update, :destroy]
-  
+  helper :sources
   def initialize
     super
     @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/iframe', 'categories/list', 'categories/list_with_features']
