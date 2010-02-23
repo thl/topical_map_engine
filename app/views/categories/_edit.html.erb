@@ -1,5 +1,5 @@
 <% master = (@main_category == @category.parent) %>
-   <h1><%= ts 'edit.ing.record', :what => master ? t(:master, Category.human_name.capitalize) : t(:subcategory) %></h1>
+   <h1><%= ts 'edit.ing.record', :what => ts(:master, :what => master ? Category.human_name.capitalize : t(:subcategory)) %></h1>
 <%= error_messages_for :category %>
 <% if base_language? %>
 <%   remote_form_for(:category, :url => category_child_path(@main_category, @category), :before => "tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true;", :html => { :method => :put }) do |f| %>
