@@ -1,9 +1,4 @@
 <p>
 <span id='unframe'><%= link_to ts('home.for', :what => t('topical_map.this', :count => :many)), root_path %> |</span>
 <%= link_to_remote ts('home.for', :what => h(@main_category.title.pluralize)), :url => category_child_path(@main_category, @main_category), :method => :get %>
-<%  base_language_only do
-      authorized_only hash_for_new_category_child_path do %>
-        | <%= link_to_remote ts('new.record', :what => t(:master, :what => Category.human_name.capitalize)), :url => new_category_child_path(@main_category), :update => 'info', :method => :get %>
-<%    end
-    end %>
 </p>

@@ -16,12 +16,12 @@ a.descriptionminus_icon { background:transparent url(http://thlib.org/global/ima
 /* styling for descriptions */
 .content_by { font-variant:small-caps;}
 
-#container-right-5050 .shell-2 { float:right; margin:0 auto; width:98%; padding-right:5px; }
+#container-right-5050 .shell-2 { float:right; margin:0 auto; width:98%; padding-right:5px; padding-top:12px;}
 
-#container-left-5050 .shell-2 { float:right; width:93%; }
+#container-left-5050 .shell-2 { float:right; width:93%; padding-top:12px; }
 
 .container-left-5050 h1 { padding-left:4px; margin:-4px 0 10px !important; margin:-4px 0 10px; position:relative; z-index:10; }
-.container-right-5050 h1 { padding-left:4px; margin:-4px 0 10px !important; margin:-4px 0 10px; position:relative; z-index:10; width: 75%; }
+.container-right-5050 h1 { padding-left:4px; margin:-4px 0 10px !important; margin:-4px 0 10px; position:relative; z-index:10; width: 95%; }
 
 .selected_branch { background-color: #FFDDB5;}
  
