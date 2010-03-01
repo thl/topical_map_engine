@@ -20,7 +20,7 @@
    end %>
 </div></p>
 <%  if !category.descriptions.empty? %>
-      <div id='descriptions_div'>
+      <div id='descriptions_div' class='descriptions_div'>
 <%=     render :partial => 'descriptions/index', :locals => {:category => category} %>
       </div>
 <%    if !category.descriptions.empty? %>
