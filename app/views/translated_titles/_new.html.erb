@@ -24,7 +24,7 @@
   <div id="update_div">  
   </div>
   <p>
-<%= submit_tag te('create.record', :what => t('translat.ion')), language_options(:disabled_with => 'Posting...') %>
+<%= submit_to_remote 'submit_button', te('create.record', :what => t('translat.ion')), :url => category_translated_titles_path(@category), :update => 'info' %>
   </p>
 <% end %>
 <p>

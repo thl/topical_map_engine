@@ -25,7 +25,7 @@ class SourcesController < AclController
     if !params[:description_id].nil?
       @description = Description.find(params[:description_id])
     end
-    @source = Source.new(:creator => current_user)
+    @source = Source.new(:creator => current_user, :language => ComplexScripts::Language.find_by_code('eng'))
     respond_to do |format|
       if params[:description_id].nil?
         @source.resource = @category

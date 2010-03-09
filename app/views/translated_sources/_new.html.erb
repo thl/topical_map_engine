@@ -33,7 +33,7 @@
   <div id="update_div">  
   </div>
   <p>
-<%= submit_tag te('create.record', :what => t('translat.ion')), language_options(:disabled_with => 'Posting...') %>
+<%= submit_to_remote 'submit_button', te('create.record', :what => t('translat.ion')), :url => translated_path, :update => 'info', :before => "tinyMCE.triggerSave();" %>
   </p>
 <% end %>
 <p>

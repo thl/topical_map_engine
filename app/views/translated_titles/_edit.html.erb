@@ -2,12 +2,15 @@
 <%= error_messages_for :translated_title %>
 <% remote_form_for(:translated_title, :url => category_translated_title_path(@category, @translated_title), :before => "document.getElementById(\'submit_button\').disabled = true;", :update => 'info', :html => { :method => :put}) do |f| %>
   <p>
+    <b>Language of Translation</b><br />
+<%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
+  </p>
+  <p>
     <b>Translation</b><br />
 <%= f.text_field :title, fixed_language_options(:lang => @translated_title.language.code) %>
   </p>
 <%= f.hidden_field :category_id %>
 <%= f.hidden_field :creator_id %>
-<%= f.hidden_field :language_id %>
   <p>
    <%= link_to_remote 'Add new Author', :url => { :action => 'add_author', :category_id => @category}, :update => 'update_div', :position => 'before', :method => 'get' %>
   </p>
@@ -21,7 +24,7 @@
 
   <p>
   <div id="update_div">
-    <%= globalized_submit_tag 'update.this' %>
+    <%= submit_to_remote 'update_button','update translation', :url => category_translated_title_path(@category, @translated_title), :update => 'info' %>
   </div> 
   </p>
 <% end %>

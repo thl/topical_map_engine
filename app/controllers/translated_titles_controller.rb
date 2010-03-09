@@ -37,6 +37,7 @@ class TranslatedTitlesController < AclController
   # GET /translated_titles/1/edit
   def edit
     @translated_title = TranslatedTitle.find(params[:id])
+    @languages = ComplexScripts::Language.find(:all, :order => 'title')
     @authors = Person.find(:all, :order => 'fullname')    
     render :partial => 'edit' if request.xhr?
   end
@@ -110,7 +111,8 @@ class TranslatedTitlesController < AclController
 		      end
 		      format.xml  { head :ok }      	  	
         end
-      else	
+      else
+        @languages = ComplexScripts::Language.find(:all, :order => 'title')	
         format.html do
           if request.xhr?
             render :partial => 'edit'
