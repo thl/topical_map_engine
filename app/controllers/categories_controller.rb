@@ -229,7 +229,6 @@ class CategoriesController < AclController
           end
       	end
       else
-        debugger
       	flash[:notice] = ts 'edit.successful', :what => category_title
         respond_to do |format|
           format.html do
