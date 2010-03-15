@@ -1,0 +1,17 @@
+/* This stylesheet contains css already included in THL but not elsewhere. Include this if you are running under a different theme! */
+
+.container-right-5050 {
+float:right;
+margin:0;
+overflow:hidden;
+padding:0;
+width:49%;
+}
+
+.container-left-5050 {
+float:left;
+margin:0;
+overflow:hidden;
+padding:0;
+width:49%;
+}

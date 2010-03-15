@@ -1,5 +1,5 @@
 # Methods added to this helper will be available to all templates in the application.
-module ApplicationHelper
+module KmapsEngineHelper
   def side_column_links
     str = "<h3 class=\"head\">#{link_to 'Knowledge Maps', '#nogo', {:hreflang => 'Manage hierarchical controlled vocabulary to be used by other applications.'}}</h3>\n<ul>\n"
     str += "<li>#{link_to 'Home', root_path, {:hreflang => 'Lists all categories.'}}</li>\n"
