@@ -331,7 +331,10 @@ class CategoriesController < AclController
     if title.nil?
       @categories = logged_in? ? Category.roots : Category.published_roots
     else
-      @categories = Category.find(:all, :conditions => ['title like ? AND published = ?', "%#{title}%", true], :order => 'title')
+      # first get exact match
+      @categories = Category.find(:all, :conditions => {:title => title, :published => true}, :order => 'title')
+      # then try variations
+      @categories = Category.find(:all, :conditions => ['title like ? AND published = ?', "%#{title}%", true], :order => 'title') if @categories.empty?
     end
     respond_to do |format|
       format.html { render :action => 'main_index' }
