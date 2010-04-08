@@ -1,4 +1,5 @@
 # Include hook code here
+require 'array_ext'
 require 'csv'
 require File.join(File.dirname(__FILE__), 'app', 'sweepers', 'category_sweeper')
 
