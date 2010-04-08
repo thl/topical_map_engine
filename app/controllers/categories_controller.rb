@@ -318,12 +318,12 @@ class CategoriesController < AclController
 
   def list
     @category = Category.find(params[:id])
-    api_simple_render(@category)
+    api_simple_render(@category, :distinguish_duplicates => !params[:distinguish_duplicates].nil?)
   end
 
   def list_with_features
     @category = Category.find(params[:id])
-    api_simple_render(@category, :only_with_features => true)
+    api_simple_render(@category, :distinguish_duplicates => !params[:distinguish_duplicates].nil?, :only_with_features => true)
   end
   
   def by_title
@@ -398,15 +398,25 @@ class CategoriesController < AclController
   end
   
   def api_simple_render(category, options={})
+    options[:only_with_features] ||= false
+    options[:distinguish_duplicates] ||= false
+    
     categories = Category.find(category.self_and_descendants, :select => "id, title", :order => "title")
     # Remove the parent category
     categories.shift
     # If ?count=1, include counts of features
-    if(options[:only_with_features])
+    if options[:only_with_features]
       categories.collect!{|c| { "id" => c.id, "name" => c.title, "count" => c.feature_count.to_i } }
       categories.reject!{|c| c["count"].to_i <= 0 }
     else
       categories.collect!{|c| { "id" => c.id, "name" => c.title } }
+    end  
+    if options[:distinguish_duplicates]
+      duplicate_name_indices = categories.duplicate_indices_by_key("name")
+      duplicate_name_indices.each do |index|
+        parent_category = Category.find(categories[index]["id"]).parent
+        categories[index]["name"] += " (#{parent_category.title})" unless parent_category.nil?
+      end
     end
     categories.sort!{|a,b| a["name"] <=> b["name"] }
     respond_to do |format|
