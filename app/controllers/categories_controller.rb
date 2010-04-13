@@ -307,23 +307,19 @@ class CategoriesController < AclController
   end
   
   def all
-    @category = Category.find(params[:id])
-    api_extended_render :category => @category, :with_children => true, :only_with_features => false
+    api_extended_render :with_children => true, :only_with_features => false
   end
   
   def all_with_features
-    @category = Category.find(params[:id])
-    api_extended_render :category => @category, :with_children => true, :only_with_features => true
+    api_extended_render :with_children => true, :only_with_features => true
   end
 
   def list
-    @category = Category.find(params[:id])
-    api_simple_render(@category, :distinguish_duplicates => !params[:distinguish_duplicates].nil?)
+    api_simple_render(:distinguish_duplicates => !params[:distinguish_duplicates].nil?)
   end
 
   def list_with_features
-    @category = Category.find(params[:id])
-    api_simple_render(@category, :distinguish_duplicates => !params[:distinguish_duplicates].nil?, :only_with_features => true)
+    api_simple_render(:distinguish_duplicates => !params[:distinguish_duplicates].nil?, :only_with_features => true)
   end
   
   def by_title
@@ -390,35 +386,48 @@ class CategoriesController < AclController
   end
   
   def api_extended_render(locals)
-    options = {:template => 'categories/show.xml.builder', :locals => locals}
+    param_id = params[:id]
+    if param_id.nil?
+      locals[:categories] = Category.published_roots.find_all{|c| c.feature_count>0}
+      options = {:template => 'categories/index.xml.builder'}
+    else
+      locals[:category] = Category.find(params[:id])
+      options = {:template => 'categories/show.xml.builder'}
+    end
+    options[:locals] = locals
     respond_to do |format|
       format.xml { render options }
       format.json  { render :json => Hash.from_xml(render_to_string(options)).to_json }
     end    
   end
   
-  def api_simple_render(category, options={})
+  def api_simple_render(options={})
+    param_id = params[:id]
+    if param_id.nil?
+      categories = Category.published_roots_and_descendants.flatten
+    else
+      category = Category.find(params[:id])
+      categories = category.self_and_descendants.flatten
+      # Remove the parent category
+      categories.shift
+    end
     options[:only_with_features] ||= false
     options[:distinguish_duplicates] ||= false
-    
-    categories = Category.find(category.self_and_descendants, :select => "id, title", :order => "title")
-    # Remove the parent category
-    categories.shift
     # If ?count=1, include counts of features
     if options[:only_with_features]
-      categories.collect!{|c| { "id" => c.id, "name" => c.title, "count" => c.feature_count.to_i } }
-      categories.reject!{|c| c["count"].to_i <= 0 }
+      categories.collect!{|c| { 'id' => c.id, 'name' => c.title, 'count' => c.feature_count.to_i } }
+      categories.reject!{|c| c['count'].to_i <= 0 }
     else
-      categories.collect!{|c| { "id" => c.id, "name" => c.title } }
+      categories.collect!{|c| { 'id' => c.id, 'name' => c.title } }
     end  
     if options[:distinguish_duplicates]
-      duplicate_name_indices = categories.duplicate_indices_by_key("name")
+      duplicate_name_indices = categories.duplicate_indices_by_key('name')
       duplicate_name_indices.each do |index|
-        parent_category = Category.find(categories[index]["id"]).parent
-        categories[index]["name"] += " (#{parent_category.title})" unless parent_category.nil?
+        parent_category = Category.find(categories[index]['id']).parent
+        categories[index]['name'] += " (#{parent_category.title})" unless parent_category.nil?
       end
     end
-    categories.sort!{|a,b| a["name"] <=> b["name"] }
+    categories.sort!{|a,b| a['name'].casecmp(b['name']) }
     respond_to do |format|
       format.xml { render :xml => categories.to_xml }
       format.json { render :json => categories.to_json }

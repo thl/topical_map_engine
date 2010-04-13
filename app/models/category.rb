@@ -36,6 +36,10 @@ class Category < ActiveRecord::Base
   def self.published_roots
     self.find(:all, :conditions => {:parent_id => nil, :published => true}, :order => 'title')
   end
+
+  def self.published_roots_and_descendants
+    self.published_roots.inject([]){ |descendants, root| descendants.concat(root.self_and_descendants) }
+  end
   
   def children_with_descendants
     stack = [self] + children.collect { |c| c }
