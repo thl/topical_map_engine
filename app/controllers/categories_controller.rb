@@ -387,8 +387,10 @@ class CategoriesController < AclController
   
   def api_extended_render(locals)
     param_id = params[:id]
+    locals[:only_with_features] ||= false
     if param_id.nil?
-      locals[:categories] = Category.published_roots.find_all{|c| c.feature_count>0}
+      categories = Category.published_roots
+      locals[:categories] = locals[:only_with_features] ? categories.find_all{|c| c.feature_count>0} : categories
       options = {:template => 'categories/index.xml.builder'}
     else
       locals[:category] = Category.find(params[:id])
