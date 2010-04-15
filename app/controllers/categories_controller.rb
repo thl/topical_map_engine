@@ -315,11 +315,11 @@ class CategoriesController < AclController
   end
 
   def list
-    api_simple_render(:distinguish_duplicates => !params[:distinguish_duplicates].nil?)
+    api_simple_render
   end
 
   def list_with_features
-    api_simple_render(:distinguish_duplicates => !params[:distinguish_duplicates].nil?, :only_with_features => true)
+    api_simple_render :only_with_features => true
   end
   
   def by_title
@@ -414,20 +414,17 @@ class CategoriesController < AclController
       categories.shift
     end
     options[:only_with_features] ||= false
-    options[:distinguish_duplicates] ||= false
     # If ?count=1, include counts of features
     if options[:only_with_features]
       categories.collect!{|c| { 'id' => c.id, 'name' => c.title, 'count' => c.feature_count.to_i } }
       categories.reject!{|c| c['count'].to_i <= 0 }
     else
       categories.collect!{|c| { 'id' => c.id, 'name' => c.title } }
-    end  
-    if options[:distinguish_duplicates]
-      duplicate_name_indices = categories.duplicate_indices_by_key('name')
-      duplicate_name_indices.each do |index|
-        parent_category = Category.find(categories[index]['id']).parent
-        categories[index]['name'] += " (#{parent_category.title})" unless parent_category.nil?
-      end
+    end
+    duplicate_name_indices = duplicate_indices_by_key(categories, 'name')
+    duplicate_name_indices.each do |index|
+      parent_category = Category.find(categories[index]['id']).parent
+      categories[index]['name'] += " (#{parent_category.title})" unless parent_category.nil?
     end
     categories.sort!{|a,b| a['name'].casecmp(b['name']) }
     respond_to do |format|
@@ -438,5 +435,16 @@ class CategoriesController < AclController
   
   def api_response?
     request.format.json? || request.format.xml?
+  end
+  
+  def duplicate_indices_by_key(array, key)
+    indices = []
+    size = array.size
+    (0...size).to_a.each do |i|
+      (i+1...size).to_a.each do |j|
+        indices.push(i, j) if array[i][key] == (array[j][key])
+      end
+    end
+    indices.uniq
   end
 end
