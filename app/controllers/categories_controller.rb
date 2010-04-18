@@ -73,7 +73,7 @@ class CategoriesController < AclController
             end
           end
         end
-        format.xml { render(:template => 'categories/show', :locals => {:category => @category, :with_children => false, :only_with_features => false})}
+        format.xml { render :xml => @category }
         format.json  { render :json => @category.to_json }
       end
     end
