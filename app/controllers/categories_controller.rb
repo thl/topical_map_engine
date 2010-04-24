@@ -416,17 +416,33 @@ class CategoriesController < AclController
     options[:only_with_features] ||= false
     # If ?count=1, include counts of features
     if options[:only_with_features]
-      categories.collect!{|c| { 'id' => c.id, 'name' => c.title, 'count' => c.feature_count.to_i } }
-      categories.reject!{|c| c['count'].to_i <= 0 }
+      categories.collect!{|c| { :id => c.id, :name => c.title, :count => c.feature_count.to_i } }
+      categories.reject!{|c| c[:count].to_i <= 0 }
     else
-      categories.collect!{|c| { 'id' => c.id, 'name' => c.title } }
+      categories.collect!{|c| { :id => c.id, :name => c.title } }
     end
-    duplicate_name_indices = duplicate_indices_by_key(categories, 'name')
-    duplicate_name_indices.each do |index|
-      parent_category = Category.find(categories[index]['id']).parent
-      categories[index]['name'] += " (#{parent_category.title})" unless parent_category.nil?
+    categories.sort!{|a,b| a[:name].casecmp(b[:name]) }
+    # deal with duplicates
+    previous_name = nil
+    previous_handled = false
+    previous = nil
+    for category in categories
+      if !previous.nil? && previous_name.casecmp(category[:name])==0
+        handle_duplicate(previous) if !previous_handled
+        handle_duplicate(category)
+        previous_handled = true
+      else
+        previous = category
+        previous_name = category[:name].dup
+        previous_handled = false
+      end
     end
-    categories.sort!{|a,b| a['name'].casecmp(b['name']) }
+    categories.sort!{|a,b| a[:name].casecmp(b[:name]) }
+    # duplicate_name_indices = duplicate_indices_by_key(categories, 'name')
+    # duplicate_name_indices.each do |index|
+    #  parent_category = Category.find(categories[index]['id']).parent
+    #  categories[index]['name'] += " (#{parent_category.title})" unless parent_category.nil?
+    #end
     respond_to do |format|
       format.xml { render :xml => categories.to_xml }
       format.json { render :json => categories.to_json }
@@ -437,14 +453,24 @@ class CategoriesController < AclController
     request.format.json? || request.format.xml?
   end
   
-  def duplicate_indices_by_key(array, key)
-    indices = []
-    size = array.size
-    (0...size).to_a.each do |i|
-      (i+1...size).to_a.each do |j|
-        indices.push(i, j) if array[i][key] == (array[j][key])
-      end
-    end
-    indices.uniq
+#  def duplicate_indices_by_key(array, key)
+#    indices = []
+#    size = array.size
+#    (0...size).to_a.each do |i|
+#      (i+1...size).to_a.each do |j|
+#        indices.push(i, j) if array[i][key] == (array[j][key])
+#      end
+#    end
+#    indices.uniq
+#  end
+  
+  def handle_duplicate(category_hash)
+    category = Category.find(category_hash[:id])
+    parent = category.parent
+    root = category.root
+    disambiguation = ''
+    disambiguation << root.title if !root.nil?
+    disambiguation << " > #{parent.title}" if !parent.nil? && parent != root
+    category_hash[:name] << " (#{disambiguation})" if !disambiguation.blank?
   end
 end
