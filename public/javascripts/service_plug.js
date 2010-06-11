@@ -55,7 +55,7 @@ var frame_service = {
 
 	hide_stuff: function() {
 		// this is necessary for ie6
-		$('body').setStyle({ 'padding': '0px' , 'backgroundImage': 'none' , 'backgroundColor': 'white' , 'textAlign': 'left' }) ;
+		document.getElementsByTagName("body").item(0).setStyle({ 'padding': '0px' , 'backgroundImage': 'none' , 'backgroundColor': 'white' , 'textAlign': 'left' }) ;
 		
 		$('unframe').hide() ; //TODO: change to look for .unframe so that an element can be given this class and be hidden automatically when in frame
 	},
