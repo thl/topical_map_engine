@@ -11,7 +11,7 @@ class CategorySweeper < ActionController::Caching::Sweeper
   end
   
   def expire_cache(category)
-    FORMATS.each{ |format| expire_page :controller => 'categories', :action => 'index', :format => format }
+    FORMATS.each{ |format| expire_page :controller => 'categories', :action => ['index', 'all', 'all_with_features', 'list', 'list_with_features'], :format => format }
     FORMATS.each{ |format| expire_page :controller => 'categories', :action => ['show', 'all', 'with_features', 'list_all', 'list_with_features'], :id => category.id, :format => format }
   end
 end
