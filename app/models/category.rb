@@ -57,14 +57,17 @@ class Category < ActiveRecord::Base
   end
     
   def media_count
-    return @media_count if @media_count
-    @media_category_count = MediaCategoryCount.find(:all, :params => {:category_id => self.id}).dup
-    @media_count = { 'Medium' => @media_category_count.shift.count.to_i }
-    @media_category_count.each{|count| @media_count[count.medium_type] = count.count.to_i }
-    return @media_count
+    Rails.cache.fetch("#{self.cache_key}/media_count") do
+      media_category_count = MediaCategoryCount.find(:all, :params => {:category_id => self.id}).dup
+      media_count = { 'Medium' => media_category_count.shift.count.to_i }
+      media_category_count.each{|count| media_count[count.medium_type] = count.count.to_i }
+      media_count
+    end
   end
   
   def feature_count
-    return @feature_count ||= FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count
+    Rails.cache.fetch("#{self.cache_key}/feature_count") do
+      FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count
+    end
   end  
 end
