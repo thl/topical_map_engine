@@ -69,5 +69,11 @@ class Category < ActiveRecord::Base
     Rails.cache.fetch("#{self.cache_key}/feature_count") do
       FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count
     end
-  end  
+  end
+  
+  def shape_count
+    Rails.cache.fetch("#{self.cache_key}/shape_count") do
+      FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count_with_shapes
+    end
+  end
 end

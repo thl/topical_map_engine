@@ -1,12 +1,12 @@
 class CategoriesController < AclController
   before_filter :find_main_category
   helper :pop_up_categories
-  caches_page :index, :show, :all, :all_with_features, :list, :list_with_features, :if => :api_response?.to_proc
+  caches_page :index, :show, :all, :all_with_features, :all_with_shapes, :list, :list_with_features, :list_with_shapes, :if => :api_response?.to_proc
   cache_sweeper :category_sweeper, :only => [:create, :update, :destroy]
   helper :sources
   def initialize
     super
-    @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/iframe', 'categories/list', 'categories/list_with_features']
+    @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/all_with_shapes', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/iframe', 'categories/list', 'categories/list_with_features', 'categories/list_with_shapes']
   end
   
   
@@ -314,12 +314,20 @@ class CategoriesController < AclController
     api_extended_render :with_children => true, :only_with_features => true
   end
 
+  def all_with_shapes
+    api_extended_render :with_children => true, :only_with_shapes => true
+  end
+
   def list
     api_simple_render
   end
 
   def list_with_features
     api_simple_render :only_with_features => true
+  end
+
+  def list_with_shapes
+    api_simple_render :only_with_shapes => true
   end
   
   def by_title
@@ -390,7 +398,13 @@ class CategoriesController < AclController
     locals[:only_with_features] ||= false
     if param_id.nil?
       categories = Category.published_roots
-      locals[:categories] = locals[:only_with_features] ? categories.find_all{|c| c.feature_count>0} : categories
+      if locals[:only_with_features]
+        locals[:categories] = categories.find_all{|c| c.feature_count>0}
+      elsif locals[:only_with_shapes]
+        locals[:categories] = categories.find_all{|c| c.shape_count>0}
+      else
+        locals[:categories] = categories
+      end
       options = {:template => 'categories/index.xml.builder'}
     else
       locals[:category] = Category.find(params[:id])
@@ -414,9 +428,13 @@ class CategoriesController < AclController
       categories.shift
     end
     options[:only_with_features] ||= false
+    options[:only_with_shapes] ||= false
     # If ?count=1, include counts of features
     if options[:only_with_features]
       categories.collect!{|c| { :id => c.id, :name => c.title, :count => c.feature_count.to_i } }
+      categories.reject!{|c| c[:count].to_i <= 0 }
+    elsif
+      categories.collect!{|c| { :id => c.id, :name => c.title, :count => c.shape_count.to_i } }
       categories.reject!{|c| c[:count].to_i <= 0 }
     else
       categories.collect!{|c| { :id => c.id, :name => c.title } }
