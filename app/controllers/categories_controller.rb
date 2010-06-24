@@ -396,6 +396,7 @@ class CategoriesController < AclController
   def api_extended_render(locals)
     param_id = params[:id]
     locals[:only_with_features] ||= false
+    locals[:only_with_shapes] ||= false
     if param_id.nil?
       categories = Category.published_roots
       if locals[:only_with_features]
