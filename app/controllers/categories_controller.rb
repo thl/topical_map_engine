@@ -419,6 +419,7 @@ class CategoriesController < AclController
   end
   
   def api_simple_render(options={})
+    debugger
     param_id = params[:id]
     if param_id.nil?
       categories = Category.published_roots_and_descendants.flatten
@@ -434,7 +435,7 @@ class CategoriesController < AclController
     if options[:only_with_features]
       categories.collect!{|c| { :id => c.id, :name => c.title, :count => c.feature_count.to_i } }
       categories.reject!{|c| c[:count].to_i <= 0 }
-    elsif
+    elsif options[:only_with_shapes]
       categories.collect!{|c| { :id => c.id, :name => c.title, :count => c.shape_count.to_i } }
       categories.reject!{|c| c[:count].to_i <= 0 }
     else
