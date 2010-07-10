@@ -419,7 +419,6 @@ class CategoriesController < AclController
   end
   
   def api_simple_render(options={})
-    debugger
     param_id = params[:id]
     if param_id.nil?
       categories = Category.published_roots_and_descendants.flatten
