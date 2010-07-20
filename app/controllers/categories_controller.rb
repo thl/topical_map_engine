@@ -6,7 +6,7 @@ class CategoriesController < AclController
   helper :sources
   def initialize
     super
-    @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/all_with_shapes', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/iframe', 'categories/list', 'categories/list_with_features', 'categories/list_with_shapes']
+    @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/all_with_shapes', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/contracted', 'categories/expanded', 'categories/iframe', 'categories/list', 'categories/list_with_features', 'categories/list_with_shapes']
   end
   
   
@@ -304,6 +304,20 @@ class CategoriesController < AclController
     category = Category.find(params[:id])
     margin_depth = params[:margin_depth].to_i
     render :partial => 'contracted', :object => category, :locals => {:margin_depth => margin_depth}
+  end
+
+  def expanded
+    node = Category.find(params[:id])
+    @category = Category.find(params[:category_id])
+    @main_category = Category.find(params[:main_category_id])
+    render :partial => 'expanded', :locals => { :expanded => node }, :layout => false
+  end
+
+  def contracted
+    node = Category.find(params[:id])
+    @category = Category.find(params[:category_id])
+    @main_category = Category.find(params[:main_category_id])
+    render :partial => 'contracted', :locals => { :contracted => node }, :layout => false
   end
   
   def all

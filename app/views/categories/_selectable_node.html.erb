@@ -1,0 +1,4 @@
+<span class="node-name">
+<% html_options = {:class => "selected-node"} if node == @category %>
+<%= link_to h(node.title.capitalize_first_letter).s, category_child_path(@main_category, node), html_options  %>
+</span>

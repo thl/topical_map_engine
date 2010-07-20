@@ -13,6 +13,31 @@ a.unpublished { color: #989898;}
 a.descriptionplus_icon { background:transparent url(http://thlib.org/global/images/btn-plus-lg.gif) no-repeat scroll 2px center; padding:0 0 0 11px; border-bottom:0px; text-decoration: none;}
 a.descriptionminus_icon { background:transparent url(http://thlib.org/global/images/btn-minus-lg.gif) no-repeat scroll 2px center; padding:0 0 0 11px; border-bottom:0px; text-decoration: none;}
 
+/* Node tree */
+.node-plus, .node-minus, .node-empty{
+	float:left;
+	width:11px;
+	height:11px;
+	margin:5px 6px 0 0;
+	border:0;
+}
+
+.node-plus{
+	background:transparent no-repeat url(http://thlib.org/global/images/btn-plus-lg.gif);
+}
+
+.node-minus{
+	background:transparent no-repeat url(http://thlib.org/global/images/btn-minus-lg.gif);
+}
+
+.node-empty{
+	background:transparent no-repeat url(http://thlib.org/global/images/btn-empty-lg.gif);
+}
+
+#navigation .selected-node {
+	background-color: #FFDDB5;
+} 
+
 /* styling for descriptions */
 .content_by { font-variant:small-caps;}
 
