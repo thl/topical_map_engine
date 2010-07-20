@@ -5,7 +5,7 @@ var browseHeight;
 
 jQuery(document).scroll(function () { 
 	var sctop = z_scrollTop();  // determine scroll amount
-	newoffset = floatYloc + sctop;
+	newoffset = floatYloc + sctop + 40;
 	if(newoffset < 0) {newoffset = 20;}
 	newoffset += "px";
 	jQuery("#container-left-5050").animate({paddingTop:newoffset},{duration:400,queue:false});
