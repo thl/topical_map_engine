@@ -21,8 +21,8 @@ jQuery(document).ready(function () {
 
 // Scroll to selected element in the FeatureTree
 function scrollToSelected() {
-	if(typeof(jQuery("#container-right-5050 span.selected_branch")) == "object" && jQuery("#container-right-5050 span.selected_branch").length > 0) {
-		var offset = jQuery("#container-right-5050 span.selected_branch").offset().top - 10;
+	if(typeof(jQuery("#container-right-5050 .selected-node")) == "object" && jQuery("#container-right-5050 .selected-node").length > 0) {
+		var offset = jQuery("#container-right-5050 .selected-node").offset().top - 10;
 		jQuery('html,body').animate({scrollTop: offset}, 200);
 	}
 }
