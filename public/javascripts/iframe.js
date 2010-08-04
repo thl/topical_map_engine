@@ -22,8 +22,5 @@ jQuery(document).ready(function(){
 
 });
 
-// Rewrite this to do nothing, as it's disorienting in the context of an iframe
-function scrollToSelected(){}
-
 // Set the automatic scrolling offset to 0
 floatYloc = 0;
