@@ -69,7 +69,12 @@ class CategoriesController < AclController
               @ancestors_for_current = @category.ancestors.collect{|c| c.id}
               @ancestors_for_current << @category.id
               @categories = logged_in? ? @main_category.children : @main_category.published_children
-              render :action => 'show', :layout => 'multi_column'
+              # This isn't terribly clean. See routes.rb for a comment about iframe routing.
+              if request.request_uri =~ /\/iframe\//
+                render :action => 'iframe', :layout => 'iframe'
+              else
+                render :action => 'show', :layout => 'multi_column'
+              end
             end
           end
         end

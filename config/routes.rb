@@ -3,6 +3,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :pop_up_categories, :member => {:expand => :get, :contract => :get}
   map.resources :categories, :member => {:modify_title => :get, :update_primary_description => :put, :set_primary_description => :get, :all => :get, :all_with_features => :get, :all_with_shapes => :get, :list => :get, :list_with_features => :get, :list_with_features => :get, :list_with_shapes => :get}, :collection => {:add_curator => :get, :all => :get, :all_with_features => :get, :all_with_shapes => :get, :list => :get, :list_with_features => :get, :list_with_shapes => :get} do |category|
     category.resources :children, :controller => 'categories', :member => {:expand => :get, :contract => :get, :modify_title => :get}, :collection => {:add_curator => :get}
+    # Mapping this with resources may be overkill, as only the show action is used.  Is there a cleaner approach?
+    category.resources :iframe, :controller => 'categories', :member => {:expand => :get, :contract => :get, :modify_title => :get}, :collection => {:add_curator => :get}
     category.resources :translated_titles, :collection => {:add_author => :get}
     category.resources :descriptions, :collection => {:add_author => :get}, :member => {:expand => :get, :contract => :get} do |description|
       description.resources :sources, :member => {:expand => :get, :contract => :get} do |source|
