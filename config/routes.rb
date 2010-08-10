@@ -19,13 +19,8 @@ ActionController::Routing::Routes.draw do |map|
     categories.by_title 'by_title/:title.:format', :action => 'by_title'
   end
   map.root :controller => 'home', :action => 'index'
-  map.openid_new 'openid_new', :controller => 'users', :action => 'openid_new'
-  map.openid_create 'openid_create', :controller => 'users', :action => 'create', :requirements => { :method => :post }
-  map.login  'login', :controller => 'sessions', :action => 'new'
-  map.logout 'logout', :controller => 'sessions', :action => 'destroy'  
-  map.open_id_login 'session', :controller => 'sessions', :action => 'create', :requirements => { :method => :get }  
-  map.resource  :session
-  map.resources :roles  
+  map.resources :places, :only => 'show'
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
