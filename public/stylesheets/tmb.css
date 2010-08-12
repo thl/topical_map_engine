@@ -104,3 +104,7 @@ li.unpublished { color: #989898;}
 	font-size: 12px;
 	line-height: 18px;
 }
+
+#content .shell-1 { width: 96%; }
+
+#topics_main { padding-top: 10px; }

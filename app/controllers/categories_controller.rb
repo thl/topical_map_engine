@@ -23,6 +23,7 @@ class CategoriesController < AclController
         if @main_category.nil?
           render :action => 'main_index'
         else
+          @current_tab_id = :category
           render :action => 'index', :layout => 'multi_column'
         end
       end
@@ -43,6 +44,9 @@ class CategoriesController < AclController
   # GET /categories/1.xml
   def show
     @category = Category.find(params[:id])
+    @current_tab_id = :category
+    @un_options ||= {}
+    @un_options[:entity] = @category
     if request.xhr?
       if @main_category.nil?
         #render :partial => 'show'

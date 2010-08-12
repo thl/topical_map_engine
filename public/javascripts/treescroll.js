@@ -1,5 +1,5 @@
 
-var floatYloc = -140; // take off the amount of pixels above the feature pane.
+var floatYloc = -190; // take off the amount of pixels above the feature pane.
 
 var browseHeight;
 
