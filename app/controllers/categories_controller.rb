@@ -16,6 +16,8 @@ class CategoriesController < AclController
     if @main_category.nil?
       @categories = logged_in? ? Category.roots : Category.published_roots
     else
+      @un_options ||= {}
+      @un_options[:entity] = @main_category
       @categories = logged_in? ? @main_category.children : @main_category.published_children
     end
     respond_to do |format|
