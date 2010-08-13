@@ -65,7 +65,7 @@ module ApplicationHelper
     
     tabs = secondary_tabs_config
     
-    current_tab_id = :home unless tabs.has_key? current_tab_id
+    current_tab_id = :category unless tabs.has_key? current_tab_id
     
     # If the current tab is :category, save the current path in session, so that the :category tab
     # can continue to link to this page from other tabs
@@ -74,7 +74,7 @@ module ApplicationHelper
     # Set the :category tab's URL to the saved path, or remove the tab if this path isn't present
     if !session.blank? && !session[:category_tab_path].blank?
       tabs[:category][:url] = session[:category_tab_path]
-    else
+    elsif current_tab_id != :category
       tabs.delete(:category)
     end
     

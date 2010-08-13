@@ -5,6 +5,7 @@ class HomeController < AclController
   end
 
   def index
+    @current_tab_id = :home
     if logged_in?
       @categories = Category.roots
     else
