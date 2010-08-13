@@ -84,12 +84,15 @@ li.unpublished { color: #989898;}
 .descriptions_div ol li, .descriptions_div ul li{margin-bottom:0px}
 .descriptions_div ul li {margin-left:2px;}
 
-.descriptions_div h1{border-bottom:0px;margin: 0 !important;;padding:0;}
-.descriptions_div h2{margin: 0;padding:0;}
-.descriptions_div h3{margin: 0;padding:0;}
-.descriptions_div h4{margin: 0;padding:0;font-weight:normal;}
+/* These headings need to have smaller font-sizes than their counterparts on the rest of the page */ 
+.descriptions_div h1{border-bottom:0px;margin: 0 !important;padding:0;font-size:19px;}
+.descriptions_div h2{margin: 0;padding:0;font-size:17px;}
+.descriptions_div h3{margin: 0;padding:0;font-size:16px;}
+.descriptions_div h4{margin: 0;padding:0;font-weight:normal;font-size:15px;}
 .descriptions_div h5{margin: 0;padding:0;font-weight:normal;color:#4F808B;}
 .descriptions_div h6{margin: 0;padding:0;font-weight:normal;color:#4F808B;}
+
+.descriptions_div h2.description_title{font-size:20px;}
 
 .italic_link {
 	font-size: 6px;
