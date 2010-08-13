@@ -14,9 +14,9 @@ jQuery(document).scroll(function () {
 
 jQuery(document).ready(function () {
 	//setTimeout('scrollToSelected();',1000);
-	browseHeight = (typeof window.innerHeight != 'undefined' ? window.innerHeight : document.body.offsetHeight) - 40;
-	jQuery("#container-left-5050 .shell-2").css("overflow","auto").css("border","none").css("padding","3px");;
-	jQuery("#container-left-5050 .shell-2").height(browseHeight);
+	//browseHeight = (typeof window.innerHeight != 'undefined' ? window.innerHeight : document.body.offsetHeight) - 40;
+	//jQuery("#container-left-5050 .shell-2").css("overflow","auto").css("border","none").css("padding","3px");;
+	//jQuery("#container-left-5050 .shell-2").height(browseHeight);
 });
 
 // Scroll to selected element in the FeatureTree
