@@ -2,7 +2,7 @@
   <p>
 <%  authors = d.authors
     language = d.language %>
-<%= link_to_remote '.', {:url => expand_category_description_path(category,d),  :method => 'get'},  { :class => 'descriptionplus_icon' } %>
+<%= link_to_remote '&nbsp;', {:url => expand_category_description_path(category,d),  :method => 'get'},  { :class => 'descriptionplus_icon' } %>
 	<span class='content_by'><b><%= "#{d.title.blank? ? 'Description' : h(d.title)}" %></b></span>
 <%= ' by ' %>
 	<span class='content_by'><%= "#{authors.empty? ? category.creator.screen_name : author_str = join_with_and(d.authors.collect{|a| a.fullname})}" %></span>

@@ -13,7 +13,7 @@
    end
    form_remote_tag :url => new_translated_path, :update => 'info', :method => :get do %>
    <p>
-<%=  link_to_remote '.', {:url => expand_path,  :method => 'get'},  { :class => 'descriptionplus_icon' } %>
+<%=  link_to_remote '&nbsp;', {:url => expand_path,  :method => 'get'},  { :class => 'descriptionplus_icon' } %>
 <%=  "#{authorized?(hash_path) ? link_to_remote('MMS #'"#{s.mms_id}"', ' + formated_mms_pages(s), :url => edit_path, :update => 'info', :method => :get ) : 'MMS #'"#{s.mms_id}"', ' + formated_mms_pages(s) }" %>
 (<%= "#{"#{h(s.language.title.s)} " if s.language != ComplexScripts::Language.find_by_locale(I18n.locale)}" %>)
 <%   authorized_only hash_translated_path do %>

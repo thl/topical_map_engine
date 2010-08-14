@@ -1,7 +1,7 @@
 <h2 class="description_title">
 <%  authors = d.authors
     language = d.language %>
-<%= link_to_remote '.', {:url => contract_category_description_path(category,d), :update => "#{d.id}_descdiv", :method => 'get'},  { :class => 'descriptionminus_icon' }  %>
+<%= link_to_remote '&nbsp;', {:url => contract_category_description_path(category,d), :update => "#{d.id}_descdiv", :method => 'get'},  { :class => 'descriptionminus_icon' }  %>
       <%= "#{d.title.blank? ? 'Description' : h(d.title)}" %>
 </h2>
 <p>
