@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.root :controller => 'home', :action => 'index'
   map.resources :places, :only => 'show'
-  map.resources :media, :only => 'show'
+  map.resources :media, :as => 'media_objects', :only => 'show'
   
   # The priority is based upon order of creation: first created -> highest priority.
 
