@@ -4,7 +4,8 @@ class PlacesController < ApplicationController
   def show
     @feature = Feature.find(params[:id])
     @categories = Category.find_all_by_feature_id(@feature.fid)
-    @title = "Feature Types Associated to #{@feature.header}"
+    @object_title = "#{@feature.header}"
+    @object_type = "Place"
     respond_to do |format|
       format.html { render :template => 'categories/list' } # show.html.erb
     end

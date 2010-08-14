@@ -1,6 +1,10 @@
-<h2><%= @title %></h2>
+<h2>Topics Associated with <%= @object_title %></h2>
 <ul class='main_list'>
 <% for category in @categories do %>
 <li class="normal"><%= link_to h(category.title), category_child_path(category.root, category) %></li>
 <% end %>
 </ul>
+<br />
+<p>
+  <%= link_to "#{@object_title} in #{@object_type.humanize.pluralize}"%>
+</p>
