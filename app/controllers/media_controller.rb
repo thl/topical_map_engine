@@ -6,6 +6,7 @@ class MediaController < ApplicationController
     @categories = Category.find_all_by_medium_id(@medium.id)
     @object_title = "Medium #{@medium.id}"
     @object_type = "Medium"
+    @object_url = Medium.element_url(@medium.id, :format => 'html')
     respond_to do |format|
       format.html { render :template => 'categories/list' } # show.html.erb
     end
