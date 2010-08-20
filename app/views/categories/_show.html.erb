@@ -16,9 +16,7 @@
 <p>&nbsp;</p>
 <%= display_if_not_blank 'ID', @category.id %>
 <%= display_if_not_blank 'URL', link_to(category_child_url(@main_category, @category), category_child_path(@main_category, @category)) %>
-<% media_count = @category.media_count
-   feature_count = @category.feature_count %>
-<%= render :partial => 'categories/associated_objects_count', :locals => {:media_count => media_count, :feature_count => feature_count} %>
+<%= render :partial => 'categories/associated_objects_count', :locals => {:category => @category} %>
 <%= display_if_not_blank Category.human_attribute_name('cumulative').s, @category.cumulative? ? ts(:affirmation) : ts(:negation) %>
    <p id="form">
 <%   previous = false
@@ -26,7 +24,7 @@
 <%=    link_to_remote 'Edit', :url => edit_category_child_path(@main_category, @category), :update => 'info', :method => :get %>
 <%     previous = true
      end
-     if media_count['Medium']==0 && feature_count==0 && authorized?(hash_for_category_child_path(:action => 'destroy')) %>
+     if @category.media_count==0 && @category.feature_count==0 && authorized?(hash_for_category_child_path(:action => 'destroy')) %>
 <%=    '|' if previous %>
 <%=    link_to_remote ts('delete.this'), :url => category_child_path(@main_category, @category), :confirm => 'Are you sure you want to delete the category? Please be aware that deleting a parent also deletes its children.', :method => :delete %>
 <%     previous = true

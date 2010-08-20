@@ -56,13 +56,15 @@ class Category < ActiveRecord::Base
     [self] + children.collect{|c| c.self_and_descendants}
   end
     
-  def media_count
-    Rails.cache.fetch("#{self.cache_key}/media_count") do
+  def media_count(options = {})
+    media_count_hash = Rails.cache.fetch("#{self.cache_key}/media_count") do
       media_category_count = MediaCategoryCount.find(:all, :params => {:category_id => self.id}).dup
-      media_count = { 'Medium' => media_category_count.shift.count.to_i }
-      media_category_count.each{|count| media_count[count.medium_type] = count.count.to_i }
-      media_count
+      media_count_hash = { 'Medium' => media_category_count.shift.count.to_i }
+      media_category_count.each{|count| media_count_hash[count.medium_type] = count.count.to_i }
+      media_count_hash
     end
+    type = options[:type]
+    return type.nil? ? media_count_hash['Medium'] : media_count_hash[type]
   end
   
   def feature_count
