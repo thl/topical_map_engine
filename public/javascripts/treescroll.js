@@ -1,5 +1,5 @@
 
-var floatYloc = -140; // take off the amount of pixels above the feature pane.
+var floatYloc = -190; // take off the amount of pixels above the feature pane.
 
 var browseHeight;
 
@@ -8,22 +8,22 @@ jQuery(document).scroll(function () {
 	newoffset = floatYloc + sctop + 40;
 	if(newoffset < 0) {newoffset = 20;}
 	newoffset += "px";
-	jQuery("#container-left-5050").animate({paddingTop:newoffset},{duration:400,queue:false});
+	//jQuery("#container-left-5050").animate({paddingTop:newoffset},{duration:400,queue:false});
 	//jQuery("#FeatureTree").animate({marginTop:"-" + newoffset},{duration:401,queue:false});
 });
 
 jQuery(document).ready(function () {
-	setTimeout('scrollToSelected();',1000);
-	browseHeight = (typeof window.innerHeight != 'undefined' ? window.innerHeight : document.body.offsetHeight) - 40;
-	jQuery("#container-left-5050 .shell-2").css("overflow","auto").css("border","none").css("padding","3px");;
-	jQuery("#container-left-5050 .shell-2").height(browseHeight);
+	//setTimeout('scrollToSelected();',1000);
+	//browseHeight = (typeof window.innerHeight != 'undefined' ? window.innerHeight : document.body.offsetHeight) - 40;
+	//jQuery("#container-left-5050 .shell-2").css("overflow","auto").css("border","none").css("padding","3px");;
+	//jQuery("#container-left-5050 .shell-2").height(browseHeight);
 });
 
 // Scroll to selected element in the FeatureTree
 function scrollToSelected() {
 	if(typeof(jQuery("#container-right-5050 .selected-node")) == "object" && jQuery("#container-right-5050 .selected-node").length > 0) {
 		var offset = jQuery("#container-right-5050 .selected-node").offset().top - 10;
-		jQuery('html,body').animate({scrollTop: offset}, 200);
+		//jQuery('html,body').animate({scrollTop: offset}, 200);
 	}
 }
 

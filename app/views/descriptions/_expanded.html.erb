@@ -1,9 +1,11 @@
-<p>
+<h2 class="description_title">
 <%  authors = d.authors
     language = d.language %>
-<%= link_to_remote '.', {:url => contract_category_description_path(category,d), :update => "#{d.id}_descdiv", :method => 'get'},  { :class => 'descriptionminus_icon' }  %>
-      <span class='content_by'><b><%= "#{d.title.blank? ? 'Description' : h(d.title)}" %></b></span>
-<%=   ' by ' %>
+<%= link_to_remote '&nbsp;', {:url => contract_category_description_path(category,d), :update => "#{d.id}_descdiv", :method => 'get'},  { :class => 'descriptionminus_icon' }  %>
+      <%= "#{d.title.blank? ? 'Description' : h(d.title)}" %>
+</h2>
+<p>
+      by
       <span class='content_by'><%= "#{authors.empty? ? category.creator.screen_name : author_str = join_with_and(d.authors.collect{|a| a.fullname})}" %></span>
       (<%= "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
 </p>

@@ -1,6 +1,7 @@
 <% form_remote_tag :url => new_category_translated_title_path(@category), :update => 'info', :method => :get do %>
+<h1><%= "#{h(@category.title).s}" %></h1>
 <p>
-<%= "\t<b>#{h(@category.title).s}</b> (#{authorized?(hash_for_modify_title_category_child_path) ? link_to_remote("<i>#{ts(:english)}</i>", {:url => modify_title_category_child_path(@main_category, @category), :update => 'info', :method => :get}) : "<i>#{ts(:english)}</i>"})" %>
+<%= "\t(#{authorized?(hash_for_modify_title_category_child_path) ? link_to_remote("<i>#{ts(:english)}</i>", {:url => modify_title_category_child_path(@main_category, @category), :update => 'info', :method => :get}) : "<i>#{ts(:english)}</i>"})" %>
 <%    authorized_only hash_for_new_category_translated_title_path do %>  
 <%=     submit_tag te('add.record', :what => t('translat.ion')), language_options(:disabled_with => 'Posting...') %>
 <%    end %>
