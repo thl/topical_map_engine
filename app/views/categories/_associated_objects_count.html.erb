@@ -9,6 +9,7 @@
 	 counts << ts(:count, :what => t(:document), :count => count) if count > 0 %>
 <%=	 display_if_not_blank ts(:count, :what => t('associate.d', :what => t(:medium, :count => :many)), :count => media_count), counts.join(', ') %>
 <% end
+   feature_count = category.feature_count
    if feature_count>0 %>
 <%=	 display_if_not_blank ts('associate.d', :what => t(:place, :count => feature_count)), feature_count %>
 <% end %>
