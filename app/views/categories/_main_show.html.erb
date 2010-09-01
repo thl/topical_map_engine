@@ -14,13 +14,11 @@
 </p>
 <%= render :partial => 'categories/info', :locals => {:category => category} %>
 <p>&nbsp;</p>
-<% media_count = category.media_count 
-   feature_count = category.feature_count %>
-<%= render :partial => 'categories/associated_objects_count', :locals => {:media_count => media_count, :feature_count => feature_count} %>
+<%= render :partial => 'categories/associated_objects_count', :locals => {:category => category} %>
 <%= display_if_not_blank Category.human_attribute_name('cumulative').s, category.cumulative? ? ts(:affirmation) : ts(:negation) %>
 <p>
 <%  previous = false
-    if media_count['Medium']==0 && feature_count==0 && authorized?(hash_for_category_path(:action => 'destroy'))
+    if category.media_count==0 && category.feature_count==0 && authorized?(hash_for_category_path(:action => 'destroy'))
       previous = true %>
 <%=   link_to ts('delete.this'), category_path(category), :confirm => 'Are you sure? Please be aware that deleting a parent also deletes its children.', :method => :delete %>
 <%  end
