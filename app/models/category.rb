@@ -79,11 +79,25 @@ class Category < ActiveRecord::Base
     end
   end
   
+  def media_url
+    MediaManagementResource.get_url + topic_path
+  end
+  
+  def places_url
+    PlacesResource.get_url + topic_path
+  end
+  
   def self.find_all_by_feature_id(feature_id)
     Feature.find(feature_id).feature_type_ids.collect{|id| Category.find(id)}
   end
   
   def self.find_all_by_medium_id(medium_id)
     Medium.find(medium_id).category_ids.collect{|id| Category.find(id)}
+  end
+  
+  private
+  
+  def topic_path
+    ['topics', self.id].join('/')
   end
 end
