@@ -10,7 +10,7 @@ module PopUpCategoriesHelper
       category_selector = pop_up_categories_path(:selected_category_id => selected_category.id)
     end
     return_str += "</span>\n("
-    return_str += link_to('select parent', category_selector, :class => 'lbOn', :id => 'category_selector') +
+    return_str += link_to('select parent', category_selector, :class => 'thl-pop no-view-alone', :id => 'category_selector') +
                   ")\n" +
                   hidden_field(instance_variable_name, "#{field_name}_id") +
                   "\n<input type=\"hidden\" id=\"current_category_id\" name=\"current_category_id\" value=\"#{selected_category.id if !selected_category.nil?}\" />\n" +
@@ -18,8 +18,7 @@ module PopUpCategoriesHelper
                   "\n<input type=\"hidden\" id=\"current_category_selector\" name=\"current_category_selector\" value=\"#{category_selector}\" />\n" +
                   "\n<input type=\"hidden\" id=\"selected_category_id\" name=\"selected_category_id\" value=\"#{selected_category.id if !selected_category.nil?}\" />\n" +
                   "\n<input type=\"hidden\" id=\"selected_category_title\" name=\"selected_category_title\" value=\"#{selected_category.title if !selected_category.nil?}\" />\n" +
-                  observe_field(:selected_category_id, :frequency => 0.5, :function => "$('#{instance_variable_name}_#{field_name}_id').value = $('selected_category_id').value;") +
-                  "<script type=\"text/javascript\">initialize();</script>"
+                  "<script type=\"text/javascript\">ActivateThlPopups('#info');</script>"
     return_str
   end
 end

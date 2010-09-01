@@ -1,6 +1,6 @@
 module SourcesHelper
   def javascript_files
-    super + ['lightbox', 'treescroll']
+    super + ['treescroll']
   end
   
   def javascripts
