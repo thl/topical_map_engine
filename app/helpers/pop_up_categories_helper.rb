@@ -10,7 +10,7 @@ module PopUpCategoriesHelper
       category_selector = pop_up_categories_path(:selected_category_id => selected_category.id)
     end
     return_str += "</span>\n("
-    return_str += link_to('select parent', category_selector, :class => 'thl-pop no-view-alone', :id => 'category_selector') +
+    return_str += link_to('select parent', category_selector, :class => 'thl-pop no-view-alone no-main-site-ajax', :id => 'category_selector') +
                   ")\n" +
                   hidden_field(instance_variable_name, "#{field_name}_id") +
                   "\n<input type=\"hidden\" id=\"current_category_id\" name=\"current_category_id\" value=\"#{selected_category.id if !selected_category.nil?}\" />\n" +
