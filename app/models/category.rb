@@ -24,11 +24,6 @@ class Category < ActiveRecord::Base
   acts_as_tree :order => 'title'
   include Tree
   
-  after_save do |record|
-    parent = record.parent
-    parent.touch unless parent.nil?
-  end
-  
   def published_children
     self.children.find(:all, :conditions => {:published => true}, :order => 'title')
   end

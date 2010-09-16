@@ -6,7 +6,7 @@ class CategorySweeper < ActionController::Caching::Sweeper
     expire_cache(category)
   end
   
-  def after_destroy(category)
+  def before_destroy(category)
     expire_cache(category)
   end
   
@@ -14,8 +14,11 @@ class CategorySweeper < ActionController::Caching::Sweeper
     root = category.root
     FORMATS.each do |format|
       options = {:skip_relative_url_root => true, :only_path => true, :format => format}
-      [category_url(category, options), categories_url(options), all_categories_url(options), all_with_features_categories_url(options), all_with_shapes_categories_url(options), list_categories_url(options), list_with_features_categories_url(options), list_with_shapes_categories_url(options),
-       category_children_url(root, options), all_category_url(root, options), all_with_features_category_url(root, options), all_with_shapes_category_url(root, options), list_category_url(root, options), list_with_features_category_url(root, options), list_with_shapes_category_url(root, options)].each{|path| expire_page(path)}
+      paths = [category_url(category, options), all_categories_url(options), list_categories_url(options), category_children_url(root, options), all_category_url(root, options), list_category_url(root, options)]
+      paths << categories_url(options) if category.parent.nil?
+      paths += [list_with_features_categories_url(options), all_with_features_categories_url(options), all_with_features_category_url(root, options), list_with_features_category_url(root, options)] if category.feature_count>0
+      paths += [list_with_shapes_categories_url(options), all_with_shapes_categories_url(options), all_with_shapes_category_url(root, options), list_with_shapes_category_url(root, options)] if category.shape_count>0
+      paths.each{|path| expire_page(path)}
     end
   end
 end

@@ -396,7 +396,6 @@ class CategoriesController < AclController
     render :action => 'iframe', :layout => 'iframe'
   end
 
-
   private
   
   def find_main_category
