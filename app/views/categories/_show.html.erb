@@ -17,7 +17,6 @@
 <p>&nbsp;</p>
 <%= display_if_not_blank 'ID', @category.id %>
 <%= display_if_not_blank 'URL', link_to(category_child_url(@main_category, @category), category_child_path(@main_category, @category)) %>
-<%= render :partial => 'categories/associated_objects_count', :locals => {:category => @category} %>
 <%= display_if_not_blank Category.human_attribute_name('cumulative').s, @category.cumulative? ? ts(:affirmation) : ts(:negation) %>
    <p id="form">
 <%   previous = false

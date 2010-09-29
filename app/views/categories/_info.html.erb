@@ -31,6 +31,22 @@
       </p>
 <%    end %>
 <%  end %>
+
+<%
+  associated_resources = [
+    ["Places", category.feature_count, category.places_url],
+    ["Pictures", category.media_count(:type => 'Picture'), category.pictures_url],
+    ["Video", category.media_count(:type => 'Video'), category.videos_url],
+    ["Texts", category.media_count(:type => 'Document'), category.documents_url]
+  ]
+%>
+<% if associated_resources.collect{|ar| ar[1]}.sum > 0 %>
+<h3>Associated Resources</h3>
+<ul class="main_list normal">
+  <%= associated_resources.reject{|ar| ar[1] == 0}.collect{|ar| "<li>" + link_to("#{ar[0]} (#{ar[1]})", ar[2]) + "</li>" }.join("") %>
+</ul>
+<% end %>
+
 <p>
 <% form_remote_tag :url => new_category_description_path(category), :update => 'info', :method => :get do %>
 <%   authorized_only hash_for_new_category_description_path do %>

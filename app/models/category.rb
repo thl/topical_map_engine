@@ -77,6 +77,18 @@ class Category < ActiveRecord::Base
   def media_url
     MediaManagementResource.get_url + topic_path
   end
+
+  def pictures_url
+    MediaManagementResource.get_url + topic_path('pictures')
+  end
+
+  def videos_url
+    MediaManagementResource.get_url + topic_path('videos')
+  end
+
+  def documents_url
+    MediaManagementResource.get_url + topic_path('documents')
+  end
   
   def places_url
     PlacesResource.get_url + topic_path
@@ -92,7 +104,9 @@ class Category < ActiveRecord::Base
   
   private
   
-  def topic_path
-    ['topics', self.id].join('/')
+  def topic_path(type = nil)
+    a = ['topics', self.id]
+    a << type if !type.nil?
+    a.join('/')
   end
 end

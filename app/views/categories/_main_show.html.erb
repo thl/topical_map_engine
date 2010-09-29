@@ -14,7 +14,6 @@
 </p>
 <%= render :partial => 'categories/info', :locals => {:category => category} %>
 <p>&nbsp;</p>
-<%= render :partial => 'categories/associated_objects_count', :locals => {:category => category} %>
 <%= display_if_not_blank Category.human_attribute_name('cumulative').s, category.cumulative? ? ts(:affirmation) : ts(:negation) %>
 <p>
 <%  previous = false

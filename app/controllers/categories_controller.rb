@@ -15,9 +15,12 @@ class CategoriesController < AclController
   def index
     if @main_category.nil?
       @categories = logged_in? ? Category.roots : Category.published_roots
+      @tab_options ||= {}
+      @tab_options[:entity] = Category.find(session[:current_category_id]) unless session[:current_category_id].blank?
     else
-      @un_options ||= {}
-      @un_options[:entity] = @main_category
+      @tab_options ||= {}
+      @tab_options[:entity] = @main_category
+      session[:current_category_id] = @main_category.id
       @categories = logged_in? ? @main_category.children : @main_category.published_children
     end
     respond_to do |format|
@@ -25,7 +28,7 @@ class CategoriesController < AclController
         if @main_category.nil?
           render :action => 'main_index'
         else
-          @current_tab_id = :category
+          @current_tab_id = :topics
           render :action => 'index', :layout => 'multi_column'
         end
       end
@@ -46,9 +49,10 @@ class CategoriesController < AclController
   # GET /categories/1.xml
   def show
     @category = Category.find(params[:id])
-    @current_tab_id = :category
-    @un_options ||= {}
-    @un_options[:entity] = @category
+    @current_tab_id = :topics
+    @tab_options ||= {}
+    @tab_options[:entity] = @category
+    session[:current_category_id] = @category.id
     if request.xhr?
       if @main_category.nil?
         #render :partial => 'show'

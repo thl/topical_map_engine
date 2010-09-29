@@ -51,40 +51,36 @@ module ApplicationHelper
     return str
   end
   
-  def secondary_tabs_config
+  def custom_secondary_tabs_list
     # The :index values are necessary for this hash's elements to be sorted properly
     {
-      :home => {:index => 1, :title => "Home", :url => "#{ActionController::Base.relative_url_root.to_s}/"},
-      :category => {:index => 2, :title => "Topic", :url => "#{ActionController::Base.relative_url_root.to_s}/"}
+      :topics => {:index => 1, :title => "Topics", :url => "#{ActionController::Base.relative_url_root.to_s}/"}
     }
   end
   
-  def secondary_tabs(current_tab_id=:home)
+  def custom_secondary_tabs(current_tab_id=:topics)
 
     @tab_options ||= {}
     
-    tabs = secondary_tabs_config
+    tabs = custom_secondary_tabs_list
     
-    current_tab_id = :category unless tabs.has_key? current_tab_id
+    current_tab_id = :topics unless [:home, :topics].include? current_tab_id
     
-    # If the current tab is :category, save the current path in session, so that the :category tab
+    # If the current tab is :topics, save the current path in session, so that the :topics tab
     # can continue to link to this page from other tabs
-    session[:category_tab_path] = request.request_uri if current_tab_id == :category
+    session[:topics_tab_path] = request.request_uri if current_tab_id == :topics
     
-    # Set the :category tab's URL to the saved path, or remove the tab if this path isn't present
-    if !session.blank? && !session[:category_tab_path].blank?
-      tabs[:category][:url] = session[:category_tab_path]
-    elsif current_tab_id != :category
-      tabs.delete(:category)
+    # Set the :topics tab's URL to the saved path, or remove the tab if this path isn't present
+    if !session[:topics_tab_path].blank?
+      tabs[:topics][:url] = session[:topics_tab_path]
+    elsif current_tab_id != :topics
+      tabs.delete(:topics)
     end
     
-    tabs[current_tab_id][:url] = "#topics_main"
-    current_tab_index = 1
     tabs = tabs.sort{|a,b| a[1][:index] <=> b[1][:index]}.collect{|tab_id, tab| 
-      current_tab_index = tab[:index] - 1 if tab_id == current_tab_id
-      [tab[:title], tab[:url]]
+      [tab_id, tab[:title], tab[:url]]
     }
     
-    un_secondary_tabs tabs, current_tab_index
+    tabs
   end
 end

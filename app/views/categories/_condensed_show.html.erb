@@ -2,7 +2,6 @@
 <% if !category.description.blank? %>
 <%= category.description.s %>
 <% end %>
-<%= render :partial => 'associated_objects_count', :locals => {:category => category} %>
 <p>&nbsp;</p>
 <p>
 <%= link_to ts('metadata.for', :what => h(category.title.titleize)), category_path(category) %>
