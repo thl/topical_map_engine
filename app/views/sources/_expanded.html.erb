@@ -10,36 +10,27 @@
      hash_path = hash_for_edit_category_description_source_path
      new_translated_path = new_category_description_source_translated_source_path(@category, resource, s)
      hash_translated_path = hash_for_new_category_description_source_translated_source_path
-   end
-   form_remote_tag :url => new_translated_path, :update => 'info', :method => :get do %>
-	<p>
-	<%=   link_to_remote '&nbsp;', {:url => contract_path, :update => "#{s.id}_sourcediv", :method => 'get'},  { :class => 'descriptionminus_icon' }  %>
-	<%=  "#{authorized?(hash_path) ? link_to_remote('MMS #'"#{s.mms_id}"', ' + formated_mms_pages(s), :url => edit_path, :update => 'info', :method => :get ) : 'MMS #'"#{s.mms_id}"', ' + formated_mms_pages(s) }" %>
-	(<%= "#{"#{h(s.language.title.s)} " if s.language != ComplexScripts::Language.find_by_locale(I18n.locale)}" %>)
-	<%   authorized_only hash_translated_path do %>
-	<%=    submit_tag 'add Source Translation' %>
-	<%   end %>
-  	</p>
-		<p>
-		  <% if !s.passage.blank? %>	
-			<b>Passage:</b>
-	  		<%= s.passage %>
-	      <% end %>
-		</p>
-		<p>
-		  <% if !s.note.blank? %>	
-	  		<b>Note:</b>
-	  		<%= s.note %>
-		  <% end %>
-		</p>
-		<p>
-		  <% if !s.translated_sources.empty? %>
-		    <b>Source Translations:</b>
-		    <% if s.resource_type == 'Category' %> 
-				<%= ( s.translated_sources.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_source_translated_source_path) ? link_to_remote("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", {:url => edit_category_source_translated_source_path(@category,s, t), :update => 'info', :method => :get})  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>		 
-		    <% else %>
-				<%= ( s.translated_sources.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_description_source_translated_source_path) ? link_to_remote("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", {:url => edit_category_description_source_translated_source_path(@category,resource,s, t), :update => 'info', :method => :get})  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>	
-		    <% end %>
-		  <% end %>
-		</p>
-<% end %>
+   end %>
+   <p>
+<%=   link_to_remote '&nbsp;', {:url => contract_path, :update => "#{s.id}_sourcediv", :method => 'get'},  { :class => 'descriptionminus_icon' }  %>
+<%=  authorized?(hash_path) ? link_to_remote(formated_mms_pages(s), :url => edit_path, :update => 'info', :method => :get ) : formated_mms_pages(s) %>
+<%   if s.language.code[0..1] != I18n.locale.to_s %>
+       (<%= s.language.title.s %>)
+<%   end %>
+<%   authorized_only hash_translated_path do 
+	   form_remote_tag :url => new_translated_path, :update => 'info', :method => :get do %>
+<%=      submit_tag te('add.record', :what => TranslatedSource.human_name) %>
+<%     end 
+     end %>
+   </p>
+<%= display_if_not_blank Source.human_attribute_name(:passage).s, s.passage %>
+<%= display_if_not_blank Source.human_attribute_name(:note).s, s.note %>
+<%  if !s.translated_sources.empty? %>
+	  <p><b><%= TranslatedSource.human_name(:count => :many) %>:</b>
+<%      if s.resource_type == 'Category' %> 
+<%=       ( s.translated_sources.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_source_translated_source_path) ? link_to_remote("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", {:url => edit_category_source_translated_source_path(@category,s, t), :update => 'info', :method => :get})  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>		 
+<%      else %>
+<%=       ( s.translated_sources.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_description_source_translated_source_path) ? link_to_remote("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", {:url => edit_category_description_source_translated_source_path(@category,resource,s, t), :update => 'info', :method => :get})  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>	
+<%      end %>
+      </p>
+<%  end %>

@@ -10,14 +10,16 @@
      hash_path = hash_for_edit_category_description_source_path
      new_translated_path = new_category_description_source_translated_source_path(resource.category, resource, s)
      hash_translated_path = hash_for_new_category_description_source_translated_source_path
-   end
-   form_remote_tag :url => new_translated_path, :update => 'info', :method => :get do %>
+   end %>
    <p>
 <%=  link_to_remote '&nbsp;', {:url => expand_path,  :method => 'get'},  { :class => 'descriptionplus_icon' } %>
-<%=  "#{authorized?(hash_path) ? link_to_remote('MMS #'"#{s.mms_id}"', ' + formated_mms_pages(s), :url => edit_path, :update => 'info', :method => :get ) : 'MMS #'"#{s.mms_id}"', ' + formated_mms_pages(s) }" %>
-(<%= "#{"#{h(s.language.title.s)} " if s.language != ComplexScripts::Language.find_by_locale(I18n.locale)}" %>)
-<%   authorized_only hash_translated_path do %>
-<%=    submit_tag 'add Source Translation' %>
-<%   end %>
+<%=  authorized?(hash_path) ? link_to_remote(formated_mms_pages(s), :url => edit_path, :update => 'info', :method => :get ) : formated_mms_pages(s) %>
+<%   if s.language.code[0..1] != I18n.locale.to_s %>
+       (<%= s.language.title.s %>)
+<%   end
+     authorized_only hash_translated_path do 
+	   form_remote_tag :url => new_translated_path, :update => 'info', :method => :get do %>
+<%=      submit_tag te('add.record', :what => TranslatedSource.human_name) %>
+<%     end 
+     end %>
    </p>
-<% end %>

@@ -1,16 +1,9 @@
 <h1><%= ts :for, :what => t('translat.ion').capitalize, :whom => "<em>#{h(@category.title)}</em>" %></h1>
 <%= error_messages_for :translated_title %>
 <% form_for(:translated_title, :url => category_translated_titles_path(@category)) do |f| %>
+<%= render :partial => 'form', :locals => {:f => f} %>
   <p>
-    <b>Language of Translation</b><br />
-<%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
-  </p>
-  <p>
-    <b>Translation</b><br />
-<%= f.text_field :title, fixed_language_options(:lang => @translated_title.language.code) %>
-  </p>
-  <p>
-    <%= f.submit 'Create translation' %>
+    <%= f.submit te('create.record', :what => TranslatedTitle.human_name) %>
   </p>
 <% end %>
 <p>

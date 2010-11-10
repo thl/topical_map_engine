@@ -1,20 +1,12 @@
 # Views localization file for English.
 # View messages are capitalized.
 en:
-    primary_description:
-        select:
-            ing: 'Selecting Primary'
-            message: 'Select Primary Description for {{what}}'
-        set: 'Set Primary'
+    by:
+        curated: 'Curated by'
+        entered: 'Entered by'
     document:
         one: 'Document'
         other: 'Documents'
-    topical_map:
-        for: '{{what}} Knowledge Map'
-        of: 'Knowledge Map of {{what}}'
-        this:
-            one: 'Knowledge map'
-            other: 'Knowledge maps'
     medium:
         one: 'Medium'
         other: 'Media'
@@ -26,7 +18,18 @@ en:
     place:
         one: 'Place'
         other: 'Places'
+    primary_description:
+        select:
+            ing: 'Selecting Primary'
+            message: 'Select Primary Description for {{what}}'
+        set: 'Set primary description'
     subcategory: 'Subcategory'
+    topical_map:
+        for: '{{what}} Knowledge Map'
+        of: 'Knowledge Map of {{what}}'
+        this:
+            one: 'Knowledge map'
+            other: 'Knowledge maps'
     video:
         one: 'Video title'
         other: 'Video titles'

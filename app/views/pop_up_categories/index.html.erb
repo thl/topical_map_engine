@@ -1,2 +1,2 @@
-<h1>Listing categories</h1>
+<h1><%= ts('list.ing.records', :what => Category.human_name(:count => :many)) %></h1>
 <%= render :partial => 'index', :locals => { :categories => @categories, :margin_depth => 0 } %>

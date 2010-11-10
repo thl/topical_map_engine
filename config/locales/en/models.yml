@@ -3,24 +3,40 @@ en:
     activerecord:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
         models:
-            category: 'category'
+            category:
+                one: 'category'
+                other: 'categories'
             description: 'description'
             source: 'source'
+            translated_source: 'source translation'
+            translated_title:
+                one: 'translation'
+                other: 'translations'
         # Attribute names will be titleized.
         attributes:
             category:
-                title: 'Category Name'
                 cumulative: 'Is Cumulative'
+                curator: 'Curator'
+                published: 'Is Published'
+                title: 'Category Name'
             description:
-                title: 'Title'
+                author: 'Author'
                 content: 'Description'
+                title: 'Title'
             source:
-                mms_id: 'MMS Id'
-                volume_number: 'Volume Number'
-                start_page: 'Start Page'
-                start_line: 'Start Line'
-                end_page: 'End Page'
                 end_line: 'End Line'
+                end_page: 'End Page'
                 language_id: 'Language of Passage'
-                passage: 'Passage'
+                mms_id: 'MMS ID'
                 note: 'Note'
+                passage: 'Passage'
+                start_line: 'Start Line'
+                start_page: 'Start Page'
+                volume_number: 'Volume Number'
+            translated_source:
+                author: 'Author'
+                language_id: 'Language of Translation'
+                title: 'Translation'
+            translated_title:
+                author: 'Author'
+                language_id: 'Language of Translation'                

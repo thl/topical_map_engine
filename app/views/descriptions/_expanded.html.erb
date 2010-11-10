@@ -2,7 +2,7 @@
 <%  authors = d.authors
     language = d.language %>
 <%= link_to_remote '&nbsp;', {:url => contract_category_description_path(category,d), :update => "#{d.id}_descdiv", :method => 'get'},  { :class => 'descriptionminus_icon' }  %>
-      <%= "#{d.title.blank? ? 'Description' : h(d.title)}" %>
+      <%= "#{d.title.blank? ? Description.human_name.titleize.s : h(d.title)}" %>
 </h2>
 <p>
       by
@@ -20,14 +20,14 @@
 <p><div class='padded'>
 <% form_remote_tag :url => new_category_description_source_path(category,d), :update => 'info', :method => :get do %>
 <%   authorized_only hash_for_new_category_description_source_path do %>
-<%=    submit_tag 'add source' %>
+<%=    submit_tag te('add.record', :what => Source.human_name) %>
 <%   end 
    end %>
 </div></p>
 <%  form_remote_tag :url => edit_category_description_path(category, d), :update => 'info', :method => :get do %>
   <p>
 <%   authorized_only hash_for_edit_category_description_path do %>
-<%=    submit_tag 'edit description' %>
+<%=    submit_tag te('edit.record', :what => Description.human_name) %>
 <%   end %>
   </p>
 <% end %>

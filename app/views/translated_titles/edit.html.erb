@@ -1,13 +1,7 @@
-<h1><%= "Editing Translation for <em>#{h(@category.title)}</em> in #{h(@translated_title.language.title)}" %></h1>
+<h1><%= ts :in, :what => t(:for, :what => t('edit.ing.record', :what => TranslatedTitle.human_name.titleize), :whom => "<em>#{h(@category.title)}</em>"), :where => h(@translated_title.language.title %></h1>
 <%= error_messages_for :translated_title %>
 <% form_for(:translated_title, :url => category_translated_title_path(@category, @translated_title), :html => { :method => :put }) do |f| %>
-  <p>
-    <b>Translation</b><br />
-<%= f.text_field :title, fixed_language_options(:lang => @translated_title.language.code) %>
-  </p>
-<%= f.hidden_field :category_id %>
-<%= f.hidden_field :creator_id %>
-<%= f.hidden_field :language_id %>
+<%= render :partial => 'form', :locals => {:f => f} %>
   <p>
     <%= f.submit 'Update' %>
   </p>

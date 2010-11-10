@@ -34,20 +34,22 @@ module ApplicationHelper
     end
   end
   
-  def formated_mms_pages(s) 
-    str = "#{s.start_page}"
+  def formated_mms_pages(s)
+    str = "#{Source.human_attribute_name(:mms_id).s} \##{s.mms_id}" 
+    pages_str = s.start_page
     if !s.start_line.nil?
-      str += '.' + "#{s.start_line}"
+      pages_str << ".#{s.start_line}"
     end
     if !s.end_page.nil? or !s.end_line.nil?
-      str += '-'
+      pages_str << '-'
       if !s.end_page.nil?
-        str += "#{s.end_page}"
+        pages_str << s.end_page
       end
       if !s.end_line.nil?
-        str += '.' + "#{s.end_line}."
+        pages_str << ".#{s.end_line}."
       end
     end
+    str << ", #{pages_str}" if !pages_str.blank?
     return str
   end
   

@@ -9,16 +9,16 @@
 <%=    category_selector(:category, :parent) %>
      </p>
 <% end %>
-<p><b>Published</b>&nbsp;
+<p><b><%= Category.human_attribute_name(:published).s %></b>&nbsp;
 <%= f.radio_button :published, "true" %> <%= f.label :published, ts(:affirmation) %>&nbsp;
 <%= f.radio_button :published, "false" %> <%= f.label :unpublished, ts(:negation) %>  
 </p>
-<p><b>Cumulative</b>&nbsp;
+<p><b><%= Category.human_attribute_name(:cumulative).s %></b>&nbsp;
 <%= f.radio_button :cumulative, "true" %> <%= f.label :cumulative, ts(:affirmation) %>&nbsp;
 <%= f.radio_button :cumulative, "false" %> <%= f.label :noncumulative, ts(:negation) %>  
 </p>
 <p>
-<%= link_to_remote 'Add new curator', :url => add_curator_categories_path, :update => 'update_div', :position => 'before', :method => 'get' %>
+<%= link_to_remote ts('add.record', :what => t('new.record', :what => Category.human_attribute_name(:curator)).downcase), :url => add_curator_categories_path, :update => 'update_div', :position => 'before', :method => 'get' %>
 </p>
 <div id="curators_div">
 <% if default_curator_id.nil?

@@ -19,7 +19,7 @@
 	<%= f.text_field :end_line %>
 </p>
 <p>
-    <b><%= Source.human_attribute_name('language').s %></b><br />
+    <b><%= Source.human_attribute_name('language_id').s %></b><br />
 <%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
 </p>
 <p><b><%= Source.human_attribute_name('passage').s %></b><br />

@@ -1,4 +1,4 @@
-<h1><%= "Editing Description for <em>#{h(@category.title)}</em> in #{h(@description.language.title)}" %></h1>
+<h1><%= ts :in, :what =>t(:for, :what => t('edit.ing.record', :what => Description.human_name.titleize), :whom => "<em>#{h(@category.title)}</em>"), :where => h(@description.language.title) %></h1>
 <%= error_messages_for :description %>
 <% remote_form_for(:description, :url => category_description_path(@category, @description), :before => "tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true", :update => 'info', :html => { :method => :put}) do |f| %>
 <%= render :partial => 'form', :locals => {:f => f, :default_author_id => nil} %>

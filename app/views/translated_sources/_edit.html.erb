@@ -1,5 +1,4 @@
 <%= tagged_tinymce_script %>
-
 <% if @source.resource_type == 'Category'
      resource = Category.find(@source.resource_id)
      translated_path = category_source_translated_source_path(@category,@source,@translated_source)
@@ -9,37 +8,16 @@
      translated_path = category_description_source_translated_source_path(@category, resource, @source ,@translated_source)
      hash_destroy_path = hash_for_category_description_source_translated_source_path(:action => 'destroy')
    end %>
-<h1><%= "Editing Translation for <em>MMS ##{h(@source.mms_id)}, #{formated_mms_pages(@source)}</em> in #{h(@translated_source.language.title)}" %></h1>
+<h1><%= ts(:in, :what => t(:for, :what => t('edit.ing.record', :what => TranslatedSource.human_name), :whom => "<em>#{formated_mms_pages(@source)}</em>"), :where => h(@translated_source.language.title)) %></h1>
 <%= error_messages_for :translated_source %>
 <% remote_form_for(:translated_source, :url => translated_path, :before => "tinyMCE.triggerSave();document.getElementById(\'submit_button\').disabled = true;", :update => 'info', :html => { :method => :put}) do |f| %>
-<p>
-    <b>Language of Translation</b><br />
-<%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
-  </p>
-  <p>
-    <b>Translation</b><br />
-<%= f.text_area :title, :rows => 16, :cols => 50, :class => 'mceEditor' %>
-  </p>
-<%= f.hidden_field :source_id %>
-<%= f.hidden_field :creator_id %>
-  <p>
-   <%= link_to_remote 'Add new Author', :url => { :action => 'add_author', :source_id => @source}, :update => 'update_div', :position => 'before', :method => 'get' %>
-  </p>
-  <div id="authors_div">
-<% if !@translated_source.authors.empty? %>
-<%     for author in @translated_source.authors %>
-     <%=    render :partial => 'authors_selector', :locals => {:selected => author.id} %>   
-<%   end
-   end %>
-  </div>  
-
+<%= render :partial => 'translated_sources/form', :locals => {:f => f} %>
   <p>
   <div id="update_div">
   <%= submit_to_remote 'update_button','update translation', :url => translated_path, :update => 'info', :before => "tinyMCE.triggerSave();" %>
   </div> 
   </p>
 <% end %>
-
 <p>
 <% authorized_only hash_destroy_path do %>
 <%=  link_to_remote ts('delete.this'), :url => translated_path, :confirm => 'Are you sure?', :update => 'info', :method => :delete %> |

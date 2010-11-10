@@ -9,19 +9,19 @@
 <% end %>
 <% if !@category.translated_titles.empty? %>
      <p class="indented">
-     <b>Translations:</b>
+     <b><%= TranslatedTitle(:count => :many).human_name.titleize.s %>:</b>
 <%=  ( @category.translated_titles.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_translated_title_path) ? link_to_remote("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", {:url => edit_category_translated_title_path(@category, t), :update => 'info', :method => :get})  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>
 	 </p>
 <% end %>
 <%= render :partial => 'categories/info', :locals => {:category => @category} %>
 <p>&nbsp;</p>
-<%= display_if_not_blank 'ID', @category.id %>
-<%= display_if_not_blank 'URL', link_to(category_child_url(@main_category, @category), category_child_path(@main_category, @category)) %>
+<%= display_if_not_blank ts(:id, :what => Category.human_name), @category.id %>
+<%= display_if_not_blank ts(:url_for_reference), link_to(category_child_url(@main_category, @category), category_child_path(@main_category, @category)) %>
 <%= display_if_not_blank Category.human_attribute_name('cumulative').s, @category.cumulative? ? ts(:affirmation) : ts(:negation) %>
    <p id="form">
 <%   previous = false
      authorized_only hash_for_edit_category_child_path do %>
-<%=    link_to_remote 'Edit', :url => edit_category_child_path(@main_category, @category), :update => 'info', :method => :get %>
+<%=    link_to_remote ts('edit.this'), :url => edit_category_child_path(@main_category, @category), :update => 'info', :method => :get %>
 <%     previous = true
      end
      if @category.media_count==0 && @category.feature_count==0 && authorized?(hash_for_category_child_path(:action => 'destroy')) %>

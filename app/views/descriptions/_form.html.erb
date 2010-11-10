@@ -1,6 +1,6 @@
 <%= tagged_tinymce_script %>
 <p>
-    <b>Language of Description</b><br />
+    <b><%= ts :for, :what => ComplexScripts::Language.human_name.titleize, :whom => Description.human_name.titleize %></b><br />
 <%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
 </p>
 
@@ -15,7 +15,7 @@
 <%= f.hidden_field :category_id %>
 <%= f.hidden_field :creator_id %>
 <p>
-<%= link_to_remote 'Add new Author', :url => add_author_category_descriptions_path(@category), :update => 'update_div', :position => 'before', :method => 'get' %>
+<%= link_to_remote ts('add.record', :what => t('new.record', :what => Description.human_attribute_name(:author))), :url => add_author_category_descriptions_path(@category), :update => 'update_div', :position => 'before', :method => 'get' %>
 </p>
 <div id="authors_div">
 <% if default_author_id.nil? %>

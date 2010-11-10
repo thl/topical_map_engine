@@ -11,7 +11,6 @@ class HomeController < AclController
     else
       @categories = Category.published_roots
     end
-    
   end
 
   def change_language

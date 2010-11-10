@@ -1,34 +1,13 @@
-<h1><%= "Editing Translation for <em>#{h(@category.title)}</em> in #{h(@translated_title.language.title)}" %></h1>
+<h1><%= ts :in, :what => t(:for, :what => t('edit.ing.record', :what => TranslatedTitle.human_name.titleize), :whom => "<em>#{h(@category.title)}</em>"), :where => h(@translated_title.language.title) %></h1>
 <%= error_messages_for :translated_title %>
 <% remote_form_for(:translated_title, :url => category_translated_title_path(@category, @translated_title), :before => "document.getElementById(\'submit_button\').disabled = true;", :update => 'info', :html => { :method => :put}) do |f| %>
-  <p>
-    <b>Language of Translation</b><br />
-<%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
-  </p>
-  <p>
-    <b>Translation</b><br />
-<%= f.text_field :title, fixed_language_options(:lang => @translated_title.language.code) %>
-  </p>
-<%= f.hidden_field :category_id %>
-<%= f.hidden_field :creator_id %>
-  <p>
-   <%= link_to_remote 'Add new Author', :url => { :action => 'add_author', :category_id => @category}, :update => 'update_div', :position => 'before', :method => 'get' %>
-  </p>
-  <div id="authors_div">
-<% if !@translated_title.authors.empty? %>
-<%     for author in @translated_title.authors %>
-     <%=    render :partial => 'authors_selector', :locals => {:selected => author.id} %>   
-<%   end
-   end %>
-  </div>  
-
+<%= render :partial => 'translated_titles/form', :locals => {:f => f} %>
   <p>
   <div id="update_div">
     <%= submit_to_remote 'update_button','update translation', :url => category_translated_title_path(@category, @translated_title), :update => 'info' %>
   </div> 
   </p>
 <% end %>
-
 <p>
 <% authorized_only hash_for_category_translated_title_path(:action => 'destroy') do %>
 <%=  link_to_remote ts('delete.this'), :url => category_translated_title_path(@category, @translated_title), :confirm => 'Are you sure?', :update => 'info', :method => :delete %> |

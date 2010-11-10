@@ -3,7 +3,7 @@
 <p>
 <%= "(#{authorized?(hash_for_modify_title_category_path) ? link_to_remote("<i>#{ts(:english)}</i>", {:url => modify_title_category_path(category), :update => 'info', :method => :get}) : "<i>#{ts(:english)}</i>"})" %>                                                              
 <%  authorized_only hash_for_new_category_translated_title_path do %>
-<%=   submit_tag 'add translation' %>
+<%=   submit_tag ts('add.record', :what => TranslatedTitle.human_name) %>
 <%  end %>	
 <% end %>
 <p class="indented">

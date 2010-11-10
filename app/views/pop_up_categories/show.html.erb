@@ -1,4 +1,4 @@
 <%= render :partial => 'index', :locals => { :categories => @categories, :margin_depth => 0 } %>
 <p>
-<%= link_to 'Back to knowledge map', pop_up_category_children_path(@main_category) %>
+<%= link_to ts('back.to', :what => t('topical_map.this')), pop_up_category_children_path(@main_category) %>
 </p>
