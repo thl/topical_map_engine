@@ -21,7 +21,7 @@ class Category < ActiveRecord::Base
   has_many :translated_titles, :dependent => :destroy
   has_many :descriptions, :dependent => :destroy
   has_many :sources, :as => :resource 
-  acts_as_tree :order => 'title'
+  acts_as_tree :order => 'title' if Category.table_exists?
   include Tree
   
   def published_children
