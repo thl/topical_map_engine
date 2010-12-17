@@ -9,7 +9,7 @@
 <% end %>
 <% if !@category.translated_titles.empty? %>
      <p class="indented">
-     <b><%= TranslatedTitle(:count => :many).human_name.titleize.s %>:</b>
+     <b><%= TranslatedTitle.human_name(:count => :many).titleize.s %>:</b>
 <%=  ( @category.translated_titles.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_translated_title_path) ? link_to_remote("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", {:url => edit_category_translated_title_path(@category, t), :update => 'info', :method => :get})  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>
 	 </p>
 <% end %>
