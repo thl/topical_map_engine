@@ -17,11 +17,13 @@ class CategoriesController < AclController
       @categories = logged_in? ? Category.roots : Category.published_roots
       @tab_options ||= {}
       @tab_options[:entity] = Category.find(session[:current_category_id]) unless session[:current_category_id].blank?
+      puts 'catz0'
     else
       @tab_options ||= {}
       @tab_options[:entity] = @main_category
       session[:current_category_id] = @main_category.id
       @categories = logged_in? ? @main_category.children : @main_category.published_children
+      puts 'catz'
     end
     respond_to do |format|
       format.html do # index.html.erb
@@ -32,7 +34,10 @@ class CategoriesController < AclController
           render :action => 'index', :layout => 'multi_column'
         end
       end
-      format.xml  { render :xml => @categories }
+      format.xml do 
+  		@categories.collect {|cat| cat['children_count'] = cat.children.length }
+      	render :xml => @categories
+      end
       format.json { render :json => @categories.to_json }
       format.csv do
         if @main_category.nil?
@@ -88,7 +93,10 @@ class CategoriesController < AclController
             end
           end
         end
-        format.xml { render :xml => @category }
+        format.xml do
+			@category['children_count'] = @category.children.length
+        	render :xml => @category
+        end
         format.json  { render :json => @category.to_json }
       end
     end
