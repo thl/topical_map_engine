@@ -10,12 +10,20 @@ class DescriptionsController < AclController
   # GET /descriptions.xml
   def index
     redirect_to category_child_url(@main_category,@category)
+    #@descriptions = @category.descriptions
+    #respond_to do |format|
+    #  format.xml
+    #end
   end
 
   # GET /descriptions/1
   # GET /descriptions/1.xml
   def show
     redirect_to category_child_url(@main_category,@category)
+    #@description = Description.find(params[:id])
+    #respond_to do |format|
+    #  format.xml # { render :xml => @description }
+    #end
   end
 
   # GET /descriptions/new

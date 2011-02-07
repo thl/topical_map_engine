@@ -88,7 +88,7 @@ class CategoriesController < AclController
             end
           end
         end
-        format.xml { render :xml => @category }
+        format.xml { render :template => 'categories/show', :locals => { :category => @category, :with_children => false, :with_descriptions => true, :with_translated_titles => true, :only_with_features => false, :only_with_shapes => false } }
         format.json  { render :json => @category.to_json }
       end
     end
@@ -425,6 +425,8 @@ class CategoriesController < AclController
     param_id = params[:id]
     locals[:only_with_features] ||= false
     locals[:only_with_shapes] ||= false
+    locals[:with_descriptions] ||= false
+    locals[:with_translated_titles] ||= false
     if param_id.nil?
       categories = Category.published_roots
       if locals[:only_with_features]
