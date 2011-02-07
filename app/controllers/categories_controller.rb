@@ -6,7 +6,7 @@ class CategoriesController < AclController
   helper :sources
   def initialize
     super
-    @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/all_with_shapes', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/contracted', 'categories/expanded', 'categories/iframe', 'categories/list', 'categories/list_with_features', 'categories/list_with_shapes']
+    @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/all_with_shapes', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/contracted', 'categories/expanded', 'categories/iframe', 'categories/list', 'categories/list_with_features', 'categories/list_with_shapes', 'categories/detailed']
   end
   
   
@@ -17,11 +17,13 @@ class CategoriesController < AclController
       @categories = logged_in? ? Category.roots : Category.published_roots
       @tab_options ||= {}
       @tab_options[:entity] = Category.find(session[:current_category_id]) unless session[:current_category_id].blank?
+      puts 'catz0'
     else
       @tab_options ||= {}
       @tab_options[:entity] = @main_category
       session[:current_category_id] = @main_category.id
       @categories = logged_in? ? @main_category.children : @main_category.published_children
+      puts 'catz'
     end
     respond_to do |format|
       format.html do # index.html.erb
@@ -32,7 +34,10 @@ class CategoriesController < AclController
           render :action => 'index', :layout => 'multi_column'
         end
       end
-      format.xml  { render :xml => @categories }
+      format.xml do 
+  		@categories.collect {|cat| cat['children_count'] = cat.children.length }
+      	render :xml => @categories
+      end
       format.json { render :json => @categories.to_json }
       format.csv do
         if @main_category.nil?
@@ -88,7 +93,10 @@ class CategoriesController < AclController
             end
           end
         end
-        format.xml { render :template => 'categories/show', :locals => { :category => @category, :with_children => false, :with_descriptions => true, :with_translated_titles => true, :only_with_features => false, :only_with_shapes => false } }
+        format.xml do
+          @category['children_count'] = @category.children.size
+        	render :xml => @category
+        end
         format.json  { render :json => @category.to_json }
       end
     end
@@ -334,6 +342,10 @@ class CategoriesController < AclController
     @main_category = Category.find(params[:main_category_id])
     render :partial => 'contracted', :locals => { :contracted => node }, :layout => false
   end
+
+  def detailed
+    api_extended_render :with_descriptions => true, :with_translated_titles => true
+  end
   
   def all
     api_extended_render :with_children => true, :only_with_features => false
@@ -425,6 +437,7 @@ class CategoriesController < AclController
     param_id = params[:id]
     locals[:only_with_features] ||= false
     locals[:only_with_shapes] ||= false
+    locals[:with_children] ||= false
     locals[:with_descriptions] ||= false
     locals[:with_translated_titles] ||= false
     if param_id.nil?
