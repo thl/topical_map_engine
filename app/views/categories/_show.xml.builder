@@ -1,6 +1,6 @@
 xml.category do
   xml.id(category.id, :type => 'id')
-  xml.title(category.title, :type => 'string')
+  xml.title(category.title)
   if with_children
     categories = category.published_children
     if only_with_features || only_with_shapes
