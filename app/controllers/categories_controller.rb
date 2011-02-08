@@ -1,7 +1,7 @@
 class CategoriesController < AclController
   before_filter :find_main_category
   helper :pop_up_categories
-  caches_page :index, :show, :all, :all_with_features, :all_with_shapes, :list, :list_with_features, :list_with_shapes, :if => :api_response?.to_proc
+  caches_page :index, :show, :detailed, :all, :all_with_features, :all_with_shapes, :list, :list_with_features, :list_with_shapes, :if => :api_response?.to_proc
   cache_sweeper :category_sweeper, :only => [:create, :update, :destroy]
   helper :sources
   def initialize

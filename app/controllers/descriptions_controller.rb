@@ -1,5 +1,6 @@
 class DescriptionsController < AclController
   before_filter :find_category
+  cache_sweeper :description_sweeper, :only => [:create, :update, :destroy]
    
   def initialize
      super

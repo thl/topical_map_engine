@@ -1,5 +1,6 @@
 class TranslatedTitlesController < AclController
   before_filter :find_category
+  cache_sweeper :translated_title_sweeper, :only => [:create, :update, :destroy]
   
   # GET /translated_titles
   # GET /translated_titles.xml

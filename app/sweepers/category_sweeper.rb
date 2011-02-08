@@ -36,7 +36,7 @@ class CategorySweeper < ActionController::Caching::Sweeper
     expire_ancestor_cache(category, category.ancestors)
     FORMATS.each do |format|
       options[:format] = format
-      paths = [category_url(category, options), all_categories_url(options), list_categories_url(options)]
+      paths = [category_url(category, options), detailed_category_url(category, options), all_categories_url(options), list_categories_url(options)]
       paths << categories_url(options) if category.parent.nil?
       paths += [list_with_features_categories_url(options), all_with_features_categories_url(options)] if category.feature_count>0
       paths += [list_with_shapes_categories_url(options), all_with_shapes_categories_url(options)] if category.shape_count>0

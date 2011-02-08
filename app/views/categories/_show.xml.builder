@@ -16,12 +16,12 @@ xml.category do
   end
   if with_descriptions
     xml.descriptions(:type => 'array') do
-      category.descriptions.each{ |description| xml << render(:partial => 'descriptions/show', :locals => {:description => description}) }
+      category.descriptions.each{ |description| xml << render(:partial => 'descriptions/show.xml.builder', :locals => {:description => description}) }
     end
   end
   if with_translated_titles
     xml.translated_titles(:type => 'array') do
-      category.translated_titles.each{ |translated_title| xml << render(:partial => 'translated_titles/show', :locals => {:translated_title => translated_title}) }
+      category.translated_titles.each{ |translated_title| xml << render(:partial => 'translated_titles/show.xml.builder', :locals => {:translated_title => translated_title}) }
     end
   end
 end
