@@ -12,7 +12,7 @@ xml.category do
     elsif only_with_shapes
       categories =  categories.find_all{|c| c.shape_count>0}
     end
-    xml << render(:partial => 'index.xml.builder', :locals => {:categories => categories, :only_with_features => only_with_features, :only_with_shapes => only_with_shapes}) if !categories.empty?
+    xml << render(:partial => 'index.xml.builder', :locals => {:categories => categories, :with_descriptions => with_descriptions, :with_translated_titles => with_translated_titles, :only_with_features => only_with_features, :only_with_shapes => only_with_shapes}) if !categories.empty?
   end
   if with_descriptions
     xml.descriptions(:type => 'array') do

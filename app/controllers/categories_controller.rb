@@ -512,7 +512,7 @@ class CategoriesController < AclController
   end
   
   def api_response?
-    request.format.json? || request.format.xml?
+    request.format.json? || request.format.xml? # || request.format.csv?
   end
   
 #  def duplicate_indices_by_key(array, key)

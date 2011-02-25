@@ -16,5 +16,15 @@ namespace :kmaps do
     else
       git_installers.each { |plugin, url| system "script/plugin install #{url}" if !File.exists?(File.join(RAILS_ROOT, "vendor/plugins/#{plugin}")) }
     end
-  end  
+  end
+  
+  namespace :cache do
+    desc "Deletes view cache"
+    task :view_cleanup do |t|
+      Dir.chdir('public') do
+        ['categories', 'documents', 'media_objects', 'places'].each{ |folder| `rm -rf #{folder}` }
+        ['json', 'xml'].each{ |ext| `rm categories.#{ext}` }
+      end
+    end
+  end
 end
