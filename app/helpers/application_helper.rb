@@ -36,7 +36,7 @@ module ApplicationHelper
   
   def formated_mms_pages(s)
     str = "#{Source.human_attribute_name(:mms_id).s} \##{s.mms_id}" 
-    pages_str = s.start_page
+    pages_str = s.start_page.to_s
     if !s.start_line.nil?
       pages_str << ".#{s.start_line}"
     end
