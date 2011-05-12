@@ -1,12 +1,12 @@
 class CategoriesController < AclController
   before_filter :find_main_category
   helper :pop_up_categories
-  caches_page :index, :show, :all, :all_with_features, :all_with_shapes, :list, :list_with_features, :list_with_shapes, :if => :api_response?.to_proc
+  caches_page :index, :show, :detailed, :all, :all_with_features, :all_with_shapes, :list, :list_with_features, :list_with_shapes, :if => :api_response?.to_proc
   cache_sweeper :category_sweeper, :only => [:create, :update, :destroy]
   helper :sources
   def initialize
     super
-    @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/all_with_shapes', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/contracted', 'categories/expanded', 'categories/iframe', 'categories/list', 'categories/list_with_features', 'categories/list_with_shapes']
+    @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/all_with_shapes', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/contracted', 'categories/expanded', 'categories/iframe', 'categories/list', 'categories/list_with_features', 'categories/list_with_shapes', 'categories/detailed']
   end
   
   
@@ -94,7 +94,7 @@ class CategoriesController < AclController
           end
         end
         format.xml do
-			@category['children_count'] = @category.children.length
+          @category['children_count'] = @category.children.size
         	render :xml => @category
         end
         format.json  { render :json => @category.to_json }
@@ -342,6 +342,10 @@ class CategoriesController < AclController
     @main_category = Category.find(params[:main_category_id])
     render :partial => 'contracted', :locals => { :contracted => node }, :layout => false
   end
+
+  def detailed
+    api_extended_render :with_descriptions => true, :with_translated_titles => true
+  end
   
   def all
     api_extended_render :with_children => true, :only_with_features => false
@@ -433,6 +437,9 @@ class CategoriesController < AclController
     param_id = params[:id]
     locals[:only_with_features] ||= false
     locals[:only_with_shapes] ||= false
+    locals[:with_children] ||= false
+    locals[:with_descriptions] ||= false
+    locals[:with_translated_titles] ||= false
     if param_id.nil?
       categories = Category.published_roots
       if locals[:only_with_features]
@@ -505,7 +512,7 @@ class CategoriesController < AclController
   end
   
   def api_response?
-    request.format.json? || request.format.xml?
+    request.format.json? || request.format.xml? # || request.format.csv?
   end
   
 #  def duplicate_indices_by_key(array, key)

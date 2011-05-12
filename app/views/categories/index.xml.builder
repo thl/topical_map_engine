@@ -1,2 +1,2 @@
 xml.instruct!
-xml << render(:partial => 'index.xml.builder', :locals => {:categories => categories, :only_with_features => only_with_features, :only_with_shapes => only_with_shapes})
+xml << render(:partial => 'index.xml.builder', :locals => {:categories => categories, :with_descriptions => with_descriptions, :with_translated_titles => with_translated_titles, :only_with_features => only_with_features, :only_with_shapes => only_with_shapes})

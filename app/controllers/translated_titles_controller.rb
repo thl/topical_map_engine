@@ -1,5 +1,6 @@
 class TranslatedTitlesController < AclController
   before_filter :find_category
+  cache_sweeper :translated_title_sweeper, :only => [:create, :update, :destroy]
   
   # GET /translated_titles
   # GET /translated_titles.xml
@@ -7,7 +8,7 @@ class TranslatedTitlesController < AclController
     @translated_titles = @category.translated_titles
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @translated_titles }
+      format.xml { render :xml => @translated_titles }
     end
   end
 
@@ -17,7 +18,7 @@ class TranslatedTitlesController < AclController
     @translated_title = TranslatedTitle.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @translated_title }
+      format.xml { render :xml => @translated_title }
     end
   end
 
