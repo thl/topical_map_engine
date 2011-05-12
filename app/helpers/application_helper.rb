@@ -1,5 +1,12 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+
+  # overrides link_to_remote in vendor/rails/action_pack/lib/action_view/prototype_helper.rb
+  def link_to_remote(name, options = {}, html_options = {})
+    html_options.merge!({:href => url_for(options[:url])}) if ( html_options[:href].nil? || html_options[:href].blank? ) && !options[:url].blank?
+    link_to_function(name, remote_function(options), html_options || options.delete(:html))
+  end
+
   def side_column_links
     str = "<h3 class=\"head\">#{link_to 'Knowledge Maps', '#nogo', {:hreflang => 'Manage hierarchical controlled vocabulary to be used by other applications.'}}</h3>\n<ul>\n"
     str += "<li>#{link_to 'Home', root_path, {:hreflang => 'Lists all categories.'}}</li>\n"
