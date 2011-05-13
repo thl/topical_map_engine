@@ -74,12 +74,13 @@ class CategoriesController < AclController
     else
       respond_to do |format|
         format.html do
+          pu = params[:parent_url]
           if @main_category.nil?
             #render :action => 'main_show'
-          	redirect_to category_children_url(@category)
+          	redirect_to category_children_url(@category) << ( pu.nil? ? '' : "?parent_url=" << pu )
           else # show.html.erb
             if @category == @main_category
-              redirect_to category_children_url(@main_category)
+              redirect_to category_children_url(@main_category) << ( pu.nil? ? '' : "?parent_url=" << pu )
             else
               @ancestors_for_current = @category.ancestors.collect{|c| c.id}
               @ancestors_for_current << @category.id
