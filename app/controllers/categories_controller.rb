@@ -76,7 +76,7 @@ class CategoriesController < AclController
         format.html do
           if @main_category.nil?
             #render :action => 'main_show'
-          	redirect_to category_children_url(@category)
+            redirect_to category_child_url(@category.root, @category)
           else # show.html.erb
             if @category == @main_category
               redirect_to category_children_url(@main_category)
