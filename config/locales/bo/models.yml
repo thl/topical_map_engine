@@ -1,0 +1,42 @@
+# Localization file for Tibetan of kmaps engine.
+bo:
+    activerecord:
+        # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
+        models:
+            category:
+                one: 'རྣམ་གྲངས།'
+                other: 'སྣ་ཁ།'
+            description: 'འཕྱོར་འབྲི།'
+            source: 'ཆ་འཕྲིན་ཡོང་ཁུངས།'
+            translated_source: 'བསྒྱུར་ཐོག་མ།'
+            translated_title:
+                one: 'ཡིག་བསྒྱུར།'
+                other: 'ཡིག་བསྒྱུར།'
+        # Attribute names will be titleized.
+        attributes:
+            category:
+                cumulative: 'གསོག་ཉར་བྱས་པ་རེད།'
+                curator: 'དོ་དམ་པ།'
+                published: 'དཔེ་བསྐྲུན་ཟིན་པ།'
+                title: 'སྣ་ཁ་སོ་སོའི་མིང་།'
+            description:
+                author: 'རྩོམ་པ་པོ།'
+                content: 'འབྲི་བ།'
+                title: 'ཁ་བྱང་།'
+            source:
+                end_line: 'མཇུག་སྒྲིལ་ཐིག'
+                end_page: 'ཞབས་ཤོག'
+                language_id: 'ལེའུ་སོ་སོའི་བརྗོད་ཚིག'
+                mms_id: 'MMSཨང་གྲངས།'
+                note: 'འགྲེལ་བཤད།'
+                passage: 'ལེའུ།'
+                start_line: 'ཐིག་ཕྲེང་དང་པོ།'
+                start_page: 'ངོས་དང་པོ།'
+                volume_number: 'རྒྱུག་ཨང་།'
+            translated_source:
+                author: 'རྩོམ་པ་པོ།'
+                language_id: 'བསྒྱུར་ཡིག་གི་ཡི་གེ།'
+                title: 'བསྒྱུར་ཡིག་གི་ཡིག་རིགས།'
+            translated_title:
+                author: 'རྩོམ་པ་པོ།'
+                language_id: 'བསྒྱུར་ཡིག་གི་ཡིག་རིགས།'

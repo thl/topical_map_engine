@@ -1,35 +1,34 @@
-# Views localization file for Dzongkha.
-# View messages are capitalized.
+# Localization file for Dzongkha of kmaps engine.
 dz:
     by:
-        curated: 'Curated by'
-        entered: 'Entered by'
-    document: 'ཡིག་ཆ་'
-        # one: 
-        # other:
-    medium: 'བརྡ་སྟོན་ལམ་'
-        # one
-        # other
+        curated: 'རྒྱུན་སྐྱོང་འཐབ་མི།'
+        entered: 'བཙུགས་མི།'
+    document:
+        one: 'ཡིག་ཆ།'
+        other: 'ཡིག་ཆ་ཚུ།'
+    medium:
+        one: 'བརྡ་སྟོན་ལམ།'
+        other: 'བརྡ་སྟོན་ལམ་ཚུ།'
     metadata:
-        for: 'Metadata for {{what}}'
-    picture: 'པར་'
-        # one: 
-        # other:
+        for: ' {{what}} གི་དོན་ལུ་ མེ་ཊ་གནད་སྡུད།'
+    picture:
+        one: 'པར།'
+        other: 'པར་ཚུ།'
     place:
-        one: 'Place'
-        other: 'Places'
+        one: 'ས་གནས།'
+        other: 'ས་གནས་ཚུ།'
     primary_description:
         select:
-            ing: 'Selecting Primary'
-            message: 'Select Primary Description for {{what}}'
-        set: 'Set primary description'
-    subcategory: 'Subcategory'
+            ing: 'གཞི་རིམ་སེལ་འཐུ་འབད་དོ།'
+            message: ' {{what}} གི་དོན་ལུ་ གཞི་རིམ་འགྲེལ་བཤད་སེལ་འཐུ་འབད་ནི་སྨོ།'
+        set: 'གཞི་རིམ་འགྲེལ་བཤད་གཞི་སྒྲིག་འབད།'
+    subcategory: 'ཡན་ལག་དབྱེ་རིམ།'
     topical_map:
-        for: '{{what}} Knowledge Map'
-        of: '{{what}} Knowledge Map'
+        for: '{{what}} ཤེས་ཡོན་འཆར་གཞི།'
+        of: '{{what}} གི་ཤེས་ཡོན་འཆར་གཞི།'
         this:
-            one: 'Knowledge map'
-            other: 'Knowledge maps'
-    video: 'བརྙན་སྟོན་'
-        # one:
-        # other:
+            one: 'ཤེས་ཡོན་འཆར་གཞི།'
+            other: 'ཤེས་ཡོན་འཆར་གཞི་ཚུ།'
+    video:
+        one: 'གློག་བརྙན་མགོ་མིང་།'
+        other: 'གློག་བརྙན་མགོ་མིང་ཚུ།'

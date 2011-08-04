@@ -1,0 +1,34 @@
+# Localization file for Chinese of kmaps engine.
+zh:
+    by:
+        curated: '策划者'
+        entered: '输入者'
+    document:
+        one: '文档'
+        other: '文档(复数)'
+    medium:
+        one: '中等'
+        other: '媒体'
+    metadata:
+        for: '元数据'
+    picture:
+        one: '图片'
+        other: '图片(复数)'
+    place:
+        one: '地点'
+        other: '地点(复数)'
+    primary_description:
+        select:
+            ing: '选择主要的'
+            message: '选择{{what}}的主要描述'
+        set: '设置主要描述'
+    subcategory: '次类别'
+    topical_map:
+        for: '{{what}}知识地图'
+        of: '{{what}}的知识地图'
+        this:
+            one: '知识地图'
+            other: '知识地图(复数)'
+    video:
+        one: '影片标题'
+        other: '影片标题(复数)'

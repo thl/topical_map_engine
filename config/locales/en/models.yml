@@ -1,4 +1,4 @@
-# Model localization file for English.
+# Localization file for English of kmaps engine.
 en:
     activerecord:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
