@@ -1,0 +1,42 @@
+# Localization file for Chinese of kmaps engine.
+zh:
+    activerecord:
+        # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
+        models:
+            category:
+                one: '类别'
+                other: '类别(复数)'
+            description: '描述'
+            source: '信息来源'
+            translated_source: '源翻译'
+            translated_title:
+                one: '翻译'
+                other: '翻译'
+        # Attribute names will be titleized.
+        attributes:
+            category:
+                cumulative: '是累积的'
+                curator: '馆长'
+                published: '已出版'
+                title: '类别名称'
+            description:
+                author: '作者'
+                content: '描述'
+                title: '标题'
+            source:
+                end_line: '结束行'
+                end_page: '尾页'
+                language_id: '章节语言'
+                mms_id: 'MMS编号'
+                note: '注释'
+                passage: '章节'
+                start_line: '起始行'
+                start_page: '起始页'
+                volume_number: '卷号'
+            translated_source:
+                author: '作者'
+                language_id: '译文文字'
+                title: '译文语种'
+            translated_title:
+                author: '作者'
+                language_id: '译文语种'

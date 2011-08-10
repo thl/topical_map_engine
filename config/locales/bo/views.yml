@@ -1,0 +1,34 @@
+# Localization file for Tibetan of kmaps engine.
+bo:
+    by:
+        curated: 'ཇུས་འགོད་པ།'
+        entered: 'ནང་འཇུག་མཁན།'
+    document:
+        one: 'ཡིག་ཆ།'
+        other: 'ཡིག་ཆ་དག'
+    medium:
+        one: 'འབྲིང་རིམ།'
+        other: 'སྨྱན་གཟུགས།'
+    metadata:
+        for: 'རྒྱུ་གཞི་གྲངས།'
+    picture:
+        one: 'པར་རིས།'
+        other: 'པར་རིས་དག'
+    place:
+        one: 'ས་གནས།'
+        other: 'ས་གནས་དག'
+    primary_description:
+        select:
+            ing: 'གཙོ་གནད་འདེམས་པ།'
+            message: '{{what}}འདམས་པའི་ཞིབ་འབྲི་གཙོ་བོ།'
+        set: 'ཞིབ་འབྲི་གཙོ་བོར་སྒྲིག་བཀོད་བྱས་པ།'
+    subcategory: 'སྣ་ཁ་ཕལ་པ།'
+    topical_map:
+        for: '{{what}}ཤེས་བྱའི་ས་བཀྲ།'
+        of: '{{what}}ཡི་ཤེས་བྱའི་ས་བཀྲ།'
+        this:
+            one: 'ཤེས་བྱའི་ས་བཀྲ།'
+            other: 'ཤེས་བྱའི་ས་བཀྲ་དག'
+    video:
+        one: 'གློག་བརྙན་གྱི་མིང་།'
+        other: 'གློག་བརྙན་གྱི་མིང་དག'

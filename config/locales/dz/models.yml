@@ -1,42 +1,42 @@
-# Model localization file for Dzongkha.
+# Localization file for Dzongkha of kmaps engine.
 dz:
     activerecord:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
         models:
             category:
-                one: 'category'
-                other: 'categories'
-            description: 'description'
-            source: 'source'
-            translated_source: 'source translation'
+                one: 'དབྱེ་རིམ།'
+                other: 'དབྱེ་རིམ་ཚུ།'
+            description: 'འགྲེལ་བཤད།'
+            source: 'འབྱུང་ས།'
+            translated_source: 'འབྱུང་ས་སྐད་བསྒྱུར།'
             translated_title:
-                one: 'translation'
-                other: 'translations'
+                one: 'སྐད་བསྒྱུར།'
+                other: 'སྐད་བསྒྱུར་ཚུ།'
         # Attribute names will be titleized.
         attributes:
             category:
-                cumulative: 'Is Cumulative'
-                curator: 'Curator'
-                published: 'Is Published'
-                title: 'Category Name'
+                cumulative: 'རིམ་གྱིས་བསགས་བསགཔ་ཨིན།'
+                curator: 'འགྲེམ་སྟོན་ཅ་གཉེར།'
+                published: 'དཔེ་བསྐྲུན་འབད་ཡོདཔ།'
+                title: 'དབྱེ་རིམ་མིང་།'
             description:
-                author: 'Author'
-                content: 'Description'
-                title: 'Title'
+                author: 'རྩོམ་པ་པོ།'
+                content: 'འགྲེལ་བཤད།'
+                title: 'མགོ་མིང་།'
             source:
-                end_line: 'End Line'
-                end_page: 'End Page'
-                language_id: 'Language of Passage'
-                mms_id: 'MMS ID'
-                note: 'Note'
-                passage: 'Passage'
-                start_line: 'Start Line'
-                start_page: 'Start Page'
-                volume_number: 'Volume Number'
+                end_line: 'མཇུག་ཐིག'
+                end_page: 'མཇུག་ཤོག'
+                language_id: 'ཡིག་རྒྱུགས་ལེའུ་ཚན་སྐད་ཡིག'
+                mms_id: 'ཨེམ་ཨེམ་ཨེསི་ ཨའི་ཌི།'
+                note: 'དྲན་འཛིན།'
+                passage: 'ཡིག་རྒྱུགས་ལེའུ་ཚན།'
+                start_line: 'འགོ་ཐིག'
+                start_page: 'འགོ་ཤོག'
+                volume_number: 'གླེགས་བམ་ཨང་།'
             translated_source:
-                author: 'Author'
-                language_id: 'Language of Translation'
-                title: 'Translation'
+                author: 'རྩོམ་པ་པོ།'
+                language_id: 'སྐད་བསྒྱུར་སྐད་ཡིག'
+                title: 'སྐད་བསྒྱུར།'
             translated_title:
-                author: 'Author'                
-                language_id: 'Language of Translation'
+                author: 'རྩོམ་པ་པོ།'
+                language_id: 'སྐད་བསྒྱུར་སྐད་ཡིག'

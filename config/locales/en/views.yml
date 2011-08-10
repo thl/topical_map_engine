@@ -1,5 +1,4 @@
-# Views localization file for English.
-# View messages are capitalized.
+# Localization file for English of kmaps engine.
 en:
     by:
         curated: 'Curated by'
