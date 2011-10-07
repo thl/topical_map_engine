@@ -5,7 +5,7 @@
 <% remote_form_for(:category, :url => category_children_path(@main_category), :before => "tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true") do |f| %>
 <%=  render :partial => 'form', :locals => {:changing_parent_allowed => false, :f => f, :default_curator_id => nil} %>
      <p>
-<%=    globalized_submit_tag 'create.this' %>
+<%=    globalized_submit_tag 'creat.e.this' %>
      </p>
 <% end %>
 <p><%= link_to_remote ts('cancel.record', :what => t('new.this')), :url => category_child_path(@main_category, @category.parent), :method => 'get' %></p>

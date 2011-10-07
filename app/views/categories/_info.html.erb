@@ -5,7 +5,7 @@
 	 user = category.creator 
 	 screen_name = user.screen_name 
 	 person = user.person %>
-<%=	 display_if_not_blank ts('by.entered'), "#{person.nil? ? screen_name : link_to(h(screen_name), person_user_path(person))} (#{ts('update.d', :when => h(category.updated_at.to_date.to_formatted_s(:long)))})" %>
+<%=	 display_if_not_blank ts('by.entered'), "#{person.nil? ? screen_name : link_to(h(screen_name), person_user_path(person))} (#{ts('update.d.record', :when => h(category.updated_at.to_date.to_formatted_s(:long)))})" %>
 <% end %>
 <%  if !category.sources.empty? %>
       <div id='catsources_div' class='padded'>

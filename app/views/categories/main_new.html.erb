@@ -4,7 +4,7 @@
 form_for(@category) do |f| %>
 <%=  render :partial => 'form', :locals => {:changing_parent_allowed => false, :f => f, :default_curator_id => session[:default_curator_id]} %>
     <p>
-<%=  globalized_submit_tag 'create.this' %>
+<%=  globalized_submit_tag 'creat.e.this' %>
     </p>
 <% end %>
 <p><%= link_to ts('cancel.this'), root_path %></p>

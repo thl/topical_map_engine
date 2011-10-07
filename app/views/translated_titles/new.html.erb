@@ -3,7 +3,7 @@
 <% form_for(:translated_title, :url => category_translated_titles_path(@category)) do |f| %>
 <%= render :partial => 'form', :locals => {:f => f} %>
   <p>
-    <%= f.submit te('create.record', :what => TranslatedTitle.human_name) %>
+    <%= f.submit te('creat.e.record', :what => TranslatedTitle.human_name) %>
   </p>
 <% end %>
 <p>

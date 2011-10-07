@@ -8,7 +8,7 @@
 <%      authors = d.authors
         language = d.language %>
         <b><%= ts :according_to, :whom => authors.empty? ? @category.creator.screen_name : join_with_and(d.authors.collect{|a| a.fullname}) %></b>
-(<%= "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
+(<%= "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d.record', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
         </p>
 <%    end %>
 <p><%= globalized_submit_tag 'primary_description.set' %></p>

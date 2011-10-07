@@ -9,7 +9,7 @@
 <%   remote_form_for(:source, :url => path, :before => "tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true;", :update => 'info') do |f| %>
 <%=  render :partial => 'form', :locals => {:f => f} %>
      <p>
-<%=    submit_tag te('create.record', :what => Source.human_name.capitalize), language_options(:disabled_with => 'Posting...') %>
+<%=    submit_tag te('creat.e.record', :what => Source.human_name.capitalize), language_options(:disabled_with => 'Posting...') %>
      </p>
 <% end %>
 <p>
