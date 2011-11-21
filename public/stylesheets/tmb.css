@@ -80,7 +80,7 @@ ul.main_list
 li.unpublished { color: #989898;}
 
 .descriptions_div ul {list-style-type:square;margin-left:13px;}
-.descriptions_div ol, .descriptions_div ul{padding-left:2em; margin-left:15px;}
+.descriptions_div ol, .descriptions_div ul{padding-left:2em; margin-left:15px;font-size: 1.32em;}
 .descriptions_div ol li, .descriptions_div ul li{margin-bottom:0px}
 .descriptions_div ul li {margin-left:2px;}
 
