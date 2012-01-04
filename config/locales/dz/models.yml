@@ -15,9 +15,12 @@ dz:
         # Attribute names will be titleized.
         attributes:
             category:
+                child: 'Subject Division'
                 cumulative: 'རིམ་གྱིས་བསགས་བསགཔ་ཨིན།'
                 curator: 'འགྲེམ་སྟོན་ཅ་གཉེར།'
+                parent: 'Parent Subject'
                 published: 'དཔེ་བསྐྲུན་འབད་ཡོདཔ།'
+                root: 'Master Subject'
                 title: 'དབྱེ་རིམ་མིང་།'
             description:
                 author: 'རྩོམ་པ་པོ།'

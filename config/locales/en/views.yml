@@ -27,8 +27,8 @@ en:
         for: '{{what}} Knowledge Map'
         of: 'Knowledge Map of {{what}}'
         this:
-            one: 'Knowledge map'
-            other: 'Knowledge maps'
+            one: 'Knowledge Map of Subjects'
+            other: 'Knowledge Maps of Subjects'
     video:
         one: 'Video title'
         other: 'Video titles'

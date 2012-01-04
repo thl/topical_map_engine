@@ -15,9 +15,12 @@ bo:
         # Attribute names will be titleized.
         attributes:
             category:
+                child: 'Subject Division'
                 cumulative: 'གསོག་ཉར་བྱས་པ་རེད།'
                 curator: 'དོ་དམ་པ།'
+                parent: 'Parent Subject'
                 published: 'དཔེ་བསྐྲུན་ཟིན་པ།'
+                root: 'Master Subject'
                 title: 'སྣ་ཁ་སོ་སོའི་མིང་།'
             description:
                 author: 'རྩོམ་པ་པོ།'

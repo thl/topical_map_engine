@@ -4,8 +4,8 @@ en:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
         models:
             category:
-                one: 'category'
-                other: 'categories'
+                one: 'subject'
+                other: 'subjects'
             description: 'description'
             source: 'source'
             translated_source: 'source translation'
@@ -15,9 +15,12 @@ en:
         # Attribute names will be titleized.
         attributes:
             category:
+                child: 'Subject Division'
                 cumulative: 'Is Cumulative'
                 curator: 'Curator'
+                parent: 'Parent Subject'
                 published: 'Is Published'
+                root: 'Master Subject'
                 title: 'Category Name'
             description:
                 author: 'Author'

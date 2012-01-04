@@ -15,9 +15,12 @@ zh:
         # Attribute names will be titleized.
         attributes:
             category:
+                child: 'Subject Division'
                 cumulative: '是累积的'
                 curator: '馆长'
+                parent: 'Parent Subject'
                 published: '已出版'
+                root: 'Master Subject'
                 title: '类别名称'
             description:
                 author: '作者'
