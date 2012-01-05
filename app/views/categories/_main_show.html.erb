@@ -1,5 +1,5 @@
 <% form_remote_tag(:url => new_category_translated_title_path(category), :update => 'info', :method => :get) do %>
-<h1><%= "#{h(category.title.pluralize)}" %></h1>
+<h1><%= "#{h(category.title)}" %></h1>
 <p>
 <%= "(#{authorized?(hash_for_modify_title_category_path) ? link_to_remote("<i>#{ts(:english)}</i>", {:url => modify_title_category_path(category), :update => 'info', :method => :get}) : "<i>#{ts(:english)}</i>"})" %>                                                              
 <%  authorized_only hash_for_new_category_translated_title_path do %>
@@ -28,7 +28,7 @@
     end %>
 <%= '|' if previous %>
 <span id='unframe'><%= link_to ts('home.for', :what => t('topical_map.this', :count => :many)), root_path %> |</span>
-<%= link_to ts('home.for', :what => h(category.title.pluralize)), category_children_path(category) %>
+<%= link_to ts('home.for', :what => h(category.title)), category_children_path(category) %>
     <script type="text/javascript">scrollTo(0,0);</script>
 | <%= link_to 'Export to CSV', category_children_path(category, :format => 'csv') %>
 </p>

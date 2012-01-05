@@ -1,6 +1,6 @@
 <div id="container-right-5050" class="container-right-5050">
   <div class="shell-2">
-    <h1><%= ts 'topical_map.for', :what => h(@main_category.title.pluralize) %></h1>
+    <h1><%= ts 'topical_map.for', :what => h(@main_category.title) %></h1>
 <%  base_language_only do
       authorized_only hash_for_new_category_child_path do %>
 <%      form_remote_tag :url => new_category_child_path(@main_category), :update => 'info', :method => :get do %>

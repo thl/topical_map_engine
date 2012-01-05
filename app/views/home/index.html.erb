@@ -14,9 +14,9 @@
       <ul class='main_list'>
 <%      for category in @categories do %>
 <%        if category.published? %>
-            <li><%= link_to h(category.title.pluralize), category_children_path(category) %></li>
+            <li><%= link_to h(category.title), category_children_path(category) %></li>
 <%        else %>
-            <li class='unpublished'><%= link_to h(category.title.pluralize), category_children_path(category) %></li>
+            <li class='unpublished'><%= link_to h(category.title), category_children_path(category) %></li>
 <%        end %>            
 <%        if row>col_size %>
       </ul>
