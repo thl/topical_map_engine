@@ -1,0 +1,9 @@
+<h1><%= ts 'new.record', :what => Blurb.human_name.titleize %></h1>
+<% form_for(@blurb) do |f| %>
+<%=  f.error_messages %>
+<%=  render :partial => 'form', :locals => {:f => f} %>
+     <p><%= globalized_submit_tag 'creat.e.this' %></p>
+<% end %>
+<p>&nbsp;<br/>
+<%= link_to ts('cancel.record', :what => t('new.this')), blurbs_path %> |
+<%= link_to ts('back.to', :what => t('home.for', :what => t('topical_map.this', :count => :many))), root_path %>

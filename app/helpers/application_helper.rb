@@ -19,6 +19,7 @@ module ApplicationHelper
     authorized_only(hash_for_people_path) { str += "<li>#{link_to 'People', people_path, {:hreflang => 'Manage people.'}}</li>\n" }
     authorized_only(hash_for_roles_path) { str += "<li>#{link_to 'Roles', roles_path, {:hreflang => 'Manage roles and their permissions.'}}</li>\n" }
     authorized_only(hash_for_permissions_path) { str += "<li>#{link_to 'Permissions', permissions_path, {:hreflang => 'Manage permissions and their descriptions.'}}</li>\n" }
+    authorized_only(hash_for_blurbs_path) { str += "<li>#{link_to 'Blurbs', blurbs_path, {:hreflang => 'Manage blurbs.'}}</li>\n" }
     str += "</ul>"
     return str
   end

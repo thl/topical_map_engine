@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   #map.resources :descriptions  # map.resources :tasks, :collection => {:create_file => :post}, :new => {:file => :get}
+  map.resources :blurbs
   map.resources :pop_up_categories, :member => {:expand => :get, :contract => :get}
   map.resources :categories, :member => {:modify_title => :get, :update_primary_description => :put, :set_primary_description => :get, :all => :get, :all_with_features => :get, :all_with_shapes => :get, :list => :get, :list_with_features => :get, :list_with_features => :get, :list_with_shapes => :get, :detailed => :get}, :collection => {:add_curator => :get, :all => :get, :all_with_features => :get, :all_with_shapes => :get, :list => :get, :list_with_features => :get, :list_with_shapes => :get} do |category|
     category.resources :children, :controller => 'categories', :member => {:expand => :get, :contract => :get, :modify_title => :get}, :collection => {:add_curator => :get}

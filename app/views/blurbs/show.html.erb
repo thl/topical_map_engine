@@ -1,0 +1,10 @@
+<%= display_if_not_blank Blurb.human_attribute_name(:code).s, h(@blurb.code) %>
+<%= display_if_not_blank Blurb.human_attribute_name(:title).s, h(@blurb.title) %>
+<p><b><%= Blurb.human_attribute_name(:content).s %></b></p>
+<%= @blurb.content %>
+<p>&nbsp;<br/>
+<% authorized_only hash_for_edit_blurb_path do %>
+<%=  link_to ts('edit.this'), edit_blurb_path(@blurb) %> |
+<% end %>
+<%= render :partial => 'persistent_links' %>
+</p>

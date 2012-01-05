@@ -1,0 +1,13 @@
+<%= tagged_tinymce_script %>
+<p>
+  <%= f.label :code %><br />
+  <%= f.text_field :code %>
+</p>
+<p>
+  <%= f.label :title %><br />
+  <%= f.text_field :title %>
+</p>
+<p>
+  <%= f.label :content %><br />
+  <%= f.text_area :content, :rows => 16, :cols => 50, :class => 'mceEditor' %>
+</p>
