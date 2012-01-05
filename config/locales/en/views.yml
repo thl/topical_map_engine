@@ -24,6 +24,7 @@ en:
         set: 'Set primary description'
     subcategory: 'Subcategory'
     topical_map:
+        abbreviation: 'Kmap'
         for: '{{what}} Knowledge Map'
         of: 'Knowledge Map of {{what}}'
         this:

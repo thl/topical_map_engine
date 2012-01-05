@@ -24,6 +24,7 @@ bo:
         set: 'ཞིབ་འབྲི་གཙོ་བོར་སྒྲིག་བཀོད་བྱས་པ།'
     subcategory: 'སྣ་ཁ་ཕལ་པ།'
     topical_map:
+        abbreviation: 'Kmap'
         for: '{{what}}ཤེས་བྱའི་ས་བཀྲ།'
         of: '{{what}}ཡི་ཤེས་བྱའི་ས་བཀྲ།'
         this:

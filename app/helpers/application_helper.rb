@@ -64,7 +64,7 @@ module ApplicationHelper
   def custom_secondary_tabs_list
     # The :index values are necessary for this hash's elements to be sorted properly
     {
-      :topics => {:index => 1, :title => "Topics", :url => "#{ActionController::Base.relative_url_root.to_s}/"}
+      :topics => {:index => 1, :title => ts('topical_map.abbreviation'), :url => "#{ActionController::Base.relative_url_root.to_s}/"}
     }
   end
   

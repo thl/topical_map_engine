@@ -24,6 +24,7 @@ zh:
         set: '设置主要描述'
     subcategory: '次类别'
     topical_map:
+        abbreviation: 'Kmap'
         for: '{{what}}知识地图'
         of: '{{what}}的知识地图'
         this:
