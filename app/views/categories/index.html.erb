@@ -5,8 +5,8 @@
       authorized_only hash_for_new_category_child_path do %>
 <%      form_remote_tag :url => new_category_child_path(@main_category), :update => 'info', :method => :get do %>
 <%=       submit_tag ts('new.record', :what => t(:master, :what => Category.human_name.capitalize)) %>
-<%      end %>
-<%    end
+<%      end
+      end
     end %>
     <div id="navigation" class="normal">
 <%=   render :partial => 'index', :locals => {:margin_depth => 0, :categories => @categories} %>
