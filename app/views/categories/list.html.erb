@@ -1,4 +1,4 @@
-<h2><%= Category.human_name(:count => :many).titleize %> Associated with <%= @object_title %></h2>
+<h2><%= Category.human_name(:count => @categories.size).titleize %> Associated with <%= @object_title %></h2>
 <ul class='main_list'>
 <% for category in @categories do %>
      <li class="normal"><%= link_to h(category.title), category_child_path(category.root, category) %></li>
