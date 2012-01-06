@@ -51,7 +51,7 @@ module ApplicationHelper
     if !s.end_page.nil? or !s.end_line.nil?
       pages_str << '-'
       if !s.end_page.nil?
-        pages_str << s.end_page
+        pages_str << s.end_page.to_s
       end
       if !s.end_line.nil?
         pages_str << ".#{s.end_line}."
