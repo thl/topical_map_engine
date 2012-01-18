@@ -6,9 +6,6 @@ zh:
     document:
         one: '文档'
         other: '文档(复数)'
-    medium:
-        one: '中等'
-        other: '媒体'
     metadata:
         for: '元数据'
     picture:

@@ -6,9 +6,6 @@ bo:
     document:
         one: 'ཡིག་ཆ།'
         other: 'ཡིག་ཆ་དག'
-    medium:
-        one: 'འབྲིང་རིམ།'
-        other: 'སྨྱན་གཟུགས།'
     metadata:
         for: 'རྒྱུ་གཞི་གྲངས།'
     picture:

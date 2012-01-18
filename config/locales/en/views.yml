@@ -6,9 +6,6 @@ en:
     document:
         one: 'Document'
         other: 'Documents'
-    medium:
-        one: 'Medium'
-        other: 'Media'
     metadata:
         for: 'Metadata for {{what}}'
     picture:

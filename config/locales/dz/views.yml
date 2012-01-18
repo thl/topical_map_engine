@@ -6,9 +6,6 @@ dz:
     document:
         one: 'ཡིག་ཆ།'
         other: 'ཡིག་ཆ་ཚུ།'
-    medium:
-        one: 'བརྡ་སྟོན་ལམ།'
-        other: 'བརྡ་སྟོན་ལམ་ཚུ།'
     metadata:
         for: ' {{what}} གི་དོན་ལུ་ མེ་ཊ་གནད་སྡུད།'
     picture:

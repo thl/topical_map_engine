@@ -1,8 +1,8 @@
-<h2><%= Category.human_name(:count => @categories.size).titleize %> Associated with <%= @object_title %></h2>
+<h2><%= Category.human_name(:count => @categories.size).titleize %> Associated with <%= @object_title.s %></h2>
 <ul class='main_list'>
 <% for category in @categories do %>
      <li class="normal"><%= link_to h(category.title), category_child_path(category.root, category) %></li>
 <% end %>
 </ul>
 <br />
-<p><%= link_to "#{@object_title} in #{@object_type.humanize.pluralize}", @object_url %></p>
+<p><%= link_to ts(:in, :what => @object_title, :where => @object_type), @object_url %></p>
