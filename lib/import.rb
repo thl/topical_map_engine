@@ -12,11 +12,11 @@ module Import
         attrs = {:title => category_title, :parent_id => stack.last, :creator_id => author_id}
         category = Category.first(:conditions => attrs)
         category = Category.create(attrs) if category.nil?
-        stack << category.id        
+        stack << category.id
         csv << [category.id, category.title]
         previous_level = level
-      end      
-    end    
+      end
+    end
   end
   
   def self.level_and_title(line)
