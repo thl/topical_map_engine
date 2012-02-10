@@ -11,7 +11,7 @@ module Import
         level_diff.times{|i| stack.pop} if level_diff>0
         attrs = {:title => category_title, :parent_id => stack.last, :creator_id => author_id}
         category = Category.first(:conditions => attrs)
-        category = Category.create(attrs) if category.nil?
+        category = Category.create(attrs.merge(:published => true)) if category.nil?
         stack << category.id
         csv << [category.id, category.title]
         previous_level = level
@@ -20,7 +20,11 @@ module Import
   end
   
   def self.level_and_title(line)
-    level = line.chars.find_index{|c| c!="\t"}
+    mb_line = line.mb_chars
+    level = 0
+    while level<mb_line.size && mb_line[level]=="\t"
+      level+=1
+    end
     return level, line[level...line.size].strip
   end
   
