@@ -15,7 +15,7 @@
 <% end %>
 <%= render :partial => 'categories/info', :locals => {:category => @category} %>
 <p>&nbsp;</p>
-<%= display_if_not_blank ts(:id, :what => Category.human_name), @category.id %>
+<%= display_if_not_blank ts('id.record', :what => Category.human_name), @category.id %>
 <%= display_if_not_blank ts(:url_for_reference), link_to(category_child_url(@main_category, @category), category_child_path(@main_category, @category)) %>
 <%= display_if_not_blank Category.human_attribute_name('cumulative').s, @category.cumulative? ? ts(:affirmation) : ts(:negation) %>
    <p id="form">
