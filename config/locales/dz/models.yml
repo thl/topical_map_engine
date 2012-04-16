@@ -3,6 +3,9 @@ dz:
     activerecord:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
         models:
+            blurb:
+                one: 'blurb'
+                other: 'blurbs'
             category:
                 one: 'དབྱེ་རིམ།'
                 other: 'དབྱེ་རིམ་ཚུ།'

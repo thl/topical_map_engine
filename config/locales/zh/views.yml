@@ -17,13 +17,13 @@ zh:
     primary_description:
         select:
             ing: '选择主要的'
-            message: '选择{{what}}的主要描述'
+            message: '选择%{what}的主要描述'
         set: '设置主要描述'
     subcategory: '次类别'
     topical_map:
         abbreviation: 'Kmap'
-        for: '{{what}}知识地图'
-        of: '{{what}}的知识地图'
+        for: '%{what}知识地图'
+        of: '%{what}的知识地图'
         this:
             one: '知识地图'
             other: '知识地图(复数)'
