@@ -114,8 +114,7 @@ class TranslatedTitlesController < AclController
 
   def add_author
     @authors = Person.order('fullname')
-    render :partial => 'authors_selector', :locals => {:selected => nil}
-  end     
+  end # add_author.js.erb
   
     
   private

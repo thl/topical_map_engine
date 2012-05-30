@@ -4,11 +4,10 @@
       <span class="node-empty"></span>
 <%  else 
       link_id = "contracted_#{expanded.id}_link" %>
-<%=   link_to '', { :action => 'contracted', :id => expanded.id, :category_id => @category.nil? ? @main_category.id : @category.id, :main_category_id => @main_category.id, :remote => true }, { :class => "node-minus", :id => link_id } # , :href => category_child_path(@main_category, expanded) %>
+<%=   link_to '', { :action => 'contracted', :id => expanded.id, :category_id => @category.nil? ? @main_category.id : @category.id, :main_category_id => @main_category.id }, :remote => true, :class => 'node-minus', :id => link_id %>
 <%=   javascript_tag("$(\'##{link_id}\').bind(\'ajax:complete\', function(){ $(\'node_#{@category.nil? ? @main_category.id : @category.id}_div > .node-name\').addClassName(\'selected-node\'); });") %>
 <%  end %>
 <%= render :partial => 'selectable_node', :locals => { :node => expanded } %>
-
 <% base_language_only do
       authorized_only hash_for_new_category_child_path do
 	    options = { :remote => true }

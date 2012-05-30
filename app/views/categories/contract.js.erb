@@ -1,0 +1,1 @@
+$("#node_<%= @category.id %>_div").html("<%= escape_javascript(render(:partial => 'contracted', :object => @category, :locals => {:margin_depth => @margin_depth})) %>")

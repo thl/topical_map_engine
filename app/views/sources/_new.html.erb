@@ -12,5 +12,5 @@
 <%  end %>
 <%= javascript_tag("$(\'#source_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true; });") %>
 <p>
-<%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true, :method => :get %>
+<%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>
 </p>

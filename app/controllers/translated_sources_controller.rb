@@ -30,7 +30,8 @@ class TranslatedSourcesController < AclController
     @languages = ComplexScripts::Language.order('title')
     @authors = Person.order('fullname')
     respond_to do |format|
-      format.html {render :partial => 'new' if request.xhr?} # new.html.erb
+      format.html # new.html.erb
+      format.js # new.js.erb
       format.xml  { render :xml => @translated_source }
     end
   end
@@ -39,9 +40,8 @@ class TranslatedSourcesController < AclController
   def edit
     @translated_source = TranslatedSource.find(params[:id])
     @languages = ComplexScripts::Language.order('title')
-    @authors = Person.order('fullname')    
-    render :partial => 'edit' if request.xhr?
-  end
+    @authors = Person.order('fullname')
+  end # edit.html.erb & edit.js.erb
 
   # POST /translated_sources
   # POST /translated_sources.xml
@@ -119,7 +119,6 @@ class TranslatedSourcesController < AclController
   
   def add_author
     @authors = Person.order('fullname')
-    render :partial => 'authors_selector', :locals => {:selected => nil}
   end
   
   private

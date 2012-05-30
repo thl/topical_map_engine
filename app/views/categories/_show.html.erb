@@ -1,6 +1,6 @@
 <%= form_tag :url => new_category_translated_title_path(@category), :remote => true, :method => :get do %>
       <h1><%= "#{h(@category.title).s}" %></h1>
-      <p><%= "\t(#{authorized?(hash_for_modify_title_category_child_path) ? link_to("<i>#{ts('language.english')}</i>", modify_title_category_child_path(@main_category, @category), :remote => true) : "<i>#{ts('language.english')}</i>"})" %>
+      <p>(<%= authorized?(hash_for_modify_title_category_child_path) ? link_to("<i>#{ts('language.english')}</i>".html_safe, modify_title_category_child_path(@main_category, @category), :remote => true) : "<i>#{ts('language.english')}</i>".html_safe %>)
 <%      authorized_only hash_for_new_category_translated_title_path do %>  
 <%=       submit_tag te('add.record', :what => t('translat.ion')), language_options(:disabled_with => 'Posting...') %>
 <%      end %>
@@ -8,8 +8,8 @@
 <%  end %>
 <% if !@category.translated_titles.empty? %>
      <p class="indented">
-     <b><%= TranslatedTitle.model_name.human(:count => :many).titleize.s %>:</b>
-<%=  ( @category.translated_titles.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_translated_title_path) ? link_to("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", edit_category_translated_title_path(@category, t), :remote => true)  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>
+       <b><%= TranslatedTitle.model_name.human(:count => :many).titleize.s %>:</b>
+<%=    @category.translated_titles.collect{ |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_translated_title_path) ? link_to("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", edit_category_translated_title_path(@category, t), :remote => true)  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }.join(', ').html_safe %>
 	 </p>
 <% end %>
 <%= render :partial => 'categories/info', :locals => {:category => @category} %>

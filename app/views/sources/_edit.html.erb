@@ -17,5 +17,5 @@
 <% authorized_only hash_destroy_path do %>
 <%=  link_to ts('delete.this'), source_path, :remote => true, :confirm => 'Are you sure?', :method => :delete %> |
 <% end %>
-<%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true, :method => :get %>
+<%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>
 </p>

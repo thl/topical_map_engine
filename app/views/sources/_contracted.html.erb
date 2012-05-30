@@ -12,7 +12,7 @@
      hash_translated_path = hash_for_new_category_description_source_translated_source_path
    end %>
    <p>
-<%=  link_to '&nbsp;', expand_path, :method => 'get', :remote => true, :class => 'descriptionplus_icon' %>
+<%=  link_to '&nbsp;', expand_path, :remote => true, :class => 'descriptionplus_icon' %>
 <%=  authorized?(hash_path) ? link_to(formated_mms_pages(@source), edit_path, :remote => true) : formated_mms_pages(@source) %>
 <%   if @source.language.code[0..1] != I18n.locale.to_s %>
        (<%= @source.language.title.s %>)

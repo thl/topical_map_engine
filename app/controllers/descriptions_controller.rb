@@ -130,15 +130,12 @@ class DescriptionsController < AclController
   def contract
     @d = Description.find(params[:id])
     @description =  nil
-    render :partial => 'contracted', :locals => {:category => @category, :d => @d}
-  end
+  end # contract.js.erb
   
   def expand
     @d = Description.find(params[:id])
     @description =  Description.find(params[:id])
-    #render :partial => 'expanded'
-    render_descriptions
-  end  
+  end # expand.js.erb
   
   private
   # This is tied to categories
@@ -149,13 +146,5 @@ class DescriptionsController < AclController
     
   def description_url(description)
     category_description_url(@category, description)
-  end
-    
-  def render_descriptions
-    #find a way to save selected expanded description
-    render :update do |page|
-	    yield(page) if block_given?
-	    page.replace_html 'descriptions_div', :partial => 'descriptions/index', :locals => { :category => @category, :d => @d}
-	  end
-  end        
+  end    
 end

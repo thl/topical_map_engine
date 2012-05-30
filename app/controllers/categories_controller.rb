@@ -266,15 +266,15 @@ class CategoriesController < AclController
   def expand
     @category = Category.find(params[:id])
     #margin_depth = params[:margin_depth].to_i
-    #render :partial => 'expanded', :object => category, :locals => {:margin_depth => margin_depth}
-    render_tree
-  end
+    @categories = logged_in? ? @main_category.children : @main_category.published_children
+	  @ancestors_for_current = @category.ancestors.collect{|c| c.id}
+	  @ancestors_for_current << @category.id
+  end # expand.js.erb
 
   def contract
-    category = Category.find(params[:id])
-    margin_depth = params[:margin_depth].to_i
-    render :partial => 'contracted', :object => category, :locals => {:margin_depth => margin_depth}
-  end
+    @category = Category.find(params[:id])
+    @margin_depth = params[:margin_depth].to_i
+  end # contract.js.erb
 
   def expanded
     @node = Category.find(params[:id])
@@ -364,16 +364,6 @@ class CategoriesController < AclController
       @main_category = Category.find(category_id)
     end
   end  
-  
-  def render_tree
-    categories = logged_in? ? @main_category.children : @main_category.published_children
-	  @ancestors_for_current = @category.ancestors.collect{|c| c.id}
-	  @ancestors_for_current << @category.id
-	  render :update do |page|
-	    yield(page) if block_given?
-	    page.replace_html 'navigation', :partial => 'index', :locals => {:margin_depth => 0, :categories => categories}
-	  end
-  end
   
   def api_extended_render(locals)
     param_id = params[:id]
