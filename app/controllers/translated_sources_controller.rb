@@ -27,8 +27,8 @@ class TranslatedSourcesController < AclController
   def new
     #@source = Source.find(params[:source_id])
     @translated_source = TranslatedSource.new(:language => ComplexScripts::Language.find_by_code('bod'))
-    @languages = ComplexScripts::Language.find(:all, :order => 'title')
-    @authors = Person.find(:all, :order => 'fullname')
+    @languages = ComplexScripts::Language.order('title')
+    @authors = Person.order('fullname')
     respond_to do |format|
       format.html {render :partial => 'new' if request.xhr?} # new.html.erb
       format.xml  { render :xml => @translated_source }
@@ -38,8 +38,8 @@ class TranslatedSourcesController < AclController
   # GET /translated_sources/1/edit
   def edit
     @translated_source = TranslatedSource.find(params[:id])
-    @languages = ComplexScripts::Language.find(:all, :order => 'title')
-    @authors = Person.find(:all, :order => 'fullname')    
+    @languages = ComplexScripts::Language.order('title')
+    @authors = Person.order('fullname')    
     render :partial => 'edit' if request.xhr?
   end
 
@@ -52,35 +52,21 @@ class TranslatedSourcesController < AclController
     @translated_source.creator = current_user
     respond_to do |format|
       if @translated_source.save
-        if request.xhr?
-	        format.html do
-		        if @category == @main_category 
-		          render :partial => 'categories/main_show', :locals => {:category => @main_category}
-		        else
-              render :partial => 'categories/show'
-		        end      	  		
-		      end
-      	else
-	        flash[:notice] = 'TranslatedSource was successfully created.'
-		      format.html do
-			      if @category != @main_category 
-			        redirect_to category_child_url(@main_category, @category)
-			      else
-			        redirect_to(@category)
-			      end		  	
+        flash[:notice] = 'TranslatedSource was successfully created.'
+	      format.html do
+		      if @category != @main_category 
+		        redirect_to category_child_url(@main_category, @category)
+		      else
+		        redirect_to(@category)
 		      end		  	
-        end
+	      end		  	
+        format.js   { render 'categories/show' }
 		    format.xml  { render :xml => @translated_source, :status => :created, :location => @translated_source }		
       else
-        @languages = ComplexScripts::Language.find(:all, :order => 'title')
-        @authors = Person.find(:all, :order => 'fullname')                
-        format.html do
-          if request.xhr?
-            render :partial => 'new'
-          else
-            render :action => 'new'
-          end
-        end
+        @languages = ComplexScripts::Language.order('title')
+        @authors = Person.order('fullname')                
+        format.html { render 'new' }
+        format.js   { render 'new' }
         format.xml  { render :xml => @translated_source.errors, :status => :unprocessable_entity }
       end
     end    
@@ -91,38 +77,23 @@ class TranslatedSourcesController < AclController
   def update
     params[:translated_source][:author_ids] ||= []
     @translated_source = TranslatedSource.find(params[:id])
-    @authors = Person.find(:all, :order => 'fullname')    
+    @authors = Person.order('fullname')    
 	  respond_to do |format|	
       if @translated_source.update_attributes(params[:translated_source])
-	      if request.xhr?
-		      format.html do
-		        if @category == @main_category 
-			        render :partial => 'categories/main_show', :locals => {:category => @main_category}
-		        else
-			        render :partial => 'categories/show'      	  		
-		        end
-	        end
-		      format.xml  { head :ok }  	
-  	    else
-          flash[:notice] = 'TranslatedSource was successfully updated.'
-	        format.html do
-		        if @category != @main_category # if request.xhr?
-		          redirect_to category_child_url(@main_category, @category)
-		        else
-		          redirect_to(@category)
-		        end
-		      end
-		      format.xml  { head :ok }      	  	
-        end
-      else	
-        @languages = ComplexScripts::Language.find(:all, :order => 'title')       
+        flash[:notice] = 'TranslatedSource was successfully updated.'
         format.html do
-          if request.xhr?
-            render :partial => 'edit'
-          else
-            render :action => 'edit'
-          end
-        end
+	        if @category != @main_category # if request.xhr?
+	          redirect_to category_child_url(@main_category, @category)
+	        else
+	          redirect_to(@category)
+	        end
+	      end
+	      format.js   { render 'categories/show' }
+	      format.xml  { head :ok }
+      else	
+        @languages = ComplexScripts::Language.order('title')       
+        format.html { render 'edit' }
+        format.js   { render 'edit' }        
         format.xml  { render :xml => @translated_source.errors, :status => :unprocessable_entity }
       end
     end
@@ -135,26 +106,19 @@ class TranslatedSourcesController < AclController
     @translated_source.destroy
     respond_to do |format|
       format.html do
-        if request.xhr?
-		      if @category == @main_category 
-			      render :partial => 'categories/main_show', :locals => {:category => @main_category}
-		      else
-			      render :partial => 'categories/show'      	  		
-		      end		  
-        else
-		      if @category != @main_category 
-		        redirect_to category_child_url(@main_category, @category)
-		      else
-		        redirect_to(@category)
-		      end          
-        end
+	      if @category != @main_category 
+	        redirect_to category_child_url(@main_category, @category)
+	      else
+	        redirect_to(@category)
+	      end
       end
+      format.js   { render 'categories/show' }
       format.xml  { head :ok }
     end
   end
   
   def add_author
-    @authors = Person.find(:all, :order => 'fullname')
+    @authors = Person.order('fullname')
     render :partial => 'authors_selector', :locals => {:selected => nil}
   end
   

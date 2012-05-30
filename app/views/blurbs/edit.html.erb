@@ -1,5 +1,5 @@
-<h1><%= ts 'edit.ing.record', :what => Blurb.human_name.titleize.s %></h1>
-<% form_for(@blurb) do |f| %>
+<h1><%= ts 'edit.ing.record', :what => Blurb.model_name.human.titleize.s %></h1>
+<%= form_for(@blurb) do |f| %>
 <%=  f.error_messages %>
 <%=  render :partial => 'form', :locals => {:f => f} %>
      <p><%= globalized_submit_tag 'update.this' %></p>

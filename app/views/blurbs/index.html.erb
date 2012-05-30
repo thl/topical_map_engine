@@ -1,4 +1,4 @@
-<h1><%= ts 'list.ing.records', :what => Blurb.human_name(:count => :many).titleize %></h1>
+<h1><%= ts 'list.ing.records', :what => Blurb.model_name.human(:count => :many).titleize %></h1>
 <table border="1" class="normal">
   <tr>
     <th><%= Blurb.human_attribute_name(:code).s %></th>
@@ -14,6 +14,6 @@
 </table>
 <p>&nbsp;<br/>
 <% authorized_only hash_for_new_blurb_path do %>
-<%=  link_to ts('new.record', :what => Blurb.human_name), new_blurb_path %> |
+<%=  link_to ts('new.record', :what => Blurb.model_name.human), new_blurb_path %> |
 <% end %>
 <%= link_to ts('back.to', :what => t('home.for', :what => t('topical_map.this', :count => :many))), root_path %>

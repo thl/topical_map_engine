@@ -4,6 +4,7 @@ class CategoriesController < AclController
   caches_page :index, :show, :detailed, :all, :all_with_features, :all_with_shapes, :list, :list_with_features, :list_with_shapes, :if => :api_response?.to_proc
   cache_sweeper :category_sweeper, :only => [:create, :update, :destroy]
   helper :sources
+  
   def initialize
     super
     @guest_perms += [ 'categories/all', 'categories/all_with_features', 'categories/all_with_shapes', 'categories/by_title', 'categories/contract', 'categories/expand', 'categories/contracted', 'categories/expanded', 'categories/iframe', 'categories/list', 'categories/list_with_features', 'categories/list_with_shapes', 'categories/detailed']
@@ -17,13 +18,11 @@ class CategoriesController < AclController
       @categories = logged_in? ? Category.roots : Category.published_roots
       @tab_options ||= {}
       @tab_options[:entity] = Category.find(session[:current_category_id]) unless session[:current_category_id].blank?
-      puts 'catz0'
     else
       @tab_options ||= {}
       @tab_options[:entity] = @main_category
       session[:current_category_id] = @main_category.id
       @categories = logged_in? ? @main_category.children : @main_category.published_children
-      puts 'catz'
     end
     respond_to do |format|
       format.html do # index.html.erb
@@ -58,48 +57,34 @@ class CategoriesController < AclController
     @tab_options ||= {}
     @tab_options[:entity] = @category
     session[:current_category_id] = @category.id
-    if request.xhr?
-      if @main_category.nil?
-        #render :partial => 'show'
-        render(:update) {|page| page.replace_html 'info', :partial => 'main_show', :locals => {:category => @category}}
-      else
-        render_tree do |page|
-		      if @category == @main_category
-            page.replace_html 'info', :partial => 'main_show', :locals => {:category => @main_category}
-		      else
-			      page.replace_html 'info', :partial => 'show'
-		      end
-        end 
-      end
-    else
-      respond_to do |format|
-        format.html do
-          pu = params[:parent_url]
-          if @main_category.nil?
-            #render :action => 'main_show'
-            redirect_to category_child_url(@category.root, @category) << ( pu.nil? ? '' : "?parent_url=" << pu )
-          else # show.html.erb
-            if @category == @main_category
-              redirect_to category_children_url(@main_category) << ( pu.nil? ? '' : "?parent_url=" << pu )
+    respond_to do |format|
+      format.html do
+        pu = params[:parent_url]
+        if @main_category.nil?
+          #render :action => 'main_show'
+          redirect_to category_child_url(@category.root, @category) << ( pu.nil? ? '' : "?parent_url=" << pu )
+        else # show.html.erb
+          if @category == @main_category
+            redirect_to category_children_url(@main_category) << ( pu.nil? ? '' : "?parent_url=" << pu )
+          else
+            @ancestors_for_current = @category.ancestors.collect{|c| c.id}
+            @ancestors_for_current << @category.id
+            @categories = logged_in? ? @main_category.children : @main_category.published_children
+            # This isn't terribly clean. See routes.rb for a comment about iframe routing.
+            if request.fullpath =~ /\/iframe\//
+              render :action => 'iframe', :layout => 'iframe'
             else
-              @ancestors_for_current = @category.ancestors.collect{|c| c.id}
-              @ancestors_for_current << @category.id
-              @categories = logged_in? ? @main_category.children : @main_category.published_children
-              # This isn't terribly clean. See routes.rb for a comment about iframe routing.
-              if request.request_uri =~ /\/iframe\//
-                render :action => 'iframe', :layout => 'iframe'
-              else
-                render :action => 'show', :layout => 'multi_column'
-              end
+              render :action => 'show', :layout => 'multi_column'
             end
           end
         end
-        format.xml do
-          @category['children_count'] = @category.children.size
-        	render :xml => @category
-        end
-        format.json  { render :json => @category.to_json }
       end
+      format.js { render 'show' }
+      format.xml do
+        @category['children_count'] = @category.children.size
+      	render :xml => @category
+      end
+      format.json  { render :json => @category.to_json }
     end
   end
 
@@ -107,7 +92,7 @@ class CategoriesController < AclController
   # GET /categories/new.xml
   def new
     @category = Category.new(:creator => current_user)
-    @curators = Person.find(:all, :order => 'fullname')
+    @curators = Person.order('fullname')
     if @main_category.nil?
       @category.published = false
       if session[:default_curator_id].nil?
@@ -129,15 +114,12 @@ class CategoriesController < AclController
       @category.parent = parent
       respond_to do |format|
         format.html do
-          if request.xhr?
-            render :partial => 'new'
-          else # new.html.erb
-            @ancestors_for_current = @category.ancestors.collect{|c| c.id}
-            @ancestors_for_current << @category.id
-            @categories = @main_category.children
-            render :action => 'new', :layout => 'multi-column'
-          end
+          @ancestors_for_current = @category.ancestors.collect{|c| c.id}
+          @ancestors_for_current << @category.id
+          @categories = @main_category.children
+          render :action => 'new', :layout => 'multi-column'
         end
+        format.js # render new.js.erb
         format.xml  { render :xml => @category }
       end      
     end
@@ -146,27 +128,24 @@ class CategoriesController < AclController
   # GET /categories/1/edit
   def edit
     @category = Category.find(params[:id])
-    @curators = Person.find(:all, :order => 'fullname')
-    if request.xhr?
-		  if @main_category.nil? # _main_edit.html.erb
-		    render :partial => 'main_edit'
-		  else # _edit.html.erb
-		    render :partial => 'edit'
-		  end
-    else
-      if @main_category.nil?
-		    @main_category = @category
-        @ancestors_for_current = @category.ancestors.collect{|c| c.id}
-        @ancestors_for_current << @category.id
-        @categories = @main_category.children
-      	render :action => 'main_edit', :layout => 'multi_column'
-		    # render :action => 'main_edit'
-      else # edit.html.erb
-        @ancestors_for_current = @category.ancestors.collect{|c| c.id}
-        @ancestors_for_current << @category.id
-        @categories = @main_category.children
-        render :action => 'edit', :layout => 'multi_column'
+    @curators = Person.order('fullname')
+    respond_to do |format|
+      format.html do
+        if @main_category.nil?
+  		    @main_category = @category
+          @ancestors_for_current = @category.ancestors.collect{|c| c.id}
+          @ancestors_for_current << @category.id
+          @categories = @main_category.children
+        	render :action => 'main_edit', :layout => 'multi_column'
+  		    # render :action => 'main_edit'
+        else # edit.html.erb
+          @ancestors_for_current = @category.ancestors.collect{|c| c.id}
+          @ancestors_for_current << @category.id
+          @categories = @main_category.children
+          render :action => 'edit', :layout => 'multi_column'
+        end
       end
+      format.js # edit.js.erb
     end
   end
 
@@ -178,7 +157,7 @@ class CategoriesController < AclController
     if @category.save
       curators = @category.curators
       session[:default_curator_id] = curators.first.id if curators.size==1
-      category_title = @main_category.nil? ? Category.human_name.capitalize : @main_category.title.titleize      
+      category_title = @main_category.nil? ? Category.model_name.human.capitalize : @main_category.title.titleize      
       if request.xhr?
         #categories = @main_category.children
         #@ancestors_for_current = @category.ancestors.collect{|c| c.id}
@@ -187,7 +166,7 @@ class CategoriesController < AclController
         #  page.replace_html 'info', :partial => 'show'
         #  page.replace_html 'navigation', :partial => 'index', :locals => {:margin_depth => 0, :categories => categories}
         #end
-        render_tree {|page| page.replace_html 'info', :partial => 'show'}
+        render 'show' # .js.erb
       else
       	flash[:notice] = ts 'new.successful', :what => category_title
         respond_to do |format|
@@ -202,9 +181,9 @@ class CategoriesController < AclController
         end
       end
     else
-      @curators = Person.find(:all, :order => 'fullname')
+      @curators = Person.order('fullname')
       if request.xhr?
-        render(:update) {|page| page.replace_html 'container-left-5050', :partial => 'new'}
+        render 'new' # .erb.js
       else      
         respond_to do |format|
           format.html do
@@ -225,62 +204,42 @@ class CategoriesController < AclController
   def update
     params[:category][:curator_ids] ||= []
     @category = Category.find(params[:id])
-    if !params[:primary].nil? 
+    if !params[:primary].nil?
       @primary = Category.find(params[:primary])
       @category.descriptions.update_all("is_main = 0")
       @category.descriptions.update_all("is_main = 1","id=#{@primary.id}")
     end
-    @curators = Person.find(:all, :order => 'fullname')
+    @curators = Person.order('fullname')
     parent = @category.parent
     if @category.update_attributes(params[:category])
 	    @category.reload
-      new_parent = @category.root
-      category_title = @main_category.nil? ? Category.human_name.capitalize : @main_category.title.titleize
-      if request.xhr?
-        if new_parent==@main_category
-          render_tree {|page| page.replace_html 'info', :partial => 'show'}        			  				
-        else
-          render(:update) do |page|
-            if new_parent==@category
-            	if @main_category.nil?   #parent!=@category.parent
-            	  page.replace_html 'info', :partial => 'main_show', :locals => {:category => @category}
-            	else
-            	  page.redirect_to category_children_url(@category)
-            	end
-            else
-		  	     page.redirect_to category_child_url(new_parent, @category)
-            end
+      @new_parent = @category.root
+      category_title = @main_category.nil? ? Category.model_name.human.capitalize : @main_category.title.titleize
+      flash[:notice] = ts 'edit.successful', :what => category_title
+      respond_to do |format|
+        format.html do
+          @main_category = new_parent if @main_category.nil? && !new_parent.nil?
+          if @main_category.nil?
+            redirect_to category_url(@category)
+          else
+            redirect_to category_child_url(@main_category, @category)
           end
-      	end
-      else
-      	flash[:notice] = ts 'edit.successful', :what => category_title
-        respond_to do |format|
-          format.html do
-            @main_category = new_parent if @main_category.nil? && !new_parent.nil?
-            if @main_category.nil?
-              redirect_to category_url(@category)
-            else
-              redirect_to category_child_url(@main_category, @category)
-            end
-          end
-          format.xml  { head :ok }
         end
-      end
+        format.js   # update.js.erb
+        format.xml  { head :ok }
+      end    	
     else
-      if request.xhr?
-        render :partial => 'edit'
-      else
-        respond_to do |format|
-          format.html do
-            if @main_category.nil?
-              render :action => 'main_edit'
-            else
-              render :action => 'edit', :layout => 'multi_column'
-            end
+      respond_to do |format|
+        format.html do
+          if @main_category.nil?
+            render 'main_edit'
+          else
+            render 'edit', :layout => 'multi_column'
           end
-          format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
         end
-      end
+        format.js   { render 'edit' }
+        format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
+      end      
     end
   end
 
@@ -291,29 +250,16 @@ class CategoriesController < AclController
     title = @category.title
     parent = @category.parent
     @category.destroy
-    if request.xhr?
-      render :update do |page|
-        page.replace_html 'info', ('%s deleted succesfully.'/title).s
-        if parent.nil? || parent == @main_category
-          categories = @main_category.children
-          page.replace_html 'navigation', :partial => 'index', :locals => {:margin_depth => 0, :categories => categories}
+    respond_to do |format|
+      format.html do
+        if @main_category.nil?
+          redirect_to root_url
         else
-          @category = parent
-          margin_depth = @category.ancestors.size
-          page.replace_html "#{@category.id}_div", :partial => 'expanded', :object => @category, :locals => {:margin_depth => margin_depth}
+          redirect_to category_children_url(@main_category)
         end
-      end          
-    else
-      respond_to do |format|
-        format.html do
-          if @main_category.nil?
-            redirect_to root_url
-          else
-            redirect_to category_children_url(@main_category)
-          end
-        end
-        format.xml  { head :ok }
       end
+      format.js # destroy.js.erb
+      format.xml  { head :ok }
     end
   end
 
@@ -331,18 +277,16 @@ class CategoriesController < AclController
   end
 
   def expanded
-    node = Category.find(params[:id])
+    @node = Category.find(params[:id])
     @category = Category.find(params[:category_id])
     @main_category = Category.find(params[:main_category_id])
-    render :partial => 'expanded', :locals => { :expanded => node }, :layout => false
-  end
+  end # renders expanded.js.erb
 
   def contracted
-    node = Category.find(params[:id])
+    @node = Category.find(params[:id])
     @category = Category.find(params[:category_id])
     @main_category = Category.find(params[:main_category_id])
-    render :partial => 'contracted', :locals => { :contracted => node }, :layout => false
-  end
+  end # renders contracted.js.erb
 
   def detailed
     api_extended_render :with_descriptions => true, :with_translated_titles => true
@@ -378,9 +322,9 @@ class CategoriesController < AclController
       @categories = logged_in? ? Category.roots : Category.published_roots
     else
       # first get exact match
-      @categories = Category.find(:all, :conditions => {:title => title, :published => true}, :order => 'title')
+      @categories = Category.where(:title => title, :published => true).order('title')
       # then try variations
-      @categories = Category.find(:all, :conditions => ['title like ? AND published = ?', "%#{title}%", true], :order => 'title') if @categories.empty?
+      @categories = Category.where(['title like ? AND published = ?', "%#{title}%", true]).order('title') if @categories.empty?
     end
     respond_to do |format|
       format.html { render :action => 'main_index' }
@@ -390,19 +334,16 @@ class CategoriesController < AclController
   end
     
   def add_curator
-    @curators = Person.find(:all, :order => 'fullname')
-    render :partial => 'curators_selector', :locals => {:selected => nil}
-  end  
+    @curators = Person.order('fullname')
+  end # renders add_curator.js.erb
   
   def modify_title
     @category = Category.find(params[:id])
-	  render :partial => 'title'
-  end 
-   
+  end # modify_title.js.erb
+  
   def set_primary_description
     @category = Category.find(params[:id])
-    render :partial => 'primary_selector'
-  end
+  end # renders set_primary_description.js.erb
 
   def iframe
     @category = Category.find(params[:id])

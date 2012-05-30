@@ -1,16 +1,17 @@
 <h1><%= ts 'primary_description.select.message', :what => "<em>#{h(@category.title)}</em>" %></h1>
 <%= error_messages_for :category %>
-<%  remote_form_for(:category, :url => category_path(@category), :before => "document.getElementById(\'submit_button\').disabled = true;", :html => { :method => :put }) do |f| %>
-       <%=    f.hidden_field :id %>
-<%    @category.descriptions.find(:all).each do |d| %>
+<%= form_for(:category, :url => category_path(@category), :remote => true, :method => :put, :html => { :id => 'category_form' }) do |f| %>
+<%=   f.hidden_field :id %>
+<%    @category.descriptions.all.each do |d| %>
         <p>
-<%=     radio_button_tag :primary, d.id, d.is_main?  %>
-<%      authors = d.authors
-        language = d.language %>
-        <b><%= ts :according_to, :whom => authors.empty? ? @category.creator.screen_name : join_with_and(d.authors.collect{|a| a.fullname}) %></b>
-(<%= "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d.record', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
+<%=       radio_button_tag :primary, d.id, d.is_main?  %>
+<%        authors = d.authors
+          language = d.language %>
+          <b><%= ts :according_to, :whom => authors.empty? ? @category.creator.screen_name : join_with_and(d.authors.collect{|a| a.fullname}) %></b>
+(<%=      "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d.record', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
         </p>
 <%    end %>
 <p><%= globalized_submit_tag 'primary_description.set' %></p>
-<% end %>
-<p><%= link_to_remote ts('cancel.record', :what => t('primary_description.select.ing')), :url => @main_category.nil? ? category_path(@category) : category_child_path(@main_category, @category), :method => 'get' %></p>
+<%  end %>
+<%= javascript_tag("$(\'#category_form\').bind(\'ajax:before\', function(){ document.getElementById(\'submit_button\').disabled = true; });") %>
+<p><%= link_to ts('cancel.record', :what => t('primary_description.select.ing')), @main_category.nil? ? category_path(@category) : category_child_path(@main_category, @category), :remote => true, :method => 'get' %></p>

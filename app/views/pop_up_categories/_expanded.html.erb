@@ -3,7 +3,7 @@
     if has_no_children %>
       &#9674;
 <%  else %>
-<%=   link_to_remote '-', { :update => "pop_up_#{expanded.id}_div", :url => contract_pop_up_category_path(expanded, :margin_depth => margin_depth), :method => 'get' }, { :class => 'collapsable' } %>
+<%=   link_to '-', contract_pop_up_category_path(expanded, :margin_depth => margin_depth), :remote => true, :class => 'collapsable' %>
 <%  end
     selected = (!@pop_up_category.nil? && @pop_up_category.id==expanded.id) 
     if selected %>

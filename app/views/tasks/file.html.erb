@@ -1,15 +1,13 @@
 <h1>New File</h1>
-<% form_tag create_file_tasks_path do %>
-<p><b>File name</b><br/>
-<%= text_field_tag 'filename' %>
-</p>
-<p><b>Content</b><br/>
-<%= text_area_tag 'contents', nil, :rows => 5 %>
-</p>
-<p>
-<%= globalized_submit_tag 'creat.e.this' %>
-</p>
-<% end %>
+<%= form_tag create_file_tasks_path do %>
+      <p><b>File name</b><br/>
+<%=     text_field_tag 'filename' %>
+      </p>
+      <p><b>Content</b><br/>
+<%=     text_area_tag 'contents', nil, :rows => 5 %>
+      </p>
+      <p><%= globalized_submit_tag 'creat.e.this' %></p>
+<%  end %>
 <p>&nbsp;<br/>
 <%= link_to 'Back to tasks', tasks_path %> |
 <%= link_to 'Back home', root_path %>

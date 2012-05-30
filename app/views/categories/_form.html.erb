@@ -1,11 +1,11 @@
-<p><b><%= ts 'name.in', :what => t(:english) %></b><br />
+<p><b><%= ts 'name.in', :what => t('language.english') %></b><br />
 <%= f.text_field :title, :size=>60 %>
 </p>
 <%= f.hidden_field :creator_id %>
 <% if !changing_parent_allowed %>
 <%=  f.hidden_field :parent_id %>
 <% else %>
-     <p><b><%= ts 'parent.of', :who => Category.human_name %></b><br />
+     <p><b><%= ts 'parent.of', :who => Category.model_name.human %></b><br />
 <%=    category_selector(:category, :parent) %>
      </p>
 <% end %>
@@ -18,7 +18,7 @@
 <%= f.radio_button :cumulative, "false" %> <%= f.label :noncumulative, ts(:negation) %>  
 </p>
 <p>
-<%= link_to_remote ts('add.record', :what => t('new.record', :what => Category.human_attribute_name(:curator)).downcase), :url => add_curator_categories_path, :update => 'update_div', :position => 'before', :method => 'get' %>
+<%= link_to ts('add.record', :what => t('new.record', :what => Category.human_attribute_name(:curator)).downcase), add_curator_categories_path, :remote => true %>
 </p>
 <div id="curators_div">
 <% if default_curator_id.nil?

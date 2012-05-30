@@ -1,18 +1,19 @@
-<%
-  children = logged_in? ? expanded.children : expanded.published_children
-  has_no_children = children.empty?
-%>
-<% if has_no_children %>
+<%  children = logged_in? ? expanded.children : expanded.published_children
+    has_no_children = children.empty?
+    if has_no_children %>
       <span class="node-empty"></span>
-<% else %>
-<%= link_to_remote '', { :update => "node_#{expanded.id}_div", :url => { :action => 'contracted', :id => expanded.id, :category_id => @category.nil? ? @main_category.id : @category.id, :main_category_id => @main_category.id }, :complete => "$('node_#{@category.nil? ? @main_category.id : @category.id}_div > .node-name').addClassName('selected-node')" }, { :class => "node-minus", :href => category_child_path(@main_category, expanded) } %>
+<%  else 
+      link_id = "contracted_#{expanded.id}_link" %>
+<%=   link_to '', { :action => 'contracted', :id => expanded.id, :category_id => @category.nil? ? @main_category.id : @category.id, :main_category_id => @main_category.id, :remote => true }, { :class => "node-minus", :id => link_id } # , :href => category_child_path(@main_category, expanded) %>
+<%=   javascript_tag("$(\'##{link_id}\').bind(\'ajax:complete\', function(){ $(\'node_#{@category.nil? ? @main_category.id : @category.id}_div > .node-name\').addClassName(\'selected-node\'); });") %>
 <%  end %>
 <%= render :partial => 'selectable_node', :locals => { :node => expanded } %>
 
 <% base_language_only do
       authorized_only hash_for_new_category_child_path do
-        html_options = expanded.published? ? {} : { :class => 'unpublished' } %>
-        (<%= link_to_remote ts('new.record', :what => t(:subcategory)), {:url => new_category_child_path(@main_category, :parent_id => expanded), :method => 'get', :update => 'info'}, html_options %>)
+	    options = { :remote => true }
+        options[:class] = 'unpublished' if !expanded.published? %>
+        (<%= link_to ts('new.record', :what => t(:subcategory)), new_category_child_path(@main_category, :parent_id => expanded), options %>)
 <%    end
     end %>
 <%= render :partial => 'index', :locals => {:node => expanded, :categories => children} %>

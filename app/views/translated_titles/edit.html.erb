@@ -1,11 +1,9 @@
-<h1><%= ts :in, :what => t(:for, :what => t('edit.ing.record', :what => TranslatedTitle.human_name.titleize), :whom => "<em>#{h(@category.title)}</em>"), :where => h(@translated_title.language.title %></h1>
+<h1><%= ts :in, :what => t(:for, :what => t('edit.ing.record', :what => TranslatedTitle.model_name.human.titleize), :whom => "<em>#{h(@category.title)}</em>"), :where => h(@translated_title.language.title %></h1>
 <%= error_messages_for :translated_title %>
-<% form_for(:translated_title, :url => category_translated_title_path(@category, @translated_title), :html => { :method => :put }) do |f| %>
-<%= render :partial => 'form', :locals => {:f => f} %>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
+<%= form_for(:translated_title, :url => category_translated_title_path(@category, @translated_title), :method => :put) do |f| %>
+<%=   render :partial => 'form', :locals => {:f => f} %>
+      <p><%= f.submit 'Update' %></p>
+<%  end %>
 <p>
 <% authorized_only hash_for_category_translated_title_path(:action => 'destroy') do %>
 <%=  link_to 'Delete', category_translated_title_path(@category, @translated_title), :confirm => 'Are you sure?', :method => :delete %> |

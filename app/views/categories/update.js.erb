@@ -1,0 +1,13 @@
+<% if @new_parent==@main_category %>
+     $("#info").html("<%= escape_javascript(render(:partial => 'show')) %>")
+<% else
+     if @new_parent==@category
+       if @main_category.nil?   #parent!=@category.parent %>
+         $("#info").html("<%= escape_javascript(render(:partial => 'main_show', :locals => {:category => @category})) %>")
+<%     else %>
+         window.location.replace("<%= category_children_path(@category) %>");
+<%     end
+     else %>
+       window.location.replace("<%= category_child_path(@new_parent, @category) %>");
+<%   end
+   end %>

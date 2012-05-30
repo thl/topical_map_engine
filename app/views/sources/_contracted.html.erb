@@ -1,25 +1,25 @@
-<% if s.resource_type == 'Category'
-     edit_path = edit_category_source_path(resource,s)
-     expand_path = expand_category_source_path(resource,s)
+<% if @source.resource_type == 'Category'
+     edit_path = edit_category_source_path(@resource, @source)
+     expand_path = expand_category_source_path(@resource, @source)
      hash_path = hash_for_edit_category_source_path
-     new_translated_path = new_category_source_translated_source_path(resource,s)
+     new_translated_path = new_category_source_translated_source_path(@resource, @source)
      hash_translated_path = hash_for_new_category_source_translated_source_path
    else
-     edit_path = edit_category_description_source_path(resource.category, resource, s)
-     expand_path = expand_category_description_source_path(resource.category, resource, s)
+     edit_path = edit_category_description_source_path(@resource.category, @resource, @source)
+     expand_path = expand_category_description_source_path(@resource.category, @resource, @source)
      hash_path = hash_for_edit_category_description_source_path
-     new_translated_path = new_category_description_source_translated_source_path(resource.category, resource, s)
+     new_translated_path = new_category_description_source_translated_source_path(@resource.category, @resource, @source)
      hash_translated_path = hash_for_new_category_description_source_translated_source_path
    end %>
    <p>
-<%=  link_to_remote '&nbsp;', {:url => expand_path,  :method => 'get'},  { :class => 'descriptionplus_icon' } %>
-<%=  authorized?(hash_path) ? link_to_remote(formated_mms_pages(s), :url => edit_path, :update => 'info', :method => :get ) : formated_mms_pages(s) %>
-<%   if s.language.code[0..1] != I18n.locale.to_s %>
-       (<%= s.language.title.s %>)
+<%=  link_to '&nbsp;', expand_path, :method => 'get', :remote => true, :class => 'descriptionplus_icon' %>
+<%=  authorized?(hash_path) ? link_to(formated_mms_pages(@source), edit_path, :remote => true) : formated_mms_pages(@source) %>
+<%   if @source.language.code[0..1] != I18n.locale.to_s %>
+       (<%= @source.language.title.s %>)
 <%   end
-     authorized_only hash_translated_path do 
-	   form_remote_tag :url => new_translated_path, :update => 'info', :method => :get do %>
-<%=      submit_tag te('add.record', :what => TranslatedSource.human_name) %>
+     authorized_only hash_translated_path do %>
+<%=    form_tag :url => new_translated_path, :method => :get do %>
+<%=      submit_tag te('add.record', :what => TranslatedSource.model_name.human) %>
 <%     end 
      end %>
    </p>

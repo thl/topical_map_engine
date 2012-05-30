@@ -1,16 +1,16 @@
 <h2 class="description_title">
 <%  authors = d.authors
     language = d.language %>
-<%= link_to_remote '&nbsp;', {:url => contract_category_description_path(category,d), :update => "#{d.id}_descdiv", :method => 'get'},  { :class => 'descriptionminus_icon' }  %>
-      <%= "#{d.title.blank? ? Description.human_name.titleize.s : h(d.title)}" %>
+<%= link_to '&nbsp;'.html_safe, contract_category_description_path(category,d), :remote => true, :class => 'descriptionminus_icon' %>
+<%= d.title.blank? ? Description.model_name.human.titleize.s : h(d.title) %>
 </h2>
 <p>
-      by
-      <span class='content_by'><%= "#{authors.empty? ? category.creator.screen_name : author_str = join_with_and(d.authors.collect{|a| a.fullname})}" %></span>
-      (<%= "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d.record', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
+  by
+  <span class='content_by'><%= "#{authors.empty? ? category.creator.screen_name : author_str = join_with_and(d.authors.collect{|a| a.fullname})}" %></span>
+  (<%= "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d.record', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
 </p>
 <p>
-<%= d.content %>
+<%= d.content.html_safe %>
 </p>
 <%  if !d.sources.empty? %>
       <div id='descsources_div' class='padded'>
@@ -18,16 +18,16 @@
       </div>
 <%  end %>
 <p><div class='padded'>
-<% form_remote_tag :url => new_category_description_source_path(category,d), :update => 'info', :method => :get do %>
+<%= form_tag :url => new_category_description_source_path(category,d), :remote => true, :method => :get do %>
 <%   authorized_only hash_for_new_category_description_source_path do %>
-<%=    submit_tag te('add.record', :what => Source.human_name) %>
+<%=    submit_tag te('add.record', :what => Source.model_name.human) %>
 <%   end 
    end %>
 </div></p>
-<%  form_remote_tag :url => edit_category_description_path(category, d), :update => 'info', :method => :get do %>
-  <p>
-<%   authorized_only hash_for_edit_category_description_path do %>
-<%=    submit_tag te('edit.record', :what => Description.human_name) %>
-<%   end %>
-  </p>
+<%= form_tag :url => edit_category_description_path(category, d), :remote => true, :method => :get do %>
+    <p>
+<%    authorized_only hash_for_edit_category_description_path do %>
+<%=     submit_tag te('edit.record', :what => Description.model_name.human) %>
+<%    end %>
+    </p>
 <% end %>

@@ -1,8 +1,8 @@
 class HomeController < AclController
-  def initialize
-    super
-    @guest_perms += [ 'home/change_language']
-  end
+  #def initialize
+  #  super
+  #  @guest_perms += [ 'home/change_language']
+  #end
 
   def index
     @current_tab_id = :home

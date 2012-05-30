@@ -7,7 +7,7 @@
     col_size = @categories.size / cols
     row = 1 %>
 </h2>
-<%= blurb.content %>
+<%= blurb.content.html_safe %>
 <table border="0" width="99%" class="normal">
   <tr>
     <td valign="top" width="<%= 100/3 %>%">

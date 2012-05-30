@@ -2,10 +2,11 @@
 module ApplicationHelper
 
   # overrides link_to_remote in vendor/rails/action_pack/lib/action_view/prototype_helper.rb
-  def link_to_remote(name, options = {}, html_options = {})
-    html_options.merge!({:href => url_for(options[:url])}) if ( html_options[:href].nil? || html_options[:href].blank? ) && !options[:url].blank?
-    link_to_function(name, remote_function(options), html_options || options.delete(:html))
-  end
+  # THIS NEEDS TO BE RADICALLY FIXED!  
+  #def link_to_remote(name, options = {}, html_options = {})
+  #  html_options.merge!({:href => url_for(options[:url])}) if ( html_options[:href].nil? || html_options[:href].blank? ) && !options[:url].blank?
+  #  link_to_function(name, remote_function(options), html_options || options.delete(:html))
+  #end
 
   def side_column_links
     str = "<h3 class=\"head\">#{link_to 'Knowledge Maps', '#nogo', {:hreflang => 'Manage hierarchical controlled vocabulary to be used by other applications.'}}</h3>\n<ul>\n"
@@ -78,7 +79,7 @@ module ApplicationHelper
     
     # If the current tab is :topics, save the current path in session, so that the :topics tab
     # can continue to link to this page from other tabs
-    session[:topics_tab_path] = request.request_uri if current_tab_id == :topics
+    session[:topics_tab_path] = request.fullpath if current_tab_id == :topics
     
     # Set the :topics tab's URL to the saved path, or remove the tab if this path isn't present
     if !session[:topics_tab_path].blank?

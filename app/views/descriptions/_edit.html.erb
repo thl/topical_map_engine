@@ -1,14 +1,13 @@
-<h1><%= ts :in, :what =>t(:for, :what => t('edit.ing.record', :what => Description.human_name.titleize), :whom => "<em>#{h(@category.title)}</em>"), :where => h(@description.language.title) %></h1>
+<h1><%= ts :in, :what =>t(:for, :what => t('edit.ing.record', :what => Description.model_name.human.titleize), :whom => "<em>#{h(@category.title)}</em>"), :where => h(@description.language.title) %></h1>
 <%= error_messages_for :description %>
-<% remote_form_for(:description, :url => category_description_path(@category, @description), :before => "tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true", :update => 'info', :html => { :method => :put}) do |f| %>
-<%= render :partial => 'form', :locals => {:f => f, :default_author_id => nil} %>
-  <p>
-    <%= globalized_submit_tag 'update.this' %> 
-  </p>
-<% end %>
+<%= form_for(:description, :url => category_description_path(@category, @description), :remote => true, :method => :put, :html => { :id => 'description_form' }) do |f| %>
+<%=   render :partial => 'form', :locals => {:f => f, :default_author_id => nil} %>
+      <p><%= globalized_submit_tag 'update.this' %></p>
+<%  end %>
+<%= javascript_tag("$(\'#description_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true; });") %>
 <p>
-<% authorized_only hash_for_category_description_path(:action => 'destroy') do %>
-<%=  link_to_remote ts('delete.this'), :url => category_description_path(@category, @description), :confirm => 'Are you sure?', :update => 'info', :method => :delete %> |
-<% end %>
-<%= link_to_remote ts('cancel.this'), :url => category_child_path(@main_category, @category), :method => :get %>
+<%  authorized_only hash_for_category_description_path(:action => 'destroy') do %>
+<%=   link_to ts('delete.this'), category_description_path(@category, @description), :confirm => 'Are you sure?', :remote => true, :method => :delete %> |
+<%  end %>
+<%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>
 </p>

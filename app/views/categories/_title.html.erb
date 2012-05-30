@@ -2,16 +2,17 @@
   <h1><%= ts 'edit.ing.record', :what => t('name.for', :what => t('topical_map.this', :count => 1)) %></h1>
 <% else
      master = (@main_category == @category.parent) %>
-     <h1><%= ts 'edit.ing.record', :what => t('name.for', :what => master ? t(:master, :what => Category.human_name.capitalize) : t(:subcategory)) %></h1>
+     <h1><%= ts 'edit.ing.record', :what => t('name.for', :what => master ? t(:master, :what => Category.model_name.human.capitalize) : t(:subcategory)) %></h1>
 <% end %>
 <%= error_messages_for :category %>
-<% if base_language?
-     remote_form_for(:category, :url => @main_category.nil? ? category_path(@category) : category_child_path(@main_category, @category), :before => "document.getElementById(\'submit_button\').disabled = true;", :html => { :method => :put }) do |f| %>
-       <p><b><%= ts 'name.in', :what => t(:english) %></b><br />
+<% if base_language? %>
+<%=  form_for(:category, :url => @main_category.nil? ? category_path(@category) : category_child_path(@main_category, @category), :remote => true, :method => :put, :html => { :id => 'category_form' }) do |f| %>
+       <p><b><%= ts 'name.in', :what => t('language.english') %></b><br />
 <%=      f.text_field :title %>
        </p>
 <%=    f.hidden_field :creator_id %>
        <p><%= globalized_submit_tag 'update.this' %></p> 
-<%   end
-   end %>
-<p><%= link_to_remote ts('cancel.record', :what => t('edit.ing.this')), :url => @main_category.nil? ? category_path(@category) : category_child_path(@main_category, @category), :method => 'get' %></p>
+<%   end %>
+<%=  javascript_tag("$(\'#category_form\').bind(\'ajax:before\', function(){ document.getElementById(\'submit_button\').disabled = true; });") %>
+<% end %>
+<p><%= link_to ts('cancel.record', :what => t('edit.ing.this')), @main_category.nil? ? category_path(@category) : category_child_path(@main_category, @category), :remote => true %></p>

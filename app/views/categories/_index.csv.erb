@@ -1,5 +1,5 @@
 <%  if !category.nil?
-	  translated_titles = @languages.collect{|language| category.translated_titles.find(:first, :conditions => {:language_id => language.id})}.collect{|translated_title| translated_title.nil? ? '' : translated_title.title}
+	  translated_titles = @languages.collect{|language| category.translated_titles.where(:language_id => language.id).first}.collect{|translated_title| translated_title.nil? ? '' : translated_title.title}
 %><%= CSV.generate_line [category.id, "#{'  ' * margin_depth}#{category.title}"] + translated_titles %>
 <%	  margin_depth += 1
     end

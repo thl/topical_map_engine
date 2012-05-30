@@ -29,7 +29,8 @@ class TasksController < AclController
     filename = params[:filename]
     contents = params[:contents]
     redirect_to new_task_url if filename.blank? || contents.blank?
-    File.open(File.expand_path(File.join(RAILS_ROOT, filename)), "w") { |file| file.write(contents) }
+    
+    File.open(Rails.root.join(filename).expand_path, "w") { |file| file.write(contents) }
     flash[:notice] = 'File has been over-written.'
     redirect_to tasks_url
   end

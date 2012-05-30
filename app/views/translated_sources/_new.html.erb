@@ -8,14 +8,12 @@
    end %>
 <h1><%= ts :for, :what => t('translat.ion').capitalize, :whom => "<em>#{formated_mms_pages(@source)}</em>" %></h1>
 <%= error_messages_for :translated_source %>
-<% remote_form_for(:translated_source, :url => translated_path, :before => "tinyMCE.triggerSave();document.getElementById(\'submit_button\').disabled = true;", :update => 'info') do |f| %>
-<%= render :partial => 'translated_sources/form', :locals => {:f => f} %>
-  <div id="update_div">  
-  </div>
-  <p>
-<%= submit_to_remote 'submit_button', te('creat.e.record', :what => t('translat.ion')), :url => translated_path, :update => 'info', :before => "tinyMCE.triggerSave();" %>
-  </p>
-<% end %>
+<%= form_for(:translated_source, :url => translated_path, :remote => true, :html => { :id => 'translated_source_form' }) do |f| %>
+<%=   render :partial => 'translated_sources/form', :locals => {:f => f} %>
+      <div id="update_div"></div>
+      <p><%= submit_tag te('creat.e.record', :what => t('translat.ion')) %></p>
+<%  end %>
+<%= javascript_tag("$(\'#translated_source_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true; });") %>
 <p>
-<%= link_to_remote ts('cancel.this'), :url => category_child_path(@main_category, @category), :method => :get %>
+<%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>
 </p>

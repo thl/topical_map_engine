@@ -25,11 +25,11 @@ class Category < ActiveRecord::Base
   include Tree
   
   def published_children
-    self.children.find(:all, :conditions => {:published => true}, :order => 'title')
+    self.children.where(:published => true).order('title')
   end
   
   def self.published_roots
-    self.find(:all, :conditions => {:parent_id => nil, :published => true}, :order => 'title')
+    self.where(:parent_id => nil, :published => true).order('title')
   end
 
   def self.published_roots_and_descendants

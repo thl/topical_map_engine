@@ -1,11 +1,10 @@
-<% master = (@main_category == @category.parent)
-   title = ts 'new.record', :what => ts(:master, :what => master ? Category.human_name.capitalize : t(:subcategory)) %>
-   <h1><%= title %></h1>
+<%  master = (@main_category == @category.parent)
+    title = ts 'new.record', :what => ts(:master, :what => master ? Category.model_name.human.capitalize : t(:subcategory)) %>
+    <h1><%= title %></h1>
 <%= error_messages_for :category %>
-<% remote_form_for(:category, :url => category_children_path(@main_category), :before => "tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true") do |f| %>
-<%=  render :partial => 'form', :locals => {:changing_parent_allowed => false, :f => f, :default_curator_id => nil} %>
-     <p>
-<%=    globalized_submit_tag 'creat.e.this' %>
-     </p>
-<% end %>
-<p><%= link_to_remote ts('cancel.record', :what => t('new.this')), :url => category_child_path(@main_category, @category.parent), :method => 'get' %></p>
+<%= form_for(:category, :url => category_children_path(@main_category), :remote => true, :html => { :id => 'category_form' }) do |f| %>
+<%=   render :partial => 'form', :locals => {:changing_parent_allowed => false, :f => f, :default_curator_id => nil} %>
+      <p><%= globalized_submit_tag 'creat.e.this' %></p>
+<%  end %>
+<%= javascript_tag("$(\'#category_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true; });") %>
+<p><%= link_to ts('cancel.record', :what => t('new.this')), category_child_path(@main_category, @category.parent), :remote => true %></p>

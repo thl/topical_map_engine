@@ -1,15 +1,15 @@
 <p>
     <b><%= TranslatedSource.human_attribute_name(:language_id).s %></b><br />
 <%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
-  </p>
-  <p>
+</p>
+<p>
     <b><%= TranslatedSource.human_attribute_name(:title).s %></b><br />
 <%= f.text_area :title, :rows => 16, :cols => 50, :class => 'mceEditor' %>
-  </p>
-  <p>
-   <%= link_to_remote ts('add.record', :what => t('new.record', :what => TranslatedSource.human_attribute_name(:author))), :url => { :action => 'add_author', :source_id => @source}, :update => 'update_div', :position => 'before', :method => 'get' %>
-  </p>
-  <div id="authors_div">
+</p>
+<p>
+<%= link_to ts('add.record', :what => t('new.record', :what => TranslatedSource.human_attribute_name(:author))), :action => 'add_author', :source_id => @source, :remote => true %>
+</p>
+<div id="authors_div">
 <% if @translated_source.authors.empty? && !current_user.person.nil? %>
 <%=  render :partial => 'authors_selector', :locals => {:selected => current_user.person_id} %>
 <% else
@@ -17,4 +17,4 @@
 <%=    render :partial => 'authors_selector', :locals => {:selected => author.id} %>
 <%   end
    end %>
-  </div>  
+</div>  

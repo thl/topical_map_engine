@@ -1,4 +1,4 @@
-<%  category.descriptions.find(:all, :order => 'is_main DESC').each do |d| %>
+<%  category.descriptions.order('is_main DESC').each do |d| %>
 	<div id="<%= "#{d.id}_descdiv" %>">
 <%  if @description.nil? 		
       if d.is_main? %>

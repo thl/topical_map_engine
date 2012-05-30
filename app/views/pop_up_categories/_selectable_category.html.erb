@@ -1,1 +1,1 @@
-<%= link_to_remote h(category.title), {:url => pop_up_category_path(category), :method => 'get'} %>
+<%= link_to h(category.title), pop_up_category_path(category), :remote => true %>

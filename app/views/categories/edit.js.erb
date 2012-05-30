@@ -1,0 +1,5 @@
+<% if @main_category.nil? %>
+     $("#info").html("<%= escape_javascript(render(:partial => 'main_edit')) %>")
+<% else %>
+     $("#info").html("<%= escape_javascript(render(:partial => 'edit')) %>")
+<% end %>

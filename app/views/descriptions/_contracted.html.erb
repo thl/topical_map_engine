@@ -1,16 +1,16 @@
-<% form_remote_tag :url => edit_category_description_path(category, d), :update => 'info', :method => :get do %>
-  <p>
-<%  authors = d.authors
-    language = d.language %>
-<%= link_to_remote '&nbsp;', {:url => expand_category_description_path(category,d),  :method => 'get'},  { :class => 'descriptionplus_icon' } %>
-	<span class='content_by'><b><%= "#{d.title.blank? ? Description.human_name.titleize.s : h(d.title)}" %></b></span>
-<%= ' by ' %>
-	<span class='content_by'><%= "#{authors.empty? ? category.creator.screen_name : author_str = join_with_and(d.authors.collect{|a| a.fullname})}" %></span>
-	(<%= "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d.record', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
-  </p>
-  <p>
-<%  authorized_only hash_for_edit_category_description_path do %>
-<%=   submit_tag 'edit description' %>
+<%= form_tag :url => edit_category_description_path(category, d), :remote => true, :method => :get do %>
+      <p>
+<%      authors = d.authors
+        language = d.language %>
+<%=     link_to '&nbsp;', expand_category_description_path(category,d), :remote => true, :class => 'descriptionplus_icon' %>
+	    <span class='content_by'><b><%= "#{d.title.blank? ? Description.model_name.human.titleize.s : h(d.title)}" %></b></span>
+<%=     ' by ' %>
+	    <span class='content_by'><%= "#{authors.empty? ? category.creator.screen_name : author_str = join_with_and(d.authors.collect{|a| a.fullname})}" %></span>
+	    (<%= "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d.record', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
+      </p>
+      <p>
+<%      authorized_only hash_for_edit_category_description_path do %>
+<%=       submit_tag 'edit description' %>
+<%      end %>
+      </p>
 <%  end %>
-  </p>
-<% end %>

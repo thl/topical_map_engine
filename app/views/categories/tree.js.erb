@@ -1,0 +1,4 @@
+<% categories = logged_in? ? @main_category.children : @main_category.published_children
+   @ancestors_for_current = @category.ancestors.collect{|c| c.id}
+   @ancestors_for_current << @category.id %>
+$("#navigation").html("<%= escape_javascript(render(:partial => 'index', :locals => {:margin_depth => 0, :categories => categories})) %>")

@@ -8,13 +8,14 @@ namespace :kmaps do
   desc "Installs dependent plugins for kmaps engine."
   task :install_dependencies do
     git_installers = { 'active_resource_extensions' => 'git://github.com/thl/active_resource_extensions.git', 'acts_as_tree' => 'git://github.com/rails/acts_as_tree.git', 'mms_integration' => 'git://github.com/thl/mms_integration.git', 'places_integration' => 'git://github.com/thl/places_integration.git', 'tiny_mce' => 'git://github.com/kete/tiny_mce.git' }
-    if File.exists?(File.join(RAILS_ROOT, '.git'))
+    
+    if Rails.root.join('.git').exist?
       git_installers.each do |plugin, url| 
         path = "vendor/plugins/#{plugin}"
-        system "git submodule add #{url} #{path}" if !File.exists?(File.join(RAILS_ROOT, path))
+        system "git submodule add #{url} #{path}" if !Rails.root.join(path).exist?
       end
     else
-      git_installers.each { |plugin, url| system "script/plugin install #{url}" if !File.exists?(File.join(RAILS_ROOT, "vendor/plugins/#{plugin}")) }
+      git_installers.each { |plugin, url| system "script/plugin install #{url}" if !Rails.root.join('vendor', 'plugins', plugin).exist? }
     end
   end
   

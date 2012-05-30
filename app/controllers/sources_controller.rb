@@ -1,5 +1,6 @@
 class SourcesController < AclController
   before_filter :find_category
+  respond_to :html, :xml, :js
    
   def initialize
      super
@@ -21,93 +22,57 @@ class SourcesController < AclController
   # GET /sources/new
   # GET /sources/new.xml
   def new
-    @languages = ComplexScripts::Language.find(:all, :order => 'title')
-    if !params[:description_id].nil?
+    @languages = ComplexScripts::Language.order('title')
+    if params[:description_id].nil?
+      @description = nil
+      @source.resource = @category
+    else
       @description = Description.find(params[:description_id])
+      @source.resource = @description
     end
     @source = Source.new(:creator => current_user, :language => ComplexScripts::Language.find_by_code('eng'))
-    respond_to do |format|
-      if params[:description_id].nil?
-        @source.resource = @category
-        #format.html {render :partial => 'descnew' if request.xhr?} # new.html.erb
-        format.html {render :partial => 'new' if request.xhr?} # new.html.erb
-      else
-        @source.resource = @description
-        #format.html {render :partial => 'new' if request.xhr?} # new.html.erb
-        format.html {render :partial => 'new', :locals => {:description => @description} if request.xhr?}
-      end
-      
-      format.xml  { render :xml => @source }
-    end
+    respond_with @source
   end
 
   # GET /sources/1/edit
   def edit
-      @languages = ComplexScripts::Language.find(:all, :order => 'title')
-    
-    if !params[:description_id].nil?
+    @languages = ComplexScripts::Language.order('title')
+    if params[:description_id].nil?
+      @description = nil
+    else
       @description = Description.find(params[:description_id])
     end
     @source = Source.find(params[:id])
-    respond_to do |format|
-      if params[:description_id].nil?
-        #@source.resource = @category
-        format.html {render :partial => 'edit' if request.xhr?} # edit.html.erb
-      else
-        #@source.resource = @description
-        format.html {render :partial => 'edit', :locals => {:description => @description} if request.xhr?}
-      end
-    end
+    respond_with(@source)
   end
 
   # POST /sources
   # POST /sources.xml
   def create
-    @languages = ComplexScripts::Language.find(:all, :order => 'title')
-    
-    if !params[:description_id].nil?
-        @description = Description.find(params[:description_id])
-    end
-    @source = Source.new(params[:source])
+    @languages = ComplexScripts::Language.order('title')
     if params[:description_id].nil?
+      @description = nil
       @source.resource = @category
     else
+      @description = Description.find(params[:description_id])
       @source.resource = @description
     end
-
+    @source = Source.new(params[:source])
     respond_to do |format|
       if @source.save
-        if request.xhr?
-	        format.html do
-		        if @category == @main_category 
-		          render :partial => 'categories/main_show', :locals => {:category => @main_category}
-		        else
-              render :partial => 'categories/show'
-		        end      	  		
-		      end          
-        else
+        format.html do
           flash[:notice] = 'Source was successfully created.'
-          format.html do
-  			    if @category != @main_category 
-  			      redirect_to category_child_url(@main_category, @category)
-  			    else
-  			      redirect_to(@category)
-  			    end		
-          end              
+			    if @category != @main_category 
+			      redirect_to category_child_url(@main_category, @category)
+			    else
+			      redirect_to(@category)
+			    end		
         end
+        format.js   { render 'categories/show' }
         format.xml  { render :xml => @source, :status => :created, :location => @source }
       else
-        format.html do
-          if request.xhr?
-            if params[:description_id].nil?
-              render :partial => 'new'
-            else
-              render :partial => 'new', :locals => {:description => @description}
-            end
-          else
-            render :action => 'new'
-          end
-        end        
+        format.html { render 'new' }
+        format.js   { render 'new' }
         format.xml  { render :xml => @source.errors, :status => :unprocessable_entity }        
       end
     end
@@ -117,50 +82,29 @@ class SourcesController < AclController
   # PUT /sources/1.xml
   def update
     @source = Source.find(params[:id])
-    @languages = ComplexScripts::Language.find(:all, :order => 'title')
-    if !params[:description_id].nil?
-        @description = Description.find(params[:description_id])
-    end
+    @languages = ComplexScripts::Language.order('title')
     if params[:description_id].nil?
+      @description = nil
       @source.resource = @category
     else
+      @description = Description.find(params[:description_id])
       @source.resource = @description
-    end    
-
+    end
     respond_to do |format|
       if @source.update_attributes(params[:source])
-        if request.xhr?
-	        format.html do
-		        if @category == @main_category 
-		          render :partial => 'categories/main_show', :locals => {:category => @main_category}
-		        else
-              render :partial => 'categories/show'
-		        end      	  		
-		      end          
-        else
+        format.html do
           flash[:notice] = 'Source was successfully updated.'
-          #format.html { redirect_to(@source) }
-          format.html do
-  			    if @category != @main_category 
-  			      redirect_to category_child_url(@main_category, @category)
-  			    else
-  			      redirect_to(@category)
-  			    end		
-          end
+			    if @category != @main_category 
+			      redirect_to category_child_url(@main_category, @category)
+			    else
+			      redirect_to(@category)
+			    end		
         end
+        format.js   { render 'categories/show' }
         format.xml  { head :ok }
       else
-        format.html do
-          if request.xhr?
-            if params[:description_id].nil?
-              render :partial => 'edit'
-            else
-              render :partial => 'edit', :locals => {:description => @description}
-            end
-          else
-            render :action => 'edit'
-          end
-        end
+        format.html { render 'edit' }
+        format.js   { render 'edit' }
         format.xml  { render :xml => @source.errors, :status => :unprocessable_entity }
       end
     end
@@ -174,37 +118,27 @@ class SourcesController < AclController
 
     respond_to do |format|
       format.html do
-	      if request.xhr?
-  		    if @category == @main_category 
-  			    render :partial => 'categories/main_show', :locals => {:category => @main_category}
-  		    else
-  			    render :partial => 'categories/show'      	  		
-  		    end		  
-        else
-  		    if @category != @main_category 
-  		      redirect_to category_child_url(@main_category, @category)
-  		    else
-  		      redirect_to(@category)
-  		    end          
-        end     	  		
+		    if @category != @main_category 
+		      redirect_to category_child_url(@main_category, @category)
+		    else
+		      redirect_to(@category)
+		    end          
 	    end
+      format.js   { render 'categories/show' }
       format.xml  { head :ok }
     end
   end
 
  def contract
-    @source =  nil
-    s = Source.find(params[:id])
+    @source = Source.find(params[:id])
     if !params[:description_id].nil?
-      resource = Description.find(params[:description_id])
+      @resource = Description.find(params[:description_id])
     else
-      resource = @category
+      @resource = @category
     end
-    render :partial => 'contracted', :locals => {:resource => resource, :s => s}
-  end
+  end # renders contract.js.erb
   
   def expand
-    
     @source = Source.find(params[:id])
     #if !params[:description_id].nil?
     if @source.resource_type == 'Category'
@@ -212,8 +146,8 @@ class SourcesController < AclController
     else #'Description'
       @resource = Description.find(@source.resource_id)
     end
-    render_sources
-  end  
+    render 'index' # .js.erb
+  end
   
   private
   # This is tied to categories
@@ -224,18 +158,5 @@ class SourcesController < AclController
     
   def source_url(source)
     category_source_url(@category, source)
-  end
-    
-  def render_sources
-    
-    render :update do |page|
-	    yield(page) if block_given?
-	    if params[:description_id].nil?
-        page.replace_html 'catsources_div', :partial => 'sources/index', :locals => { :resource => @resource}
-      else
-        page.replace_html 'descsources_div', :partial => 'sources/index', :locals => { :resource => @resource}
-      end
-	  end
-  end        
+  end    
 end
-

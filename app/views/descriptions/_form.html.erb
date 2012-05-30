@@ -1,9 +1,8 @@
 <%= tagged_tinymce_script %>
 <p>
-    <b><%= ts :for, :what => ComplexScripts::Language.human_name.titleize, :whom => Description.human_name.titleize %></b><br />
+    <b><%= ts :for, :what => ComplexScripts::Language.model_name.human.titleize, :whom => Description.model_name.human.titleize %></b><br />
 <%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
 </p>
-
 <p>
   <b><%= Description.human_attribute_name('title').s %></b><br />
 	<%= f.text_field :title, :size => 50 %>
@@ -15,7 +14,7 @@
 <%= f.hidden_field :category_id %>
 <%= f.hidden_field :creator_id %>
 <p>
-<%= link_to_remote ts('add.record', :what => t('new.record', :what => Description.human_attribute_name(:author))), :url => add_author_category_descriptions_path(@category), :update => 'update_div', :position => 'before', :method => 'get' %>
+<%= link_to ts('add.record', :what => t('new.record', :what => Description.human_attribute_name(:author))), add_author_category_descriptions_path(@category), :remote => true %>
 </p>
 <div id="authors_div">
 <% if default_author_id.nil? %>
@@ -23,7 +22,7 @@
 <%=    render :partial => 'authors_selector', :locals => {:selected => author.id} %>
 <%   end
    else %>
-<%=    render :partial => 'authors_selector', :locals => {:selected => default_author_id} %>
+<%=  render :partial => 'authors_selector', :locals => {:selected => default_author_id} %>
 <% end %>
 </div>    
 <div id="update_div"/>

@@ -1,0 +1,4 @@
+$("#pop_up_navigation").html("<%= escape_javascript(render(:partial => 'index', :locals => {:categories => @categories, :margin_depth => 0})) %>")
+$("#current_category_id").val("<%= @pop_up_category.id %>")
+$("#current_category_title").val("<%= escape_javascript(@pop_up_category.title) %>")
+$("#current_category_selector").val("<%= pop_up_categories_path(:selected_category_id => @pop_up_category) %>")
