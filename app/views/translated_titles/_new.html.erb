@@ -3,9 +3,8 @@
 <%= form_for(:translated_title, :url => category_translated_titles_path(@category), :remote => true, :html => { :id => 'translated_title_form' }) do |f| %>
 <%=   render :partial => 'translated_titles/form', :locals => {:f => f} %>
       <div id="update_div"></div>
-      <p><%= submit_tag te('creat.e.record', :what => t('translat.ion')) %></p>
+      <p><%= submit_tag te('creat.e.record', :what => t('translat.ion')), :disable_with => 'Processing...' %></p>
 <%  end %>
-<%= javascript_tag("$(\'#translated_title_form\').bind(\'ajax:before\', function(){ document.getElementById(\'submit_button\').disabled = true; });") %>
 <p>
 <%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>
 </p>

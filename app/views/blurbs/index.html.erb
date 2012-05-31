@@ -13,7 +13,7 @@
 <% end %>
 </table>
 <p>&nbsp;<br/>
-<% authorized_only hash_for_new_blurb_path do %>
+<% if authorized? hash_for_new_blurb_path %>
 <%=  link_to ts('new.record', :what => Blurb.model_name.human), new_blurb_path %> |
 <% end %>
 <%= link_to ts('back.to', :what => t('home.for', :what => t('topical_map.this', :count => :many))), root_path %>

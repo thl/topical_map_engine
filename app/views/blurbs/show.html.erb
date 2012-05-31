@@ -3,7 +3,7 @@
 <p><b><%= Blurb.human_attribute_name(:content).s %></b></p>
 <%= @blurb.content %>
 <p>&nbsp;<br/>
-<% authorized_only hash_for_edit_blurb_path do %>
+<% if authorized? hash_for_edit_blurb_path %>
 <%=  link_to ts('edit.this'), edit_blurb_path(@blurb) %> |
 <% end %>
 <%= render :partial => 'persistent_links' %>

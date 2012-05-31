@@ -18,15 +18,15 @@
       </div>
 <%  end %>
 <p><div class='padded'>
-<%= form_tag :url => new_category_description_source_path(category,d), :remote => true, :method => :get do %>
-<%   authorized_only hash_for_new_category_description_source_path do %>
-<%=    submit_tag te('add.record', :what => Source.model_name.human) %>
-<%   end 
-   end %>
+<%= form_tag new_category_description_source_path(category,d), :remote => true, :method => :get do %>
+<%    if authorized? hash_for_new_category_description_source_path %>
+<%=     submit_tag te('add.record', :what => Source.model_name.human) %>
+<%    end 
+    end %>
 </div></p>
-<%= form_tag :url => edit_category_description_path(category, d), :remote => true, :method => :get do %>
+<%= form_tag edit_category_description_path(category, d), :remote => true, :method => :get do %>
     <p>
-<%    authorized_only hash_for_edit_category_description_path do %>
+<%    if authorized? hash_for_edit_category_description_path %>
 <%=     submit_tag te('edit.record', :what => Description.model_name.human) %>
 <%    end %>
     </p>

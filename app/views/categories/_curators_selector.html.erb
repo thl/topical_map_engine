@@ -1,6 +1,6 @@
 <div class="dropdown">
 <p>
 <%= select_tag 'category[curator_ids][]', options_for_select(@curators.collect{|a| [ a.fullname , a.id] }, selected.nil? ? nil : selected) %>
-<%= link_to_function 'remove', "this.up('.dropdown').remove()" %>
+<%= link_to_function ts(:remove), "$(this).parents('.dropdown:first').remove()" %>
 </p>
 </div>

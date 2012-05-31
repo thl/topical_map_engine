@@ -8,11 +8,9 @@
 <%=   javascript_tag("$(\'##{link_id}\').bind(\'ajax:complete\', function(){ $(\'node_#{@category.nil? ? @main_category.id : @category.id}_div > .node-name\').addClassName(\'selected-node\'); });") %>
 <%  end %>
 <%= render :partial => 'selectable_node', :locals => { :node => expanded } %>
-<% base_language_only do
-      authorized_only hash_for_new_category_child_path do
-	    options = { :remote => true }
-        options[:class] = 'unpublished' if !expanded.published? %>
-        (<%= link_to ts('new.record', :what => t(:subcategory)), new_category_child_path(@main_category, :parent_id => expanded), options %>)
-<%    end
-    end %>
+<%  if base_language? && authorized?(hash_for_new_category_child_path)
+	  options = { :remote => true }
+      options[:class] = 'unpublished' if !expanded.published? %>
+      (<%= link_to ts('new.record', :what => t(:subcategory)), new_category_child_path(@main_category, :parent_id => expanded), options %>)
+<%  end %>
 <%= render :partial => 'index', :locals => {:node => expanded, :categories => children} %>

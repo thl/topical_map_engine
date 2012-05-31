@@ -23,6 +23,7 @@ class SourcesController < AclController
   # GET /sources/new.xml
   def new
     @languages = ComplexScripts::Language.order('title')
+    @source = Source.new(:creator => current_user, :language => ComplexScripts::Language.find_by_code('eng'))
     if params[:description_id].nil?
       @description = nil
       @source.resource = @category
@@ -30,7 +31,6 @@ class SourcesController < AclController
       @description = Description.find(params[:description_id])
       @source.resource = @description
     end
-    @source = Source.new(:creator => current_user, :language => ComplexScripts::Language.find_by_code('eng'))
     respond_with @source
   end
 

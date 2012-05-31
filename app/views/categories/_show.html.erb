@@ -1,7 +1,7 @@
-<%= form_tag :url => new_category_translated_title_path(@category), :remote => true, :method => :get do %>
+<%= form_tag new_category_translated_title_path(@category), :remote => true, :method => :get do %>
       <h1><%= "#{h(@category.title).s}" %></h1>
       <p>(<%= authorized?(hash_for_modify_title_category_child_path) ? link_to("<i>#{ts('language.english')}</i>".html_safe, modify_title_category_child_path(@main_category, @category), :remote => true) : "<i>#{ts('language.english')}</i>".html_safe %>)
-<%      authorized_only hash_for_new_category_translated_title_path do %>  
+<%      if authorized? hash_for_new_category_translated_title_path %>
 <%=       submit_tag te('add.record', :what => t('translat.ion')), language_options(:disabled_with => 'Posting...') %>
 <%      end %>
       </p>
@@ -9,7 +9,7 @@
 <% if !@category.translated_titles.empty? %>
      <p class="indented">
        <b><%= TranslatedTitle.model_name.human(:count => :many).titleize.s %>:</b>
-<%=    @category.translated_titles.collect{ |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_translated_title_path) ? link_to("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", edit_category_translated_title_path(@category, t), :remote => true)  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }.join(', ').html_safe %>
+<%=    @category.translated_titles.collect{ |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_translated_title_path) ? link_to("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>".html_safe, edit_category_translated_title_path(@category, t), :remote => true)  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>".html_safe})" }.join(', ').html_safe %>
 	 </p>
 <% end %>
 <%= render :partial => 'categories/info', :locals => {:category => @category} %>
@@ -19,7 +19,7 @@
 <%= display_if_not_blank Category.human_attribute_name('cumulative').s, @category.cumulative? ? ts(:affirmation) : ts(:negation) %>
    <p id="form">
 <%   previous = false
-     authorized_only hash_for_edit_category_child_path do %>
+     if authorized? hash_for_edit_category_child_path %>
 <%=    link_to ts('edit.this'), edit_category_child_path(@main_category, @category), :remote => true %>
 <%     previous = true
      end
@@ -28,7 +28,7 @@
 <%=    link_to ts('delete.this'), category_child_path(@main_category, @category), :remote => true, :confirm => 'Are you sure you want to delete the category? Please be aware that deleting a parent also deletes its children.', :method => :delete %>
 <%     previous = true
      end
-     authorized_only hash_for_category_path(:action => 'update') do %>
+     if authorized? hash_for_category_path(:action => 'update') %>
 <%=    hidden_field_tag 'category[parent_id]', '' %>
 <%=    '|' if previous %>
 <%=    link_to 'Convert to Autonomous Knowledge Map', category_child_path(@main_category, @category), :remote => true, :method => :put, :submit => 'form' %>

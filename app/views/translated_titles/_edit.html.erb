@@ -3,12 +3,11 @@
 <%= form_for(:translated_title, :url => category_translated_title_path(@category, @translated_title), :remote => true, :method => :put, :html => { :id => 'translated_title_form' }) do |f| %>
 <%=   render :partial => 'translated_titles/form', :locals => {:f => f} %>
       <p><div id="update_div">
-<%=   submit_tag 'update translation' %>
+<%=   submit_tag 'update translation', :disable_with => 'Processing...' %>
       </div></p>
 <%  end %>
-<%= javascript_tag("$(\'#translated_title_form\').bind(\'ajax:before\', function(){ document.getElementById(\'submit_button\').disabled = true; });") %>
 <p>
-<%  authorized_only hash_for_category_translated_title_path(:action => 'destroy') do %>
+<%  if authorized? hash_for_category_translated_title_path(:action => 'destroy') %>
 <%=   link_to ts('delete.this'), category_translated_title_path(@category, @translated_title), :remote => true, :confirm => 'Are you sure?', :method => :delete %> |
 <%  end %>
 <%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>

@@ -19,6 +19,6 @@ module PopUpCategoriesHelper
     return_str << "\n<input type=\"hidden\" id=\"selected_category_id\" name=\"selected_category_id\" value=\"#{selected_category.id if !selected_category.nil?}\" />\n"
     return_str << "\n<input type=\"hidden\" id=\"selected_category_title\" name=\"selected_category_title\" value=\"#{selected_category.title if !selected_category.nil?}\" />\n"
     return_str << "<script type=\"text/javascript\">ActivateThlPopups('#info');</script>"
-    return_str
+    return_str.html_safe
   end
 end

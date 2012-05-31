@@ -11,12 +11,10 @@ module ApplicationHelper
   def side_column_links
     str = "<h3 class=\"head\">#{link_to 'Knowledge Maps', '#nogo', {:hreflang => 'Manage hierarchical controlled vocabulary to be used by other applications.'}}</h3>\n<ul>\n"
     str += "<li>#{link_to 'Home', root_path, {:hreflang => 'Lists all categories.'}}</li>\n"
-	str += "<li>#{link_to 'Intro', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/knowledge%20maps%20|amp|%20controlled%20vocabulary.html', {:hreflang => 'General Introduction to kmaps.'}}</li>\n"
-	str += "<li>#{link_to 'Help', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/knowledge%20maps%20|amp|%20controlled%20vocabulary%20user%20manual.html', {:hreflang => 'User Manual.'}}</li>\n"
-	if logged_in?
-		str += "<li>#{link_to 'Editing Help', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/knowledge%20maps%20|amp|%20controlled%20vocabulary%20editorial%20manual.html', {:hreflang => 'Editorial Manual.'}}</li>\n"
-	end
-	authorized_only(hash_for_languages_path) { str += "<li>#{link_to 'Languages', languages_path, {:hreflang => 'Manage languages used for translation of titles and interface.'}}</li>\n" }
+	  str += "<li>#{link_to 'Intro', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/knowledge%20maps%20|amp|%20controlled%20vocabulary.html', {:hreflang => 'General Introduction to kmaps.'}}</li>\n"
+	  str += "<li>#{link_to 'Help', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/knowledge%20maps%20|amp|%20controlled%20vocabulary%20user%20manual.html', {:hreflang => 'User Manual.'}}</li>\n"
+	  str += "<li>#{link_to 'Editing Help', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/knowledge%20maps%20|amp|%20controlled%20vocabulary%20editorial%20manual.html', {:hreflang => 'Editorial Manual.'}}</li>\n" if logged_in?
+  	authorized_only(hash_for_languages_path) { str += "<li>#{link_to 'Languages', languages_path, {:hreflang => 'Manage languages used for translation of titles and interface.'}}</li>\n" }
     authorized_only(hash_for_people_path) { str += "<li>#{link_to 'People', people_path, {:hreflang => 'Manage people.'}}</li>\n" }
     authorized_only(hash_for_roles_path) { str += "<li>#{link_to 'Roles', roles_path, {:hreflang => 'Manage roles and their permissions.'}}</li>\n" }
     authorized_only(hash_for_permissions_path) { str += "<li>#{link_to 'Permissions', permissions_path, {:hreflang => 'Manage permissions and their descriptions.'}}</li>\n" }

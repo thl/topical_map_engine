@@ -13,8 +13,8 @@
       </div>
 <%  end %>
 <p><div class='padded'>
-<%= form_tag :url => new_category_source_path(category), :method => :get, :remote => true do %>
-<%    authorized_only hash_for_new_category_source_path do %>
+<%= form_tag new_category_source_path(category), :method => :get, :remote => true do %>
+<%    if authorized? hash_for_new_category_source_path %>
 <%=     submit_tag te('add.record', :what => Source.model_name.human) %>
 <%    end 
     end %>
@@ -23,12 +23,8 @@
       <div id='descriptions_div' class='descriptions_div'>
 <%=     render :partial => 'descriptions/index', :locals => {:category => category} %>
       </div>
-<%    if !category.descriptions.empty? %>
-      <p>
-<%      authorized_only hash_for_set_primary_description_category_path do %>
-<%=       link_to ts('primary_description.set'), set_primary_description_category_path(category), :remote => true %>
-<%      end %>
-      </p>
+<%    if !category.descriptions.empty? && authorized?(hash_for_set_primary_description_category_path) %>
+        <p><%= link_to ts('primary_description.set'), set_primary_description_category_path(category), :remote => true %></p>
 <%    end
     end
     associated_resources = [
@@ -44,8 +40,8 @@
 </ul>
 <% end %>
 <p>
-<%= form_tag :url => new_category_description_path(category), :method => :get do %>
-<%   authorized_only hash_for_new_category_description_path do %>
+<%= form_tag new_category_description_path(category), :method => :get, :remote => true do %>
+<%   if authorized? hash_for_new_category_description_path %>
 <%=    submit_tag te('add.record', :what => Description.model_name.human) %>
 <%   end 
    end %>

@@ -13,5 +13,4 @@
 <%    end %>
 <p><%= globalized_submit_tag 'primary_description.set' %></p>
 <%  end %>
-<%= javascript_tag("$(\'#category_form\').bind(\'ajax:before\', function(){ document.getElementById(\'submit_button\').disabled = true; });") %>
 <p><%= link_to ts('cancel.record', :what => t('primary_description.select.ing')), @main_category.nil? ? category_path(@category) : category_child_path(@main_category, @category), :remote => true %></p>

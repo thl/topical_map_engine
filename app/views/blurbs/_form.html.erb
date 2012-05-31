@@ -1,4 +1,5 @@
 <%= tagged_tinymce_script %>
+<%= include_tiny_mce_if_needed %>
 <p>
   <%= f.label :code %><br />
   <%= f.text_field :code %>
@@ -9,5 +10,5 @@
 </p>
 <p>
   <%= f.label :content %><br />
-  <%= f.text_area :content, :rows => 16, :cols => 50, :class => 'mceEditor' %>
+  <%= f.text_area :content, :rows => 16, :cols => 40, :class => 'mceEditor' %>
 </p>

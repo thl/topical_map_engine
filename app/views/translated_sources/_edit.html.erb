@@ -13,12 +13,12 @@
 <%= form_for(:translated_source, :url => translated_path, :method => :put, :remote => true, :html => { :id => 'translated_source_form' }) do |f| %>
 <%=   render :partial => 'translated_sources/form', :locals => {:f => f} %>
       <p><div id="update_div">
-<%=     submit_tag 'update translation' %>
+<%=     submit_tag 'update translation', :disable_with => 'Processing...' %>
       </div></p>
 <%  end %>
-<%= javascript_tag("$(\'#translated_source_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true; });") %>
+<%= javascript_tag("$(\'#translated_source_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave();});") %>
 <p>
-<% authorized_only hash_destroy_path do %>
+<% if authorized? hash_destroy_path %>
 <%=  link_to ts('delete.this'), translated_path, :confirm => 'Are you sure?', :method => :delete, :remote => true %> |
 <% end %>
 <%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>

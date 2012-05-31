@@ -1,5 +1,5 @@
 <%= tagged_tinymce_script %>
-
+<%= include_tiny_mce_if_needed %>
 <p><b><%= Source.human_attribute_name('mms_id').s %></b><br />
   <%= f.text_field :mms_id %>
 </p>
@@ -9,13 +9,13 @@
 <p><b><%= Source.human_attribute_name('start_page').s %></b><br />
 	<%= f.text_field :start_page %>
 </p>
-<p><b><%= Source.human_attribute_name('start_line').s %><b><br />
+<p><b><%= Source.human_attribute_name('start_line').s %></b><br />
 	<%= f.text_field :start_line %>
 </p>
 <p><b><%= Source.human_attribute_name('end_page').s %></b><br />
 	<%= f.text_field :end_page %>
 </p>
-<p><b><%= Source.human_attribute_name('end_line').s %><b><br />
+<p><b><%= Source.human_attribute_name('end_line').s %></b><br />
 	<%= f.text_field :end_line %>
 </p>
 <p>
@@ -23,10 +23,10 @@
 <%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
 </p>
 <p><b><%= Source.human_attribute_name('passage').s %></b><br />
-<%= f.text_area :passage, :rows => 16, :cols => 50, :class => 'mceEditor' %>
+<%= f.text_area :passage, :rows => 16, :cols => 40, :class => 'mceEditor' %>
 </p>
 <p><b><%= Source.human_attribute_name('note').s %></b><br />
-<%= f.text_area :note, :rows => 16, :cols => 50, :class => 'mceEditor' %>
+<%= f.text_area :note, :rows => 16, :cols => 40, :class => 'mceEditor' %>
 </p>
 
 <%= f.hidden_field :creator_id %>

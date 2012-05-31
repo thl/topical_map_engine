@@ -1,7 +1,7 @@
-<%= form_tag(:url => new_category_translated_title_path(category), :remote => true) do %>
+<%= form_tag(new_category_translated_title_path(category), :remote => true, :method => :get) do %>
       <h1><%= "#{h(category.title)}" %></h1>
       <p>(<%= authorized?(hash_for_modify_title_category_path) ? link_to("<i>#{ts('language.english')}</i>".html_safe, modify_title_category_path(category), :remote => true) : "<i>#{ts('language.english')}</i>".html_safe %>)
-<%    authorized_only hash_for_new_category_translated_title_path do %>
+<%    if authorized? hash_for_new_category_translated_title_path %>
 <%=     submit_tag ts('add.record', :what => TranslatedTitle.model_name.human) %>
 <%    end %></p>
 <%  end %>
@@ -20,7 +20,7 @@
       previous = true %>
 <%=   link_to ts('delete.this'), category_path(category), :confirm => 'Are you sure? Please be aware that deleting a parent also deletes its children.', :method => :delete %>
 <%  end %>
-<%  authorized_only hash_for_edit_category_path do %>
+<%  if authorized? hash_for_edit_category_path %>
 <%=   '|' if previous %>
 <%=   link_to ts('edit.this'), edit_category_path(category), :remote => true %>
 <%    previous = true

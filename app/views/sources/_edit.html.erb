@@ -12,9 +12,9 @@
 <%=   render :partial => 'form', :locals => {:f => f} %>
       <p><%= globalized_submit_tag 'update.this' %></p>
 <%  end %>
-<%= javascript_tag("$(\'#source_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true; });") %>
+<%= javascript_tag("$(\'#source_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave();});") %>
 <p>
-<% authorized_only hash_destroy_path do %>
+<% if authorized? hash_destroy_path %>
 <%=  link_to ts('delete.this'), source_path, :remote => true, :confirm => 'Are you sure?', :method => :delete %> |
 <% end %>
 <%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>

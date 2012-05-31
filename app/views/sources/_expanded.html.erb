@@ -17,8 +17,8 @@
 <%   if @source.language.code[0..1] != I18n.locale.to_s %>
        (<%= @source.language.title.s %>)
 <%   end %>
-<%   authorized_only hash_translated_path do 
-	   form_tag :url => new_translated_path, :method => :get do %>
+<%   if authorized? hash_translated_path 
+	   form_tag new_translated_path, :method => :get, :remote => true do %>
 <%=      submit_tag te('add.record', :what => TranslatedSource.model_name.human) %>
 <%     end 
      end %>

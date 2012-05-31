@@ -1,4 +1,4 @@
-<%= Util::MARGIN * margin_depth %>
+<%= (Util::MARGIN * margin_depth).html_safe %>
 <%  has_no_children = expanded.children.empty? 
     if has_no_children %>
       &#9674;

@@ -5,7 +5,7 @@
 <%=    render :partial => 'form', :locals => {:changing_parent_allowed => true, :f => f, :default_curator_id => nil} %>
 	   <p><%=   globalized_submit_tag 'update.this' %></p>
 <%   end %>
-<%=  javascript_tag("$(\'#category_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave(); document.getElementById(\'submit_button\').disabled = true; });") %>
+<%=  javascript_tag("$(\'#category_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave();});") %>
 <% else %>
      <h2><%= ts(LANGUAGES[I18n.default_locale][:title]) %></h2>
 <%   locale = I18n.locale
