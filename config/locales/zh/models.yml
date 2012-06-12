@@ -4,8 +4,8 @@ zh:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
         models:
             blurb:
-                one: 'blurb'
-                other: 'blurbs'
+                one: '简介'
+                other: '简介'
             category:
                 one: '类别'
                 other: '类别(复数)'
@@ -18,12 +18,12 @@ zh:
         # Attribute names will be titleized.
         attributes:
             category:
-                child: 'Subject Division'
+                child: '主题分类'
                 cumulative: '是累积的'
                 curator: '馆长'
-                parent: 'Parent Subject'
+                parent: '母主题'
                 published: '已出版'
-                root: 'Master Subject'
+                root: '总主题'
                 title: '类别名称'
             description:
                 author: '作者'

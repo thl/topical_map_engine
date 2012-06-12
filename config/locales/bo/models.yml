@@ -4,12 +4,12 @@ bo:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.
         models:
             blurb:
-                one: 'blurb'
-                other: 'blurbs'
+                one: 'མཚམས་སྦྱོར་རགས་བསྡུས།'
+                other: 'མཚམས་སྦྱོར་རགས་བསྡུས།'
             category:
-                one: 'རྣམ་གྲངས།'
+                one: 'རྣམ་གྲངས། '
                 other: 'སྣ་ཁ།'
-            description: 'འཕྱོར་འབྲི།'
+            description: 'འཕྱོར་འབྲི། '
             source: 'ཆ་འཕྲིན་ཡོང་ཁུངས།'
             translated_source: 'བསྒྱུར་ཐོག་མ།'
             translated_title:
@@ -18,12 +18,12 @@ bo:
         # Attribute names will be titleized.
         attributes:
             category:
-                child: 'Subject Division'
+                child: 'བརྗོད་བྱ་གཙོ་བོའི་རིགས་དབྱེ།'
                 cumulative: 'གསོག་ཉར་བྱས་པ་རེད།'
                 curator: 'དོ་དམ་པ།'
-                parent: 'Parent Subject'
+                parent: 'བརྗོད་གཞི་ཙོ་བོ།'
                 published: 'དཔེ་བསྐྲུན་ཟིན་པ།'
-                root: 'Master Subject'
+                root: 'སྤྱིའི་བརྗོད་བྱ་གཙོ་བོ།'
                 title: 'སྣ་ཁ་སོ་སོའི་མིང་།'
             description:
                 author: 'རྩོམ་པ་པོ།'
