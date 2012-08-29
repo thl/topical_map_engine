@@ -15,9 +15,9 @@
 
 class Category < ActiveRecord::Base
   validates_presence_of :title, :creator_id
-  belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
-  #belongs_to :curator, :class_name => 'Person', :foreign_key => 'curator_id'
-  has_and_belongs_to_many :curators, :class_name => 'Person', :join_table => 'categories_curators', :association_foreign_key => 'curator_id'
+  belongs_to :creator, :class_name => 'AuthenticatedSystem::User', :foreign_key => 'creator_id'
+  #belongs_to :curator, :class_name => 'AuthenticatedSystem::Person', :foreign_key => 'curator_id'
+  has_and_belongs_to_many :curators, :class_name => 'AuthenticatedSystem::Person', :join_table => 'categories_curators', :association_foreign_key => 'curator_id'
   has_many :translated_titles, :dependent => :destroy
   has_many :descriptions, :dependent => :destroy
   has_many :sources, :as => :resource 

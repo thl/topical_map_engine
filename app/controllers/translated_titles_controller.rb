@@ -29,7 +29,7 @@ class TranslatedTitlesController < AclController
     # TODO: for now default to tibetan, in the future make this more complicated!
     @translated_title = TranslatedTitle.new(:language => ComplexScripts::Language.find_by_code('bod'))
     @languages = ComplexScripts::Language.order('title')
-    @authors = Person.order('fullname')
+    @authors = AuthenticatedSystem::Person.order('fullname')
     respond_with @translated_title
   end
 
@@ -37,7 +37,7 @@ class TranslatedTitlesController < AclController
   def edit
     @translated_title = TranslatedTitle.find(params[:id])
     @languages = ComplexScripts::Language.order('title')
-    @authors = Person.order('fullname')    
+    @authors = AuthenticatedSystem::Person.order('fullname')    
   end # edit.js.erb
 
   # POST /translated_titles
@@ -59,7 +59,7 @@ class TranslatedTitlesController < AclController
 		    format.xml  { render :xml => @translated_title, :status => :created, :location => @translated_title }		
       else
         @languages = ComplexScripts::Language.order('title')
-        @authors = Person.order('fullname')                
+        @authors = AuthenticatedSystem::Person.order('fullname')                
         format.html { render 'new' }
         format.js   { render 'new' }
         format.xml  { render :xml => @translated_title.errors, :status => :unprocessable_entity }
@@ -72,7 +72,7 @@ class TranslatedTitlesController < AclController
   def update
     params[:translated_title][:author_ids] ||= []
     @translated_title = TranslatedTitle.find(params[:id])
-    @authors = Person.order('fullname')    
+    @authors = AuthenticatedSystem::Person.order('fullname')    
 	  respond_to do |format|	
       if @translated_title.update_attributes(params[:translated_title])
         flash[:notice] = 'TranslatedTitle was successfully updated.'
@@ -113,7 +113,7 @@ class TranslatedTitlesController < AclController
   end
 
   def add_author
-    @authors = Person.order('fullname')
+    @authors = AuthenticatedSystem::Person.order('fullname')
   end # add_author.js.erb
   
     

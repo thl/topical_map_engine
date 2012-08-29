@@ -25,7 +25,7 @@ class Source < ActiveRecord::Base
   #validates_presence_of :start_page
   validates_presence_of :language_id, :creator_id
   belongs_to :resource, :polymorphic => true 
-  belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
+  belongs_to :creator, :class_name => 'AuthenticatedSystem::User', :foreign_key => 'creator_id'
   belongs_to :language, :class_name => 'ComplexScripts::Language'
   has_many :translated_sources, :dependent => :destroy
 end

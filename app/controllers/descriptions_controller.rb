@@ -34,7 +34,7 @@ class DescriptionsController < AclController
     default_language_id = session[:default_language_id]  || ComplexScripts::Language.find_by_locale(I18n.locale)
     @description = @category.descriptions.new(:creator => current_user, :language_id => default_language_id)
     @languages = ComplexScripts::Language.order('title')
-    @authors = Person.order('fullname')
+    @authors = AuthenticatedSystem::Person.order('fullname')
     respond_with @description
   end
   
@@ -42,7 +42,7 @@ class DescriptionsController < AclController
   def edit
     @description = Description.find(params[:id])
     @languages = ComplexScripts::Language.order('title')
-    @authors = Person.order('fullname')
+    @authors = AuthenticatedSystem::Person.order('fullname')
   end
 
   # POST /descriptions
@@ -69,7 +69,7 @@ class DescriptionsController < AclController
         format.xml  { render :xml => @description, :status => :created, :location => @description }
       else
         @languages = ComplexScripts::Language.order('title')
-        @authors = Person.order('fullname')
+        @authors = AuthenticatedSystem::Person.order('fullname')
         format.html {render 'new'}
         format.js   {render 'new'}
         format.xml  { render :xml => @description.errors, :status => :unprocessable_entity }
@@ -82,7 +82,7 @@ class DescriptionsController < AclController
   def update
     params[:description][:author_ids] ||= []
     @description = Description.find(params[:id])
-    @authors = Person.order('fullname')
+    @authors = AuthenticatedSystem::Person.order('fullname')
     respond_to do |format|
       if @description.update_attributes(params[:description])
         flash[:notice] = 'Description was successfully updated.'
@@ -97,7 +97,7 @@ class DescriptionsController < AclController
 	      format.xml  { head :ok }
       else
         @languages = ComplexScripts::Language.order('title')
-        @authors = Person.order('fullname')
+        @authors = AuthenticatedSystem::Person.order('fullname')
         format.html { render 'edit' }
         format.js   { render 'edit' } #.js.erb
         format.xml  { render :xml => @description.errors, :status => :unprocessable_entity }
@@ -124,7 +124,7 @@ class DescriptionsController < AclController
   end
    
   def add_author
-    @authors = Person.order('fullname')
+    @authors = AuthenticatedSystem::Person.order('fullname')
   end     
   
   def contract

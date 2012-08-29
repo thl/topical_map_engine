@@ -14,10 +14,10 @@ module ApplicationHelper
 	  str += "<li>#{link_to 'Intro', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/knowledge%20maps%20|amp|%20controlled%20vocabulary.html', {:hreflang => 'General Introduction to kmaps.'}}</li>\n"
 	  str += "<li>#{link_to 'Help', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/knowledge%20maps%20|amp|%20controlled%20vocabulary%20user%20manual.html', {:hreflang => 'User Manual.'}}</li>\n"
 	  str += "<li>#{link_to 'Editing Help', '#wiki=/access/wiki/site/c06fa8cf-c49c-4ebc-007f-482de5382105/knowledge%20maps%20|amp|%20controlled%20vocabulary%20editorial%20manual.html', {:hreflang => 'Editorial Manual.'}}</li>\n" if logged_in?
-  	authorized_only(hash_for_languages_path) { str += "<li>#{link_to 'Languages', languages_path, {:hreflang => 'Manage languages used for translation of titles and interface.'}}</li>\n" }
-    authorized_only(hash_for_people_path) { str += "<li>#{link_to 'People', people_path, {:hreflang => 'Manage people.'}}</li>\n" }
-    authorized_only(hash_for_roles_path) { str += "<li>#{link_to 'Roles', roles_path, {:hreflang => 'Manage roles and their permissions.'}}</li>\n" }
-    authorized_only(hash_for_permissions_path) { str += "<li>#{link_to 'Permissions', permissions_path, {:hreflang => 'Manage permissions and their descriptions.'}}</li>\n" }
+  	authorized_only(hash_for_complex_scripts_languages_path) { str += "<li>#{link_to 'Languages', languages_path, {:hreflang => 'Manage languages used for translation of titles and interface.'}}</li>\n" }
+    authorized_only(hash_for_authenticated_system_people_path) { str += "<li>#{link_to 'People', people_path, {:hreflang => 'Manage people.'}}</li>\n" }
+    authorized_only(hash_for_authenticated_system_roles_path) { str += "<li>#{link_to 'Roles', roles_path, {:hreflang => 'Manage roles and their permissions.'}}</li>\n" }
+    authorized_only(hash_for_authenticated_system_permissions_path) { str += "<li>#{link_to 'Permissions', permissions_path, {:hreflang => 'Manage permissions and their descriptions.'}}</li>\n" }
     authorized_only(hash_for_blurbs_path) { str += "<li>#{link_to 'Blurbs', blurbs_path, {:hreflang => 'Manage blurbs.'}}</li>\n" }
     str += "</ul>"
     return str

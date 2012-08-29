@@ -19,8 +19,8 @@
 class Description < ActiveRecord::Base
   validates_presence_of :content, :category_id, :language_id, :creator_id
   belongs_to :language, :class_name => 'ComplexScripts::Language'
-  belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
+  belongs_to :creator, :class_name => 'AuthenticatedSystem::User', :foreign_key => 'creator_id'
   belongs_to :category  
-  has_and_belongs_to_many :authors, :class_name => 'Person', :join_table => 'authors_descriptions', :association_foreign_key => 'author_id' 
+  has_and_belongs_to_many :authors, :class_name => 'AuthenticatedSystem::Person', :join_table => 'authors_descriptions', :association_foreign_key => 'author_id' 
   has_many :sources, :as => :resource 
 end

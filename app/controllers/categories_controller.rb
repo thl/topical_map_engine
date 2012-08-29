@@ -92,7 +92,7 @@ class CategoriesController < AclController
   # GET /categories/new.xml
   def new
     @category = Category.new(:creator => current_user)
-    @curators = Person.order('fullname')
+    @curators = AuthenticatedSystem::Person.order('fullname')
     if @main_category.nil?
       @category.published = false
       if session[:default_curator_id].nil?
@@ -128,7 +128,7 @@ class CategoriesController < AclController
   # GET /categories/1/edit
   def edit
     @category = Category.find(params[:id])
-    @curators = Person.order('fullname')
+    @curators = AuthenticatedSystem::Person.order('fullname')
     respond_to do |format|
       format.html do
         if @main_category.nil?
@@ -181,7 +181,7 @@ class CategoriesController < AclController
         end
       end
     else
-      @curators = Person.order('fullname')
+      @curators = AuthenticatedSystem::Person.order('fullname')
       if request.xhr?
         render 'new' # .erb.js
       else      
@@ -209,7 +209,7 @@ class CategoriesController < AclController
       @category.descriptions.update_all("is_main = 0")
       @category.descriptions.update_all("is_main = 1","id=#{@primary.id}")
     end
-    @curators = Person.order('fullname')
+    @curators = AuthenticatedSystem::Person.order('fullname')
     parent = @category.parent
     if @category.update_attributes(params[:category])
 	    @category.reload
@@ -334,7 +334,7 @@ class CategoriesController < AclController
   end
     
   def add_curator
-    @curators = Person.order('fullname')
+    @curators = AuthenticatedSystem::Person.order('fullname')
   end # renders add_curator.js.erb
   
   def modify_title

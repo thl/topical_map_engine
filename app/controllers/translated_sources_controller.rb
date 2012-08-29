@@ -28,7 +28,7 @@ class TranslatedSourcesController < AclController
     #@source = Source.find(params[:source_id])
     @translated_source = TranslatedSource.new(:language => ComplexScripts::Language.find_by_code('bod'))
     @languages = ComplexScripts::Language.order('title')
-    @authors = Person.order('fullname')
+    @authors = AuthenticatedSystem::Person.order('fullname')
     respond_to do |format|
       format.html # new.html.erb
       format.js # new.js.erb
@@ -40,7 +40,7 @@ class TranslatedSourcesController < AclController
   def edit
     @translated_source = TranslatedSource.find(params[:id])
     @languages = ComplexScripts::Language.order('title')
-    @authors = Person.order('fullname')
+    @authors = AuthenticatedSystem::Person.order('fullname')
   end # edit.html.erb & edit.js.erb
 
   # POST /translated_sources
@@ -64,7 +64,7 @@ class TranslatedSourcesController < AclController
 		    format.xml  { render :xml => @translated_source, :status => :created, :location => @translated_source }		
       else
         @languages = ComplexScripts::Language.order('title')
-        @authors = Person.order('fullname')                
+        @authors = AuthenticatedSystem::Person.order('fullname')                
         format.html { render 'new' }
         format.js   { render 'new' }
         format.xml  { render :xml => @translated_source.errors, :status => :unprocessable_entity }
@@ -77,7 +77,7 @@ class TranslatedSourcesController < AclController
   def update
     params[:translated_source][:author_ids] ||= []
     @translated_source = TranslatedSource.find(params[:id])
-    @authors = Person.order('fullname')    
+    @authors = AuthenticatedSystem::Person.order('fullname')    
 	  respond_to do |format|	
       if @translated_source.update_attributes(params[:translated_source])
         flash[:notice] = 'TranslatedSource was successfully updated.'
@@ -118,7 +118,7 @@ class TranslatedSourcesController < AclController
   end
   
   def add_author
-    @authors = Person.order('fullname')
+    @authors = AuthenticatedSystem::Person.order('fullname')
   end
   
   private

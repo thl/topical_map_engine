@@ -11,7 +11,7 @@ namespace :author_attribution do
     if author_id.blank?
       puts desc_str
     else
-      author = Person.find(author_id)
+      author = AuthenticatedSystem::Person.find(author_id)
       valid = true
       if author.nil?
         valid = false
