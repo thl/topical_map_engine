@@ -23,14 +23,6 @@ module ApplicationHelper
     return str
   end
     
-  def stylesheet_files
-    super + ['tmb', 'jquery-ui-tabs']
-  end
-  
-  def javascript_files
-    super + ['jquery-ui-tabs']
-  end
-  
   def join_with_and(list)
     size = list.size
     case size

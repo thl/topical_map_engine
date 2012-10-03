@@ -1,4 +1,4 @@
-require 'config/environment'
+# require 'config/environment'
 namespace :author_attribution do
   desc_str =  "Use to change default attribution of descriptions of kmaps to a specific user.\n" +
               "Valid arguments:\n" +

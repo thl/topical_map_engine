@@ -1,5 +1,4 @@
 <%= tagged_tinymce_script %>
-<%= include_tiny_mce_if_needed %>
 <p>
     <b><%= ts :for, :what => ComplexScripts::Language.model_name.human.titleize, :whom => Description.model_name.human.titleize %></b><br />
 <%= f.select(:language_id, @languages.collect {|l| [ h(l.title), l.id ] }, { :include_blank => false }) %>
