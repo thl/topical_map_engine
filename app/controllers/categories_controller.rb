@@ -1,7 +1,7 @@
 class CategoriesController < AclController
   before_filter :find_main_category
   helper :pop_up_categories
-  caches_page :index, :show, :detailed, :all, :all_with_features, :all_with_shapes, :list, :list_with_features, :list_with_shapes, :if => :api_response?.to_proc
+  caches_page :index, :show, :detailed, :all, :all_with_features, :all_with_shapes, :list, :list_with_features, :list_with_shapes, :if => Proc.new { |c| c.request.format.json? || c.request.format.xml? }
   cache_sweeper :category_sweeper, :only => [:create, :update, :destroy]
   helper :sources
   
@@ -441,10 +441,6 @@ class CategoriesController < AclController
       format.xml { render :xml => categories.to_xml }
       format.json { render :json => categories.to_json }
     end   
-  end
-  
-  def api_response?
-    request.format.json? || request.format.xml? # || request.format.csv?
   end
   
 #  def duplicate_indices_by_key(array, key)
