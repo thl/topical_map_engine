@@ -1,19 +1,20 @@
 # == Schema Information
-# Schema version: 20090731042553
 #
 # Table name: categories
 #
-#  id         :integer(4)      not null, primary key
-#  title      :string(255)     not null
-#  parent_id  :integer(4)
-#  creator_id :integer(4)      not null
+#  id         :integer          not null, primary key
+#  title      :string(255)      not null
+#  parent_id  :integer
+#  creator_id :integer          not null
 #  created_at :datetime
 #  updated_at :datetime
-#  published  :boolean(1)      not null
-#  cumulative :boolean(1)      default(TRUE), not null
+#  published  :boolean          default(FALSE), not null
+#  cumulative :boolean          default(TRUE), not null
 #
 
 class Category < ActiveRecord::Base
+  attr_accessible :title, :parent_id, :published, :cumulative
+  
   validates_presence_of :title, :creator_id
   belongs_to :creator, :class_name => 'AuthenticatedSystem::User', :foreign_key => 'creator_id'
   #belongs_to :curator, :class_name => 'AuthenticatedSystem::Person', :foreign_key => 'curator_id'

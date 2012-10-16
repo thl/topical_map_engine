@@ -1,7 +1,6 @@
 <p><b><%= ts 'name.in', :what => t('language.english') %></b><br />
 <%= f.text_field :title, :size=>60 %>
 </p>
-<%= f.hidden_field :creator_id %>
 <% if !changing_parent_allowed %>
 <%=  f.hidden_field :parent_id %>
 <% else %>

@@ -27,7 +27,7 @@ class TranslatedTitlesController < AclController
   # GET /translated_titles/new.xml
   def new
     # TODO: for now default to tibetan, in the future make this more complicated!
-    @translated_title = TranslatedTitle.new(:language => ComplexScripts::Language.find_by_code('bod'))
+    @translated_title = TranslatedTitle.new(:language_id => ComplexScripts::Language.find_by_code('bod').id)
     @languages = ComplexScripts::Language.order('title')
     @authors = AuthenticatedSystem::Person.order('fullname')
     respond_with @translated_title

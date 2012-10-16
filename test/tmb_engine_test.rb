@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class TmbEngineTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+class KmapsEngineTest < ActiveSupport::TestCase
+  test "truth" do
+    assert_kind_of Module, KmapsEngine
   end
 end

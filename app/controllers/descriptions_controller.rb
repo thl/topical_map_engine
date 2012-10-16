@@ -31,8 +31,8 @@ class DescriptionsController < AclController
   # GET /descriptions/new
   # GET /descriptions/new.xml
   def new
-    default_language_id = session[:default_language_id]  || ComplexScripts::Language.find_by_locale(I18n.locale)
-    @description = @category.descriptions.new(:creator => current_user, :language_id => default_language_id)
+    default_language_id = session[:default_language_id]  || ComplexScripts::Language.find_by_locale(I18n.locale).id
+    @description = @category.descriptions.new(:language_id => default_language_id)
     @languages = ComplexScripts::Language.order('title')
     @authors = AuthenticatedSystem::Person.order('fullname')
     respond_with @description
@@ -52,6 +52,7 @@ class DescriptionsController < AclController
       params[:description][:is_main] = "true"
     end
     @description = Description.new(params[:description])
+    @description.creator = current_user
     respond_to do |format|
       if @description.save
         authors = @description.authors

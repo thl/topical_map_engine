@@ -26,7 +26,7 @@ class TranslatedSourcesController < AclController
   # GET /translated_sources/new.xml
   def new
     #@source = Source.find(params[:source_id])
-    @translated_source = TranslatedSource.new(:language => ComplexScripts::Language.find_by_code('bod'))
+    @translated_source = TranslatedSource.new(:language_id => ComplexScripts::Language.find_by_code('bod').id)
     @languages = ComplexScripts::Language.order('title')
     @authors = AuthenticatedSystem::Person.order('fullname')
     respond_to do |format|

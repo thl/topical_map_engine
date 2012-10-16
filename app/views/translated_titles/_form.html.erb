@@ -7,7 +7,7 @@
 <%= f.text_field :title, fixed_language_options(:lang => @translated_title.language.code) %>
 </p>
 <p>
-<%= link_to ts('add.record', :what => t('new.record', :what => TranslatedTitle.human_attribute_name(:author))), {:action => 'add_author', :category_id => @category}, :remote => true %>
+<%= link_to ts('add.record', :what => t('new.record', :what => TranslatedTitle.human_attribute_name(:author))), add_author_category_translated_titles_path(@category), :remote => true %>
 </p>
 <div id="authors_div">
 <% if @translated_title.authors.empty? && !current_user.person.nil? %>

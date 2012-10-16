@@ -12,7 +12,6 @@
 <%= f.text_area :content, :rows => 16, :cols => 40, :class => 'mceEditor' %>
 </p>
 <%= f.hidden_field :category_id %>
-<%= f.hidden_field :creator_id %>
 <p>
 <%= link_to ts('add.record', :what => t('new.record', :what => Description.human_attribute_name(:author))), add_author_category_descriptions_path(@category), :remote => true %>
 </p>

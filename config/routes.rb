@@ -37,6 +37,8 @@ Rails.application.routes.draw do
         get :contract
         get :expand
         get :modify_title
+        get :expanded
+        get :contracted
       end
     end
     resources :iframe, :controller => 'categories' do
@@ -89,5 +91,5 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   resources :places, :only => 'show'
   resources :media, :only => 'show', :path => 'media_objects'
-  match '/:controller(/:action(/:id))'
+  # match '/:controller(/:action(/:id))'
 end

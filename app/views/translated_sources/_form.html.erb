@@ -7,7 +7,7 @@
 <%= f.text_area :title, :rows => 16, :cols => 40, :class => 'mceEditor' %>
 </p>
 <p>
-<%= link_to ts('add.record', :what => t('new.record', :what => TranslatedSource.human_attribute_name(:author))), {:action => 'add_author', :source_id => @source}, :remote => true %>
+<%= link_to ts('add.record', :what => t('new.record', :what => TranslatedSource.human_attribute_name(:author))), add_author_category_source_translated_sources(@category, @source), :remote => true %>
 </p>
 <div id="authors_div">
 <% if @translated_source.authors.empty? && !current_user.person.nil? %>

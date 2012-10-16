@@ -3,10 +3,12 @@ module Spelling
   require 'uri'
   require 'rexml/document'
   
+  private
+
   ASPELL_WORD_DATA_REGEX = Regexp.new(/\&\s\w+\s\d+\s\d+(.*)$/)
   #ASPELL_PATH = "/opt/local/bin/aspell"
   ASPELL_PATH = "/usr/bin/aspell"
-  
+    
   def check_spelling(spell_check_text, command, lang)
     xml_response_values = Array.new
     spell_check_text = spell_check_text.join(' ') if command == 'checkWords'

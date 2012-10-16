@@ -91,7 +91,7 @@ class CategoriesController < AclController
   # GET /categories/new
   # GET /categories/new.xml
   def new
-    @category = Category.new(:creator => current_user)
+    @category = Category.new
     @curators = AuthenticatedSystem::Person.order('fullname')
     if @main_category.nil?
       @category.published = false

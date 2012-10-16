@@ -1,26 +1,27 @@
 # == Schema Information
-# Schema version: 20090731042553
 #
 # Table name: sources
 #
-#  id            :integer(4)      not null, primary key
-#  resource_id   :integer(4)
+#  id            :integer          not null, primary key
+#  resource_id   :integer
 #  resource_type :string(255)
-#  mms_id        :integer(4)
-#  volume_number :integer(4)
-#  start_page    :integer(4)
-#  start_line    :integer(4)
-#  end_page      :integer(4)
-#  end_line      :integer(4)
+#  mms_id        :integer
+#  volume_number :integer
+#  start_page    :integer
+#  start_line    :integer
+#  end_page      :integer
+#  end_line      :integer
 #  passage       :text
-#  language_id   :integer(4)      not null
+#  language_id   :integer          not null
 #  note          :text
-#  creator_id    :integer(4)      not null
+#  creator_id    :integer          not null
 #  created_at    :datetime
 #  updated_at    :datetime
 #
 
 class Source < ActiveRecord::Base
+  attr_accessible :mms_id, :volume_number, :start_page, :start_line, :end_page, :end_line, :language_id, :passage, :note
+  
   validates_presence_of :resource_id, :resource_type, :mms_id
   #validates_presence_of :start_page
   validates_presence_of :language_id, :creator_id

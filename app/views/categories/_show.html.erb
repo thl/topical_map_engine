@@ -29,7 +29,6 @@
 <%     previous = true
      end
      if authorized? hash_for_category_path(:action => 'update') %>
-<%=    hidden_field_tag 'category[parent_id]', '' %>
 <%=    '|' if previous %>
 <%=    link_to 'Convert to Autonomous Knowledge Map', category_child_path(@main_category, @category), :remote => true, :method => :put, :submit => 'form' %>
 <%     previous = true
