@@ -158,43 +158,39 @@ class CategoriesController < AclController
       curators = @category.curators
       session[:default_curator_id] = curators.first.id if curators.size==1
       category_title = @main_category.nil? ? Category.model_name.human.capitalize : @main_category.title.titleize      
-      if request.xhr?
-        #categories = @main_category.children
-        #@ancestors_for_current = @category.ancestors.collect{|c| c.id}
-        #@ancestors_for_current << @category.id
-        #render :update do |page|
-        #  page.replace_html 'info', :partial => 'show'
-        #  page.replace_html 'navigation', :partial => 'index', :locals => {:margin_depth => 0, :categories => categories}
-        #end
-        render 'show' # .js.erb
-      else
-      	flash[:notice] = ts 'new.successful', :what => category_title
-        respond_to do |format|
-          format.html do 
-            if @main_category.nil?
-              redirect_to category_children_url(@category)
-            else
-              redirect_to category_child_url(@main_category, @category)
-            end
+      respond_to do |format|
+        format.js do
+          if @main_category.nil?
+            @categories = []
+            @ancestors_for_current = nil
+          else
+            @categories = @main_category.children
+            @ancestors_for_current = @category.ancestors.collect{|c| c.id}
+            @ancestors_for_current << @category.id
           end
-          format.xml  { render :xml => @category, :status => :created, :location => @category }
+        end # render 'create'
+        format.html do 
+        	flash[:notice] = ts 'new.successful', :what => category_title
+          if @main_category.nil?
+            redirect_to category_children_url(@category)
+          else
+            redirect_to category_child_url(@main_category, @category)
+          end
         end
+        format.xml  { render :xml => @category, :status => :created, :location => @category }
       end
     else
       @curators = AuthenticatedSystem::Person.order('fullname')
-      if request.xhr?
-        render 'new' # .erb.js
-      else      
-        respond_to do |format|
-          format.html do
-            if @main_category.nil?
-              render :action => 'main_new'
-            else
-              render :action => 'new', :layout => 'multi-column'
-            end
+      respond_to do |format|
+        format.js { render 'new' }
+        format.html do
+          if @main_category.nil?
+            render :action => 'main_new'
+          else
+            render :action => 'new', :layout => 'multi-column'
           end
-          format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
         end
+        format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -218,14 +214,23 @@ class CategoriesController < AclController
       flash[:notice] = ts 'edit.successful', :what => category_title
       respond_to do |format|
         format.html do
-          @main_category = new_parent if @main_category.nil? && !new_parent.nil?
+          @main_category = @new_parent if @main_category.nil? && !@new_parent.nil?
           if @main_category.nil?
             redirect_to category_url(@category)
           else
             redirect_to category_child_url(@main_category, @category)
           end
         end
-        format.js   # update.js.erb
+        format.js do
+          if @main_category.nil?
+            @categories = []
+            @ancestors_for_current = nil
+          else
+            @categories = @main_category.children
+            @ancestors_for_current = @category.ancestors.collect{|c| c.id}
+            @ancestors_for_current << @category.id
+          end
+        end   # update.js.erb
         format.xml  { head :ok }
       end    	
     else
@@ -247,8 +252,8 @@ class CategoriesController < AclController
   # DELETE /categories/1.xml
   def destroy
     @category = Category.find(params[:id])
-    title = @category.title
-    parent = @category.parent
+    @title = @category.title
+    @parent = @category.parent
     @category.destroy
     respond_to do |format|
       format.html do

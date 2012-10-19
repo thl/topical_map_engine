@@ -13,7 +13,7 @@
 #
 
 class Category < ActiveRecord::Base
-  attr_accessible :title, :parent_id, :published, :cumulative
+  attr_accessible :title, :parent_id, :published, :cumulative, :curator_ids
   
   validates_presence_of :title, :creator_id
   belongs_to :creator, :class_name => 'AuthenticatedSystem::User', :foreign_key => 'creator_id'

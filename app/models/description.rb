@@ -16,7 +16,7 @@
 
 
 class Description < ActiveRecord::Base
-  attr_accessible :category_id, :content, :language_id, :is_main, :title  
+  attr_accessible :category_id, :content, :language_id, :is_main, :title, :author_ids
   validates_presence_of :content, :category_id, :language_id, :creator_id
   belongs_to :language, :class_name => 'ComplexScripts::Language'
   belongs_to :creator, :class_name => 'AuthenticatedSystem::User', :foreign_key => 'creator_id'

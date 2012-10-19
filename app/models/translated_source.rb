@@ -12,7 +12,7 @@
 #
 
 class TranslatedSource < ActiveRecord::Base
-  attr_accessible :language_id, :title
+  attr_accessible :language_id, :title, :author_ids
   validates_presence_of :title, :language_id, :source_id, :creator_id
   validates_uniqueness_of :language_id, :scope => :source_id
   belongs_to :language, :class_name => 'ComplexScripts::Language'

@@ -11,3 +11,4 @@
        window.location.replace("<%= category_child_path(@new_parent, @category) %>");
 <%   end
    end %>
+$("#navigation").html("<%= escape_javascript(render(:partial => 'index', :locals => {:margin_depth => 0, :categories => @categories})) %>")

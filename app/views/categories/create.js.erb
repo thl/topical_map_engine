@@ -1,0 +1,8 @@
+<% if @main_category.nil? %>
+     $("#info").html("<%= escape_javascript(render(:partial => 'categories/main_show', :locals => {:category => @category})) %>")
+<% elsif @category==@main_category %>
+     $("#info").html("<%= escape_javascript(render(:partial => 'categories/main_show', :locals => {:category => @main_category})) %>")
+<% else %>
+     $("#info").html("<%= escape_javascript(render(:partial => 'categories/show')) %>")
+<% end %>
+$("#navigation").html("<%= escape_javascript(render(:partial => 'index', :locals => {:margin_depth => 0, :categories => @categories})) %>")
