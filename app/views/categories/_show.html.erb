@@ -30,7 +30,7 @@
      end
      if authorized? hash_for_category_path(:action => 'update') %>
 <%=    '|' if previous %>
-<%=    link_to 'Convert to Autonomous Knowledge Map', category_child_path(@main_category, @category), :remote => true, :method => :put, :submit => 'form' %>
+<%=    link_to 'Convert to Autonomous Knowledge Map', category_child_path(@main_category, @category, 'category[parent_id]' => ''), :remote => true, :method => :put, :submit => 'form' %>
 <%     previous = true
      end %>
 <%=  '|' if previous %>

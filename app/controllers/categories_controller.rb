@@ -198,7 +198,8 @@ class CategoriesController < AclController
   # PUT /categories/1
   # PUT /categories/1.xml
   def update
-    params[:category][:curator_ids] ||= []
+    params_category = params[:category]
+    params_category[:curator_ids] ||= [] if !params_category.nil?
     @category = Category.find(params[:id])
     if !params[:primary].nil?
       @primary = Category.find(params[:primary])
@@ -207,7 +208,7 @@ class CategoriesController < AclController
     end
     @curators = AuthenticatedSystem::Person.order('fullname')
     parent = @category.parent
-    if @category.update_attributes(params[:category])
+    if @category.update_attributes(params_category)
 	    @category.reload
       @new_parent = @category.root
       category_title = @main_category.nil? ? Category.model_name.human.capitalize : @main_category.title.titleize
