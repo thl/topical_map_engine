@@ -1,21 +1,21 @@
-<% if @source.resource_type == 'Category'
-     edit_path = edit_category_source_path(@resource, @source)
-     contract_path = contract_category_source_path(@resource, @source)
+<% if source.resource_type == 'Category'
+     edit_path = edit_category_source_path(resource, source)
+     contract_path = contract_category_source_path(resource, source)
      hash_path = hash_for_edit_category_source_path
-     new_translated_path = new_category_source_translated_source_path(@resource, @source)
+     new_translated_path = new_category_source_translated_source_path(resource, source)
      hash_translated_path = hash_for_new_category_source_translated_source_path
    else
-     edit_path = edit_category_description_source_path(@category, @resource, @source)
-     contract_path = contract_category_description_source_path(@category, @resource, @source)
+     edit_path = edit_category_description_source_path(category, resource, source)
+     contract_path = contract_category_description_source_path(category, resource, source)
      hash_path = hash_for_edit_category_description_source_path
-     new_translated_path = new_category_description_source_translated_source_path(@category, @resource, @source)
+     new_translated_path = new_category_description_source_translated_source_path(category, resource, source)
      hash_translated_path = hash_for_new_category_description_source_translated_source_path
    end %>
    <p>
-<%=  link_to '&nbsp;', contract_path, :remote => true, :class => 'descriptionminus_icon' %>
-<%=  authorized?(hash_path) ? link_to(formated_mms_pages(@source), edit_path, :remote => true) : formated_mms_pages(@source) %>
-<%   if @source.language.code[0..1] != I18n.locale.to_s %>
-       (<%= @source.language.title.s %>)
+<%=  link_to '&nbsp;'.html_safe, contract_path, :remote => true, :class => 'descriptionminus_icon' %>
+<%=  authorized?(hash_path) ? link_to(formated_mms_pages(source), edit_path, :remote => true) : formated_mms_pages(source) %>
+<%   if source.language.code[0..1] != I18n.locale.to_s %>
+       (<%= source.language.title.s %>)
 <%   end %>
 <%   if authorized? hash_translated_path 
 	   form_tag new_translated_path, :method => :get, :remote => true do %>
@@ -23,14 +23,14 @@
 <%     end 
      end %>
    </p>
-<%= display_if_not_blank Source.human_attribute_name(:passage).s, @source.passage %>
-<%= display_if_not_blank Source.human_attribute_name(:note).s, @source.note %>
-<%  if !@source.translated_sources.empty? %>
+<%= display_if_not_blank Source.human_attribute_name(:passage).s, source.passage %>
+<%= display_if_not_blank Source.human_attribute_name(:note).s, source.note %>
+<%  if !source.translated_sources.empty? %>
 	  <p><b><%= TranslatedSource.model_name.human(:count => :many) %>:</b>
-<%      if @source.resource_type == 'Category' %> 
-<%=       ( @source.translated_sources.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_source_translated_source_path) ? link_to("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", edit_category_source_translated_source_path(@category,@source, t), :remote => true)  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>		 
+<%      if source.resource_type == 'Category' %> 
+<%=       ( source.translated_sources.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_source_translated_source_path) ? link_to("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", edit_category_source_translated_source_path(category,source, t), :remote => true)  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>		 
 <%      else %>
-<%=       ( @source.translated_sources.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_description_source_translated_source_path) ? link_to("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", edit_category_description_source_translated_source_path(@category,@resource,@source, t), :remote => true)  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>	
+<%=       ( source.translated_sources.collect { |t| "#{t.title.s} (#{authorized?(hash_for_edit_category_description_source_translated_source_path) ? link_to("<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>", edit_category_description_source_translated_source_path(category,resource,source, t), :remote => true)  : "<i>#{t.language.title.s}#{"#{", from #{join_with_and(t.authors.collect{|a| a.fullname})}" if !t.authors.empty?}"}</i>"})" }).join(', ') %>	
 <%      end %>
       </p>
 <%  end %>

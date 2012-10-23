@@ -14,7 +14,7 @@
 </p>
 <%  if !d.sources.empty? %>
       <div id='descsources_div' class='padded'>
-<%=     render :partial => 'sources/index', :locals => {:resource => d} %>
+<%=     render :partial => 'sources/index', :locals => {:resource => d, :category => category} %>
       </div>
 <%  end %>
 <p><div class='padded'>

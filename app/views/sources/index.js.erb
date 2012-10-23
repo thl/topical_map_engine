@@ -1,1 +1,1 @@
-$("#<%= @resource.instance_of?(Description) ? 'descsources' : 'catsources' %>_div").html("<%= escape_javascript(render(:partial => 'sources/index', :locals => { :resource => @resource })) %>")
+$("#<%= @resource.instance_of?(Description) ? 'descsources' : 'catsources' %>_div").html("<%= escape_javascript(render(:partial => 'sources/index', :locals => { :resource => @resource, :category => @category })) %>")

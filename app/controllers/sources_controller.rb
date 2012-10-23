@@ -130,13 +130,13 @@ class SourcesController < AclController
     end
   end
 
- def contract
-    @source = Source.find(params[:id])
-    if !params[:description_id].nil?
-      @resource = Description.find(params[:description_id])
-    else
-      @resource = @category
-    end
+  def contract
+     @source = Source.find(params[:id])
+     if !params[:description_id].nil?
+       @resource = Description.find(params[:description_id])
+     else
+       @resource = @category
+     end
   end # renders contract.js.erb
   
   def expand

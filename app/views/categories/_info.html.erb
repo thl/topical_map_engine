@@ -36,7 +36,7 @@
     if associated_resources.collect{|ar| ar[1]}.sum > 0 %>
 <h3>Associated Resources</h3>
 <ul class="main_list normal">
-<%= associated_resources.reject{|ar| ar[1] == 0}.collect{|ar| "<li>#{link_to("#{ar[0]} (#{ar[1]})", ar[2])}</li>"}.join.html_safe %>
+<%= associated_resources.reject{|ar| ar[1] == 0}.collect{|ar| "<li>#{link_to("#{ar[0]} (#{ar[1]})", ar[2], :target => '_blank')}</li>"}.join.html_safe %>
 </ul>
 <% end %>
 <p>

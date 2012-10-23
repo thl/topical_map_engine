@@ -1,21 +1,21 @@
-<% if @source.resource_type == 'Category'
-     edit_path = edit_category_source_path(@resource, @source)
-     expand_path = expand_category_source_path(@resource, @source)
+<% if source.resource_type == 'Category'
+     edit_path = edit_category_source_path(resource, source)
+     expand_path = expand_category_source_path(resource, source)
      hash_path = hash_for_edit_category_source_path
-     new_translated_path = new_category_source_translated_source_path(@resource, @source)
+     new_translated_path = new_category_source_translated_source_path(resource, source)
      hash_translated_path = hash_for_new_category_source_translated_source_path
    else
-     edit_path = edit_category_description_source_path(@resource.category, @resource, @source)
-     expand_path = expand_category_description_source_path(@resource.category, @resource, @source)
+     edit_path = edit_category_description_source_path(resource.category, resource, source)
+     expand_path = expand_category_description_source_path(resource.category, resource, source)
      hash_path = hash_for_edit_category_description_source_path
-     new_translated_path = new_category_description_source_translated_source_path(@resource.category, @resource, @source)
+     new_translated_path = new_category_description_source_translated_source_path(resource.category, resource, source)
      hash_translated_path = hash_for_new_category_description_source_translated_source_path
    end %>
    <p>
-<%=  link_to '&nbsp;', expand_path, :remote => true, :class => 'descriptionplus_icon' %>
-<%=  authorized?(hash_path) ? link_to(formated_mms_pages(@source), edit_path, :remote => true) : formated_mms_pages(@source) %>
-<%   if @source.language.code[0..1] != I18n.locale.to_s %>
-       (<%= @source.language.title.s %>)
+<%=  link_to '&nbsp;'.html_safe, expand_path, :remote => true, :class => 'descriptionplus_icon' %>
+<%=  authorized?(hash_path) ? link_to(formated_mms_pages(source), edit_path, :remote => true) : formated_mms_pages(source) %>
+<%   if source.language.code[0..1] != I18n.locale.to_s %>
+       (<%= source.language.title.s %>)
 <%   end
      if authorized? hash_translated_path %>
 <%=    form_tag new_translated_path, :method => :get, :remote => true do %>
