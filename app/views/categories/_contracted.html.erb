@@ -7,12 +7,14 @@
 <%=   javascript_tag("$(\'##{link_id}\').bind(\'ajax:complete\', function(){ $(\'node_#{@category.nil? ? @main_category.id : @category.id}_div > .node-name\').addClassName(\'selected-node\'); });") %>
 <%  end %>
 <%= render :partial => 'selectable_node', :locals => { :node => contracted } %>
-<%  if base_language?
-      if has_no_children && authorized?(hash_for_new_category_child_path)
-        options = { :remote => true }
-	    options[:class] = 'treeminus_unpublished' if !contracted.published? %>
-        (<%= link_to(ts('new.record', :what => t(:subcategory)), new_category_child_path(@main_category, :parent_id => contracted), options) %>)
+<%  if authorized?(hash_for_new_category_child_path)
+      if base_language?
+        if has_no_children
+          options = { :remote => true }
+	      options[:class] = 'treeminus_unpublished' if !contracted.published? %>
+          (<%= link_to(ts('new.record', :what => t(:subcategory)), new_category_child_path(@main_category, :parent_id => contracted), options) %>)
+<%      end
+      else %>
+        (<%= link_to ts('translat.e'), edit_category_child_path(@main_category, contracted) %>)
 <%    end
-    else %>
-      (<%= link_to ts('translat.e'), edit_category_child_path(@main_category, contracted) %>)
-<%  end %>
+    end %>

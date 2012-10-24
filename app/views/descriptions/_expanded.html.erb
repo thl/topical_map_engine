@@ -6,8 +6,8 @@
 </h2>
 <p>
   by
-  <span class='content_by'><%= "#{authors.empty? ? category.creator.screen_name : author_str = join_with_and(d.authors.collect{|a| a.fullname})}" %></span>
-  (<%= "#{"#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale)}#{ts('update.d.record', :when => h(d.updated_at.to_date.to_formatted_s(:long)))}" %>)
+  <span class='content_by'><%= authors.empty? ? category.creator.screen_name : author_str = join_with_and(d.authors.collect{|a| a.fullname}) %></span>
+  (<%= "#{h(language.title.s)}, " if language != ComplexScripts::Language.find_by_locale(I18n.locale) %><%= ts('update.d.record', :when => h(d.updated_at.to_date.to_formatted_s(:long))) %>)
 </p>
 <p>
 <%= d.content.html_safe %>

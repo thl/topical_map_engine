@@ -13,8 +13,7 @@
 	 </p>
 <% end %>
 <%= render :partial => 'categories/info', :locals => {:category => @category} %>
-<p>&nbsp;</p>
-<%= display_if_not_blank ts('id.record', :what => Category.model_name.human), @category.id %>
+<%= display_if_not_blank ts('id.record', :what => Category.model_name.human.titleize), @category.id %>
 <%= display_if_not_blank ts(:url_for_reference), link_to(category_child_url(@main_category, @category), category_child_path(@main_category, @category)) %>
 <%= display_if_not_blank Category.human_attribute_name('cumulative').s, @category.cumulative? ? ts(:affirmation) : ts(:negation) %>
    <p id="form">
@@ -34,6 +33,6 @@
 <%     previous = true
      end %>
 <%=  '|' if previous %>
-<%= link_to 'Export to CSV', category_children_path(@category, :format => 'csv') %>
+<%= link_to 'Export to CSV', category_children_path(@category, :format => 'csv'), :class => 'download-icon' %>
 <script type="text/javascript">scrollToSelected();</script>
 </p>
