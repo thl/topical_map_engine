@@ -53,7 +53,7 @@ class Category < ActiveRecord::Base
   end
     
   def media_count(options = {})
-    media_count_hash = Rails.cache.fetch("#{self.cache_key}/media_count") do
+    media_count_hash = Rails.cache.fetch("#{self.cache_key}/media_count", :expires_in => 1.day) do
       media_category_count = MediaCategoryCount.find(:all, :params => {:category_id => self.id}).dup
       media_count_hash = { 'Medium' => media_category_count.shift.count.to_i }
       media_category_count.each{|count| media_count_hash[count.medium_type] = count.count.to_i }
@@ -72,13 +72,13 @@ class Category < ActiveRecord::Base
   end
   
   def feature_count
-    Rails.cache.fetch("#{self.cache_key}/feature_count") do
+    Rails.cache.fetch("#{self.cache_key}/feature_count", :expires_in => 1.day) do
       FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count
     end
   end
   
   def shape_count
-    Rails.cache.fetch("#{self.cache_key}/shape_count") do
+    Rails.cache.fetch("#{self.cache_key}/shape_count", :expires_in => 1.day) do
       FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count_with_shapes
     end
   end
