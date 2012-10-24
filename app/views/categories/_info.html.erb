@@ -28,10 +28,11 @@
 <%    end
     end
     associated_resources = [
-      ["Places", category.feature_count, category.places_url],
-      ["Pictures", category.media_count(:type => 'Picture'), category.pictures_url],
-      ["Video", category.media_count(:type => 'Video'), category.videos_url],
-      ["Texts", category.media_count(:type => 'Document'), category.documents_url]
+      ['Places', category.feature_count, category.places_url],
+      ['Pictures', category.media_count(:type => 'Picture'), category.pictures_url],
+      ['Video', category.media_count(:type => 'Video'), category.videos_url],
+      ['Texts', category.media_count(:type => 'Document'), category.documents_url],
+      ['Audio & Video', category.mediabase_count, category.mediabase_url]
     ]
     if associated_resources.collect{|ar| ar[1]}.sum > 0 %>
 <h3>Associated Resources</h3>

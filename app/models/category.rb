@@ -63,6 +63,14 @@ class Category < ActiveRecord::Base
     return type.nil? ? media_count_hash['Medium'] : media_count_hash[type]
   end
   
+  def mediabase_count
+    m = Rails.cache.fetch("#{self.cache_key}/mediabase", :expires_in => 1.day) do
+      MediabaseCategoryCount.find(self.id)
+    end
+    return 0 if m.nil?
+    return m[:kmap_count].to_i
+  end
+  
   def feature_count
     Rails.cache.fetch("#{self.cache_key}/feature_count") do
       FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count
@@ -73,6 +81,14 @@ class Category < ActiveRecord::Base
     Rails.cache.fetch("#{self.cache_key}/shape_count") do
       FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count_with_shapes
     end
+  end
+  
+  def mediabase_url
+    m = Rails.cache.fetch("#{self.cache_key}/mediabase", :expires_in => 1.day) do
+      MediabaseCategoryCount.find(self.id)
+    end
+    return nil if m.nil?
+    return "#{MediabaseResource.site.to_s}/#{m[:view_uri]}"
   end
   
   def media_url
