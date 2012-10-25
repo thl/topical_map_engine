@@ -49,6 +49,7 @@ class SourcesController < AclController
   # POST /sources
   # POST /sources.xml
   def create
+    @source = Source.new(params[:source])
     @languages = ComplexScripts::Language.order('title')
     if params[:description_id].nil?
       @description = nil
@@ -57,7 +58,6 @@ class SourcesController < AclController
       @description = Description.find(params[:description_id])
       @source.resource = @description
     end
-    @source = Source.new(params[:source])
     @source.creator = current_user
     respond_to do |format|
       if @source.save
