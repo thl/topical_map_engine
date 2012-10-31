@@ -1,10 +1,21 @@
-TmbEngine
-=========
+= TmbEngine
 
 Kmaps engine provides a way to run the whole kmaps application with several themes. Currently two themes are supported: thdl_integration engine (https://ndlb.svn.sourceforge.net/svnroot/ndlb/portal/ror/plugins/thdl_integration/trunk) and basic_engine (https://ndlb.svn.sourceforge.net/svnroot/ndlb/portal/ror/plugins/basic_engine/trunk).
 
-Please include within your application.css file the following lines:
-*= require tmb
+Installation
+
+Please add the Gemfile of the main app:
+
+gem 'kmaps_engine', '2.0.9', :git => 'https://github.com/thl/kmaps_engine.git', :tag => 'v2.0.9'
+
+Include within your apps/assets/stylesheets/application.css file:
+
+*= require kmaps_engine/application
+
+Include within your apps/assets/javascripts/application.js file:
+
+//= require kmaps_engine/application
+
 
 Besides either of these two, the required plugins are:
 - acts_as_tree:				git://github.com/rails/acts_as_tree.git

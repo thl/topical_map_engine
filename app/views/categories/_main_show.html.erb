@@ -29,5 +29,5 @@
 <span id='unframe'><%= link_to ts('home.for', :what => t('topical_map.this', :count => :many)), root_path %> |</span>
 <%= link_to ts('home.for', :what => h(category.title)), category_children_path(category) %>
     <script type="text/javascript">scrollTo(0,0);</script>
-| <%= link_to 'Export to CSV', category_children_path(category, :format => 'csv') %>
+| <%= link_to 'Export to CSV', category_children_path(category, :format => 'csv'), :class => 'download-icon' %>
 </p>
