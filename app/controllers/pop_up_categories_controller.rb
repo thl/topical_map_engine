@@ -2,7 +2,7 @@ class PopUpCategoriesController < ApplicationController
   # GET /categories
   # GET /categories.xml
   def index
-    @categories = Category.where(:parent_id => nil).order('title')
+    @categories = Category.application_roots.order('title')
     selected_category_id = params[:selected_category_id]
     if selected_category_id.blank?
       @ancestors_for_current = Array.new
@@ -11,7 +11,8 @@ class PopUpCategoriesController < ApplicationController
       @ancestors_for_current = @pop_up_category.ancestors.collect{|c| c.id} + [@pop_up_category.id]
     end
     respond_to do |format|
-      format.html { render :partial => 'select_index', :locals => {:categories => @categories} if request.xhr? }
+      format.js
+      format.html
       format.xml  { render :xml => @categories }
     end
   end
@@ -20,9 +21,8 @@ class PopUpCategoriesController < ApplicationController
   # GET /categories/1.xml
   def show
     @pop_up_category = Category.find(params[:id])
-    @categories = Category.where(:parent_id => nil).order('title')
+    @categories = Category.application_roots.order('title')
     @ancestors_for_current = @pop_up_category.ancestors.collect{|c| c.id} + [@pop_up_category.id]
-    @categories = @pop_up_category.children
     respond_to do |format|
       format.html # show.html.erb
       format.js   # show.js.erb

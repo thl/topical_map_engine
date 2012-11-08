@@ -142,7 +142,7 @@ class DescriptionsController < AclController
   # This is tied to categories
   def find_category
     @category = Category.find(params[:category_id])
-	  @main_category = @category.root
+	  @main_category = @category.application_root
   end
     
   def description_url(description)

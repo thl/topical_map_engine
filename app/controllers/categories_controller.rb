@@ -15,7 +15,7 @@ class CategoriesController < AclController
   # GET /categories.xml
   def index
     if @main_category.nil?
-      @categories = logged_in? ? Category.roots : Category.published_roots
+      @categories = logged_in? ? Category.application_roots : Category.published_roots
       @tab_options ||= {}
       @tab_options[:entity] = Category.find(session[:current_category_id]) unless session[:current_category_id].blank?
     else
@@ -34,7 +34,7 @@ class CategoriesController < AclController
         end
       end
       format.xml do 
-  		@categories.collect {|cat| cat['children_count'] = cat.children.length }
+  		  @categories.each {|cat| cat['children_count'] = cat.children.length }
       	render :xml => @categories
       end
       format.json { render :json => @categories.to_json }
@@ -62,7 +62,7 @@ class CategoriesController < AclController
         pu = params[:parent_url]
         if @main_category.nil?
           #render :action => 'main_show'
-          redirect_to category_child_url(@category.root, @category) << ( pu.nil? ? '' : "?parent_url=" << pu )
+          redirect_to category_child_url(@category.application_root, @category) << ( pu.nil? ? '' : "?parent_url=" << pu )
         else # show.html.erb
           if @category == @main_category
             redirect_to category_children_url(@main_category) << ( pu.nil? ? '' : "?parent_url=" << pu )
@@ -94,6 +94,7 @@ class CategoriesController < AclController
     @category = Category.new
     @curators = AuthenticatedSystem::Person.order('fullname')
     if @main_category.nil?
+      @category.parent_id = ApplicationSettings.application_root_id
       @category.published = false
       if session[:default_curator_id].nil?
         person = current_user.person
@@ -210,7 +211,7 @@ class CategoriesController < AclController
     parent = @category.parent
     if @category.update_attributes(params_category)
 	    @category.reload
-      @new_parent = @category.root
+      @new_parent = @category.application_root
       category_title = @main_category.nil? ? Category.model_name.human.capitalize : @main_category.title.titleize
       flash[:notice] = ts 'edit.successful', :what => category_title
       respond_to do |format|
@@ -325,7 +326,7 @@ class CategoriesController < AclController
   def by_title
     title = params[:title]
     if title.nil?
-      @categories = logged_in? ? Category.roots : Category.published_roots
+      @categories = logged_in? ? Category.application_roots : Category.published_roots
     else
       # first get exact match
       @categories = Category.where(:title => title, :published => true).order('title')
@@ -353,7 +354,7 @@ class CategoriesController < AclController
 
   def iframe
     @category = Category.find(params[:id])
-    @categories = Category.roots
+    @categories = Category.application_roots
     @ancestors_for_current = @category.ancestors.collect{|c| c.id}
     @ancestors_for_current << @category.id
     @main_category = Category.find((@ancestors_for_current & @categories.collect{|c| c.id}).first)
@@ -463,7 +464,7 @@ class CategoriesController < AclController
   def handle_duplicate(category_hash)
     category = Category.find(category_hash[:id])
     parent = category.parent
-    root = category.root
+    root = category.application_root
     disambiguation = ''
     disambiguation << root.title if !root.nil?
     disambiguation << " > #{parent.title}" if !parent.nil? && parent != root

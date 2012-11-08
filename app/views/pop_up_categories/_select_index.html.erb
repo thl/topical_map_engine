@@ -1,29 +1,3 @@
-<% if @main_category.nil? %>
-     <h1>Select a category</h1>
-<% else %>
-     <h1>Select a <%=h @main_category.title %></h1>
-<% end %>
-<p>
-<%= submit_tag 'Select', :onclick => 'CategorySelector.updateAndDeactivate()' %>
-<%= submit_tag 'Cancel', :onclick => 'CategorySelector.deactivate()' %>
-</p>
 <div id="pop_up_navigation">
 <%= render :partial => 'index', :locals => { :categories => categories, :margin_depth => 0 } %>
 </div>
-
-<script type="text/javascript">
-
-CategorySelector = {
-  updateAndDeactivate: function(){
-    $('#selected_category_id').val($('#current_category_id').val());
-  	$('#category_name').html($('#current_category_title').val());
-  	$('#category_selector').attr('href', $('#current_category_selector').val());
-  	$('#category_parent_id').val($('#current_category_id').val());
-  	this.deactivate();
-  },
-  deactivate: function(){
-    $('.thl-popup').remove();
-  }
-}
-
-</script>

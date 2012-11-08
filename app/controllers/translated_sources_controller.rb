@@ -125,7 +125,7 @@ class TranslatedSourcesController < AclController
   # This is tied to categories, but once other titles are translated it can get disentangled through request.request_uri
   def find_category
     @category = Category.find(params[:category_id])
-	  @main_category = @category.root
+	  @main_category = @category.application_root
   end
   
   def find_source

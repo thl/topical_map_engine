@@ -1,7 +1,7 @@
 module AuthorAttribution
   def self.recursive_associate_descriptions(author, category = nil)
     if category.nil?
-      categories = Category.roots
+      categories = Category.application_roots
     else
       self.associate_descriptions(author, category)
       categories = category.children

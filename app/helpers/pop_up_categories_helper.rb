@@ -10,7 +10,7 @@ module PopUpCategoriesHelper
       category_selector = pop_up_categories_path(:selected_category_id => selected_category.id)
     end
     return_str << "</span>\n("
-    return_str << link_to('select parent', category_selector, :class => 'thl-pop no-view-alone no-main-site-ajax', :id => 'category_selector')
+    return_str << link_to('select parent', category_selector, :id => 'category_selector', :remote => true)
     return_str << ")\n"
     return_str << hidden_field(instance_variable_name, "#{field_name}_id")
     return_str << "\n<input type=\"hidden\" id=\"current_category_id\" name=\"current_category_id\" value=\"#{selected_category.id if !selected_category.nil?}\" />\n"
@@ -18,7 +18,10 @@ module PopUpCategoriesHelper
     return_str << "\n<input type=\"hidden\" id=\"current_category_selector\" name=\"current_category_selector\" value=\"#{category_selector}\" />\n"
     return_str << "\n<input type=\"hidden\" id=\"selected_category_id\" name=\"selected_category_id\" value=\"#{selected_category.id if !selected_category.nil?}\" />\n"
     return_str << "\n<input type=\"hidden\" id=\"selected_category_title\" name=\"selected_category_title\" value=\"#{selected_category.title if !selected_category.nil?}\" />\n"
-    return_str << "<script type=\"text/javascript\">ActivateThlPopups('#info');</script>"
+    return_str << "<div id=\"popup_dialog\" title=\"Select a subject\"></div>"
+    return_str << javascript_include_tag('kmaps_engine/jquery-ui-1.8.24.custom.min')
+    return_str << javascript_include_tag('kmaps_engine/popup-ui-handler')
+    return_str << stylesheet_link_tag('kmaps_engine/jquery-ui-1.8.24.custom')
     return_str.html_safe
   end
 end

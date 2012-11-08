@@ -29,8 +29,19 @@ class Category < ActiveRecord::Base
     self.children.where(:published => true).order('title')
   end
   
+  def self.application_roots
+    self.where(:parent_id => ApplicationSettings.application_root_id)
+  end
+  
+  def application_root
+    node = self
+    application_root_id = ApplicationSettings.application_root_id
+    node = node.parent while !node.parent_id.nil? && node.parent_id != application_root_id
+    node
+  end
+  
   def self.published_roots
-    self.where(:parent_id => nil, :published => true).order('title')
+    self.application_roots.where(:published => true).order('title')
   end
 
   def self.published_roots_and_descendants
