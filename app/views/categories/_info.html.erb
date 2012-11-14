@@ -39,7 +39,10 @@
       <h3 class="description_title">Associated Resources</h3>
     </div>
     <ul class="main_list normal">
-<%=    associated_resources.reject{|ar| ar[1] == 0}.collect{|ar| "<li>#{link_to("#{ar[0]} (#{ar[1]})", ar[2], :target => '_blank')}</li>"}.join.html_safe %>
+<%    options = {}
+      resource_link_target = ApplicationSettings.resource_link_target
+      options[:target] = resource_link_target if !resource_link_target.blank? %>
+<%=    associated_resources.reject{|ar| ar[1] == 0}.collect{|ar| "<li>#{link_to("#{ar[0]} (#{ar[1]})", ar[2], options)}</li>"}.join.html_safe %>
     </ul><br/>
 <%  end
     if authorized? hash_for_new_category_description_path %>

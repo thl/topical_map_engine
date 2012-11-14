@@ -30,7 +30,7 @@ class Category < ActiveRecord::Base
   end
   
   def self.application_roots
-    self.where(:parent_id => ApplicationSettings.application_root_id)
+    self.where(:parent_id => ApplicationSettings.application_root_id).order('title')
   end
   
   def application_root

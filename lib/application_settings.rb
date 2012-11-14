@@ -5,6 +5,14 @@ module ApplicationSettings
       str.blank? ? nil : str.to_i
     end
   end
+
+  def self.resource_link_target
+    settings = Rails.cache.fetch('application_settings/resource_link_target', :expires_in => 1.day) do
+      str = self.settings['resource_link_target']
+      str = nil if str.blank?
+      str
+    end
+  end
   
   private
   
