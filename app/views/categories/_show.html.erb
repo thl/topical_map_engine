@@ -1,5 +1,5 @@
 <%= form_tag new_category_translated_title_path(@category), :remote => true, :method => :get do %>
-      <h1><%= "#{h(@category.title).s}" %></h1>
+      <h1><%= @category.title.html_safe.s %></h1>
       <p>(<%= authorized?(hash_for_modify_title_category_child_path) ? link_to("<i>#{ts('language.english')}</i>".html_safe, modify_title_category_child_path(@main_category, @category), :remote => true) : "<i>#{ts('language.english')}</i>".html_safe %>)
 <%      if authorized? hash_for_new_category_translated_title_path %>
 <%=       submit_tag te('add.record', :what => t('translat.ion')), language_options(:disabled_with => 'Posting...') %>

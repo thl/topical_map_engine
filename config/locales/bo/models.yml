@@ -30,9 +30,9 @@ bo:
                 content: 'འབྲི་བ།'
                 title: 'ཁ་བྱང་།'
             source:
-                end_line: 'མཇུག་སྒྲིལ་ཐིག'
-                end_page: 'ཞབས་ཤོག'
-                language_id: 'ལེའུ་སོ་སོའི་བརྗོད་ཚིག'
+                end_line: 'མཇུག་སྒྲིལ་ཐིག་'
+                end_page: 'ཞབས་ཤོག་'
+                language_id: 'ལེའུ་སོ་སོའི་བརྗོད་ཚིག་'
                 mms_id: 'MMSཨང་གྲངས།'
                 note: 'འགྲེལ་བཤད།'
                 passage: 'ལེའུ།'

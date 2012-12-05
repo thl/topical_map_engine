@@ -1,2 +1,2 @@
-$("#popup_dialog").html("<%= escape_javascript(render(:partial => 'select_index', :locals => {:categories => @categories})) %>")
-$("#popup_dialog").dialog("open");
+$("#parent_popup_dialog").html("<%= escape_javascript(render(:partial => 'select_index', :locals => {:categories => @categories})) %>")
+$("#parent_popup_dialog").dialog("open");

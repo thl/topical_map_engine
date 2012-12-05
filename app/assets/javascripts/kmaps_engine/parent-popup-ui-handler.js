@@ -1,5 +1,5 @@
 $(function() {
-	$( '#popup_dialog' ).dialog({
+	$( '#parent_popup_dialog' ).dialog({
 		autoOpen: false,
 		height: 300,
 		width: 350,
