@@ -34,7 +34,10 @@ class CategoriesController < AclController
         end
       end
       format.xml do 
-  		  @categories.each {|cat| cat['children_count'] = cat.children.length }
+  		  @categories.each do |cat|
+  		    cat['parent_id'] = nil if ApplicationSettings.application_root_id==cat.parent_id
+  		    cat['children_count'] = cat.children.length
+		    end
       	render :xml => @categories
       end
       format.json { render :json => @categories.to_json }
@@ -81,6 +84,7 @@ class CategoriesController < AclController
       end
       format.js { render 'show' }
       format.xml do
+        @category['parent_id'] = nil if ApplicationSettings.application_root_id==@category.parent_id
         @category['children_count'] = @category.children.size
       	render :xml => @category
       end
