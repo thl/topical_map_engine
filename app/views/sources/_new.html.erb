@@ -10,7 +10,7 @@
 <%=   render :partial => 'form', :locals => {:f => f} %>
       <p><%= submit_tag te('creat.e.record', :what => Source.model_name.human.capitalize), language_options(:disable_with => 'Processing...') %></p>
 <%  end %>
-<%= javascript_tag("$(\'#source_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave();});") %>
+<%= javascript_tag("$(\'#source_form\').bind(\'ajax:beforeSend\', function(){ tinyMCE.triggerSave();});") %>
 <p>
 <%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>
 </p>

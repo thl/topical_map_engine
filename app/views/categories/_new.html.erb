@@ -6,5 +6,5 @@
 <%=   render :partial => 'form', :locals => {:changing_parent_allowed => false, :f => f, :default_curator_id => nil} %>
       <p><%= globalized_submit_tag 'creat.e.this' %></p>
 <%  end %>
-<%= javascript_tag("$(\'#category_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave();});") %>
+<%= javascript_tag("$(\'#category_form\').bind(\'ajax:beforeSend\', function(){ tinyMCE.triggerSave();});") %>
 <p><%= link_to ts('cancel.record', :what => t('new.this')), category_child_path(@main_category, @category.parent), :remote => true %></p>

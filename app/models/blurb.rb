@@ -15,6 +15,10 @@ class Blurb < ActiveRecord::Base
   after_save { |record| Rails.cache.delete("blurbs/#{record.code}") }
   
   def self.get_by_code(code)
-    Rails.cache.fetch("blurbs/#{code}", :expires_in => 1.day) { self.find_by_code(code) }
+    blurb_id = Rails.cache.fetch("blurbs/#{code}", :expires_in => 1.day) do
+      blurb = self.find_by_code(code)
+      blurb.nil? ? nil : blurb.id
+    end
+    blurb_id.nil? ? nil : Blurb.find(blurb_id)
   end
 end

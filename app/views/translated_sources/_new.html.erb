@@ -13,7 +13,7 @@
       <div id="update_div"></div>
       <p><%= submit_tag te('creat.e.record', :what => t('translat.ion')), language_options(:disable_with => 'Processing...') %></p>
 <%  end %>
-<%= javascript_tag("$(\'#translated_source_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave();});") %>
+<%= javascript_tag("$(\'#translated_source_form\').bind(\'ajax:beforeSend\', function(){ tinyMCE.triggerSave();});") %>
 <p>
 <%= link_to ts('cancel.this'), category_child_path(@main_category, @category), :remote => true %>
 </p>

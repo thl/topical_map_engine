@@ -3,7 +3,7 @@ jQuery(document).ready(function(){
 	// On the onclick of each <a> tag, decide how to properly treat the click in the iframe.
 	// The first two clauses are dependent on the setup of the app; the last two clauses area
 	// likely to be used in any context. 
-	jQuery('a').live('click', function() {
+	jQuery('a').on('click', function() {
 		var matches;
 		
 		// "/iframe/" link: don't change it

@@ -4,7 +4,7 @@
 <%=   render :partial => 'form', :locals => {:f => f, :default_author_id => nil} %>
       <p><%= globalized_submit_tag 'update.this' %></p>
 <%  end %>
-<%= javascript_tag("$(\'#description_form\').bind(\'ajax:before\', function(){ tinyMCE.triggerSave();});") %>
+<%= javascript_tag("$(\'#description_form\').bind(\'ajax:beforeSend\', function(){ tinyMCE.triggerSave();});") %>
 <p>
 <%  if authorized? hash_for_category_description_path(:action => 'destroy') %>
 <%=   link_to ts('delete.this'), category_description_path(@category, @description), :confirm => 'Are you sure?', :remote => true, :method => :delete %> |

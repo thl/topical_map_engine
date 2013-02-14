@@ -75,9 +75,7 @@ class Category < ActiveRecord::Base
   end
   
   def mediabase_count
-    m = Rails.cache.fetch("#{self.cache_key}/mediabase", :expires_in => 1.day) do
-      MediabaseCategoryCount.find(self.id)
-    end
+    m = MediabaseCategoryCount.find(self.id)
     return 0 if m.nil?
     return m[:kmap_count].to_i
   end
@@ -95,9 +93,7 @@ class Category < ActiveRecord::Base
   end
   
   def mediabase_url
-    m = Rails.cache.fetch("#{self.cache_key}/mediabase", :expires_in => 1.day) do
-      MediabaseCategoryCount.find(self.id)
-    end
+    m = MediabaseCategoryCount.find(self.id)
     return nil if m.nil?
     return "#{MediabaseResource.site.to_s}/#{m[:view_uri]}"
   end
