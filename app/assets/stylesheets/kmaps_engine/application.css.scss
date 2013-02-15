@@ -9,6 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require authenticated_system/application
+ *= require complex_scripts/application
  */
 
 a.treeempty { background:transparent url(http://thlib.org/global/images/btn-empty-lg.gif) no-repeat scroll 2px center; padding:0 0 0 19px;}
