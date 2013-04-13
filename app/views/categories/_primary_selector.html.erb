@@ -1,7 +1,6 @@
 <h1><%= ts 'primary_description.select.message', :what => "<em>#{h(@category.title)}</em>" %></h1>
 <%= error_messages_for :category %>
 <%= form_for(:category, :url => category_path(@category), :remote => true, :method => :put, :html => { :id => 'category_form' }) do |f| %>
-<%=   f.hidden_field :id %>
 <%    @category.descriptions.all.each do |d| %>
         <p>
 <%=       radio_button_tag :primary, d.id, d.is_main?  %>
