@@ -126,6 +126,10 @@ class Category < ActiveRecord::Base
     Medium.find(medium_id).category_ids.collect{|id| Category.find(id)}
   end
   
+  def self.human_name(*args)
+    self.model_name.human(*args)
+  end
+  
   private
   
   def topic_path(type = nil)
