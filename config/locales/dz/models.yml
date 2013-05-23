@@ -1,4 +1,4 @@
-# Localization file for Dzongkha of kmaps engine.
+# Localization file for Dzongkha of topical_map engine.
 dz:
     activerecord:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.

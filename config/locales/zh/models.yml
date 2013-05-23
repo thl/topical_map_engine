@@ -1,4 +1,4 @@
-# Localization file for Chinese of kmaps engine.
+# Localization file for Chinese of topical_map engine.
 zh:
     activerecord:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.

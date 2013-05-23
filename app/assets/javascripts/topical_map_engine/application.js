@@ -13,4 +13,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require tinymce
-//= require kmaps_engine/treescroll
+//= require topical_map_engine/treescroll

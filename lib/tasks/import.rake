@@ -1,6 +1,6 @@
 #require 'config/environment'
 namespace :import do
-  description = "Import kmaps with hierarchies represented as tabs.\n" +
+  description = "Import topical map with hierarchies represented as tabs.\n" +
                 "Syntax: rake import:categories ROOT_ID=? AUTHOR_ID=? FILENAME=?"
   desc description
   task :categories do

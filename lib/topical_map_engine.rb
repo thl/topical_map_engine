@@ -1,4 +1,4 @@
-require 'kmaps_engine/engine'
+require 'topical_map_engine/engine'
 require 'application_settings'
 # Include hook code here
 require 'csv'
@@ -9,5 +9,5 @@ require 'util'
 # I18n.load_path << File.join(File.dirname(__FILE__), 'config', 'locales')
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), '..', 'config', 'locales', '**', '*.yml')]
 
-module KmapsEngine
+module TopicalMapEngine
 end

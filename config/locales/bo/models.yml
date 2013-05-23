@@ -1,4 +1,4 @@
-# Localization file for Tibetan of kmaps engine.
+# Localization file for Tibetan of topical_map engine.
 bo:
     activerecord:
         # Model names will be kept in lower case. Invoke .capitalize or .titleize if you need them in uppercase.

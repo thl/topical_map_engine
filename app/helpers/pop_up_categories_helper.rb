@@ -20,7 +20,7 @@ module PopUpCategoriesHelper
     return_str << "\n<input type=\"hidden\" id=\"selected_category_title\" name=\"selected_category_title\" value=\"#{selected_category.title if !selected_category.nil?}\" />\n"
     return_str << "<div id=\"parent_popup_dialog\" title=\"Select a subject\"></div>"
     return_str << javascript_include_tag('interface_utils/jquery-ui-1.8.24.custom.min')
-    return_str << javascript_include_tag('kmaps_engine/parent-popup-ui-handler')
+    return_str << javascript_include_tag('topical_map_engine/parent-popup-ui-handler')
     return_str << stylesheet_link_tag('interface_utils/jquery-ui-1.8.24.custom')
     return_str.html_safe
   end

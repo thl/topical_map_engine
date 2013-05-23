@@ -1,9 +1,9 @@
 # require 'config/environment'
 namespace :author_attribution do
-  desc_str =  "Use to change default attribution of descriptions of kmaps to a specific user.\n" +
+  desc_str =  "Use to change default attribution of descriptions of topical map to a specific user.\n" +
               "Valid arguments:\n" +
               "- AUTHOR_ID: required; refers to person id. \n" +
-              "- CATEGORY_ID: optional; applies to all kmaps if not specified."
+              "- CATEGORY_ID: optional; applies to all topical map if not specified."
   desc desc_str
   task :description do
     author_id = ENV['AUTHOR_ID']

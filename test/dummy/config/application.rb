@@ -3,7 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require
-require "kmaps_engine"
+require "topical_map_engine"
 
 module Dummy
   class Application < Rails::Application

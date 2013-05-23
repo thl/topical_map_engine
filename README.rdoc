@@ -1,20 +1,20 @@
-= TmbEngine
+= TopicalMapEngine
 
-Kmaps engine provides a way to run the whole kmaps application with several themes. Currently two themes are supported: thdl_integration engine (https://ndlb.svn.sourceforge.net/svnroot/ndlb/portal/ror/plugins/thdl_integration/trunk) and basic_engine (https://ndlb.svn.sourceforge.net/svnroot/ndlb/portal/ror/plugins/basic_engine/trunk).
+Topical Map engine provides a way to run the whole topical map application with several themes. Currently two themes are supported: thdl_integration engine (https://ndlb.svn.sourceforge.net/svnroot/ndlb/portal/ror/plugins/thdl_integration/trunk) and basic_engine (https://ndlb.svn.sourceforge.net/svnroot/ndlb/portal/ror/plugins/basic_engine/trunk).
 
 Installation
 
 Please add the Gemfile of the main app:
 
-gem 'kmaps_engine', '2.0.9', :git => 'https://github.com/thl/kmaps_engine.git', :tag => 'v2.0.9'
+gem 'topical_map_engine', '2.0.9', :git => 'https://github.com/thl/topical_map_engine.git', :tag => 'v2.0.9'
 
 Include within your apps/assets/stylesheets/application.css file:
 
-*= require kmaps_engine/application
+*= require topical_map_engine/application
 
 Include within your apps/assets/javascripts/application.js file:
 
-//= require kmaps_engine/application
+//= require topical_map_engine/application
 
 
 Besides either of these two, the required plugins are:
