@@ -6,7 +6,7 @@
      resource = Description.find(@source.resource_id)
      translated_path = category_description_source_translated_sources_path(@category, resource, @source)
    end %>
-<h1><%= ts :for, :what => t('translat.ion').capitalize, :whom => "<em>#{formated_mms_pages(@source)}</em>" %></h1>
+<h1><%= ts :for, :what => t('translat.ion').capitalize, :whom => "<em>#{@source.formatted}</em>" %></h1>
 <%= error_messages_for :translated_source %>
 <%= form_for(:translated_source, :url => translated_path, :remote => true, :html => { :id => 'translated_source_form' }) do |f| %>
 <%=   render :partial => 'translated_sources/form', :locals => {:f => f} %>

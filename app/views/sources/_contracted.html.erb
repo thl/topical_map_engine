@@ -13,7 +13,7 @@
    end %>
    <p>
 <%=  link_to '&nbsp;'.html_safe, expand_path, :remote => true, :class => 'descriptionplus_icon' %>
-<%=  authorized?(hash_path) ? link_to(formated_mms_pages(source), edit_path, :remote => true) : formated_mms_pages(source) %>
+<%=  authorized?(hash_path) ? link_to(source.formatted, edit_path, :remote => true) : source.formatted %>
 <%   if source.language.code[0..1] != I18n.locale.to_s %>
        (<%= source.language.title.s %>)
 <%   end

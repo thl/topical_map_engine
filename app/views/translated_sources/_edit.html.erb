@@ -8,7 +8,7 @@
      translated_path = category_description_source_translated_source_path(@category, resource, @source ,@translated_source)
      hash_destroy_path = hash_for_category_description_source_translated_source_path(:action => 'destroy')
    end %>
-<h1><%= ts(:in, :what => t(:for, :what => t('edit.ing.record', :what => TranslatedSource.model_name.human), :whom => "<em>#{formated_mms_pages(@source)}</em>"), :where => h(@translated_source.language.title)) %></h1>
+<h1><%= ts(:in, :what => t(:for, :what => t('edit.ing.record', :what => TranslatedSource.model_name.human), :whom => "<em>#{@source.formatted}</em>"), :where => h(@translated_source.language.title)) %></h1>
 <%= error_messages_for :translated_source %>
 <%= form_for(:translated_source, :url => translated_path, :method => :put, :remote => true, :html => { :id => 'translated_source_form' }) do |f| %>
 <%=   render :partial => 'translated_sources/form', :locals => {:f => f} %>

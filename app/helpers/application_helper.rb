@@ -32,26 +32,7 @@ module ApplicationHelper
     when 3 then [list[0..size-2].join(', '), list[size-1]].join(', and ')
     end
   end
-  
-  def formated_mms_pages(s)
-    str = "#{Source.human_attribute_name(:mms_id).s} \##{s.mms_id}" 
-    pages_str = s.start_page.to_s
-    if !s.start_line.nil?
-      pages_str << ".#{s.start_line}"
-    end
-    if !s.end_page.nil? or !s.end_line.nil?
-      pages_str << '-'
-      if !s.end_page.nil?
-        pages_str << s.end_page.to_s
-      end
-      if !s.end_line.nil?
-        pages_str << ".#{s.end_line}."
-      end
-    end
-    str << ", #{pages_str}" if !pages_str.blank?
-    return str
-  end
-  
+    
   def custom_secondary_tabs_list
     # The :index values are necessary for this hash's elements to be sorted properly
     {
