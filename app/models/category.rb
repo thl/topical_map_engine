@@ -82,13 +82,13 @@ class Category < ActiveRecord::Base
   
   def feature_count
     Rails.cache.fetch("#{self.cache_key}/feature_count", :expires_in => 1.day) do
-      FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count
+      PlacesIntegration::FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count
     end
   end
   
   def shape_count
     Rails.cache.fetch("#{self.cache_key}/shape_count", :expires_in => 1.day) do
-      FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count_with_shapes
+      PlacesIntegration::FeatureCategoryCount.find(:all, :params => {:category_id => self.id}).first.count_with_shapes
     end
   end
   
@@ -115,11 +115,13 @@ class Category < ActiveRecord::Base
   end
   
   def places_url
-    PlacesResource.get_url + topic_path
+    PlacesIntegration::PlacesResource.get_url + topic_path
   end
   
+  alias :kmaps_url :places_url  
+  
   def self.find_all_by_feature_id(feature_id)
-    Feature.find(feature_id).feature_type_ids.collect{|id| Category.find(id)}
+    PlacesIntegration::Feature.find(feature_id).feature_type_ids.collect{|id| Category.find(id)}
   end
   
   def self.find_all_by_medium_id(medium_id)
