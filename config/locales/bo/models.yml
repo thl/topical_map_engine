@@ -35,10 +35,11 @@ bo:
                 language_id: 'ལེའུ་སོ་སོའི་བརྗོད་ཚིག་'
                 mms_id: 'MMSཨང་གྲངས།'
                 note: 'འགྲེལ་བཤད།'
-                oral: 'Person''s Name (oral source)'
+                oral: 'Oral Source'
                 passage: 'ལེའུ།'
                 start_line: 'ཐིག་ཕྲེང་དང་པོ།'
                 start_page: 'ངོས་དང་པོ།'
+                taken_on: 'Source Date'
                 volume_number: 'རྒྱུག་ཨང་།'
             translated_source:
                 author: 'རྩོམ་པ་པོ།'

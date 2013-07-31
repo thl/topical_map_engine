@@ -5,7 +5,7 @@
 <%=      render :partial => 'sources/contracted', :locals => {:resource => resource, :source => s} %>
 <%     else %>
 <%       if s == @source %>
-<%=        render :partial => 'sources/expanded', :locals => {:resource => resource, :source => s, :category => category} %>
+<%=        render :partial => 'sources/expanded', :locals => {:resource => resource, :source => s, :category => defined?(category) ? category : resource } %>
 <%	     else %>
 <%=        render :partial => 'sources/contracted', :locals => {:resource => resource, :source => s} %>
 <%       end %>

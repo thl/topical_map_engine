@@ -17,10 +17,12 @@
 #  creator_id    :integer          not null
 #  created_at    :datetime
 #  updated_at    :datetime
+#  oral          :string(255)
+#  taken_on      :datetime
 #
 
 class Source < ActiveRecord::Base
-  attr_accessible :mms_id, :oral, :volume_number, :start_page, :start_line, :end_page, :end_line, :language_id, :passage, :note
+  attr_accessible :mms_id, :oral, :volume_number, :start_page, :start_line, :end_page, :end_line, :language_id, :passage, :note, :taken_on
   
   validates_presence_of :resource_id, :resource_type
   #validates_presence_of :start_page
@@ -32,7 +34,11 @@ class Source < ActiveRecord::Base
   has_many :translated_sources, :dependent => :destroy
   
   def formatted
-    return "#{Source.human_attribute_name(:oral).s}: #{self.oral}" if mms_id.blank?
+    if mms_id.blank?
+      str = "#{Source.human_attribute_name(:oral).s}: #{self.oral}"
+      str << " (#{self.taken_on.to_date.to_formatted_s(:long)})" if !self.taken_on.nil?
+      return str
+    end
     str = "#{Source.human_attribute_name(:mms_id).s} \##{self.mms_id}" 
     pages_str = self.start_page.to_s
     if !self.start_line.nil?
@@ -55,7 +61,7 @@ class Source < ActiveRecord::Base
   
   def mms_id_or_oral
     if !(mms_id.blank? ^ oral.blank?)
-      errors.add_to_base("Specify either an MMS ID or an oral source, but not both")
+      errors[:base] << 'Specify either an MMS ID or an oral source, but not both'
     end
   end
 end

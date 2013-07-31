@@ -2,8 +2,11 @@
 <p><b><%= Source.human_attribute_name('mms_id').s %></b><br />
   <%= f.text_field :mms_id %>
 </p>
-<p><b><%= Source.human_attribute_name('oral').s %></b><br />
+<p><b><%= Source.human_attribute_name('oral').s %> (Person's Name)</b><br />
   <%= f.text_field :oral %>
+</p>
+<p><b><%= Source.human_attribute_name('taken_on').s %></b><br />
+  <%= f.datetime_select :taken_on, :include_blank => true %>
 </p>
 <p><b><%= Source.human_attribute_name('volume_number').s %></b><br />
   <%= f.text_field :volume_number %>

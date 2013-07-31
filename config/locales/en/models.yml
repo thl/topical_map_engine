@@ -35,10 +35,11 @@ en:
                 language_id: 'Language of Passage'
                 mms_id: 'MMS ID'
                 note: 'Note'
-                oral: 'Person''s Name (oral source)'
+                oral: 'Oral Source'
                 passage: 'Passage'
                 start_line: 'Start Line'
                 start_page: 'Start Page'
+                taken_on: 'Source Date'
                 volume_number: 'Volume Number'
             translated_source:
                 author: 'Author'

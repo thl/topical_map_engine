@@ -35,10 +35,11 @@ zh:
                 language_id: '章节语言'
                 mms_id: 'MMS编号'
                 note: '注释'
-                oral: 'Person''s Name (oral source)'
+                oral: 'Oral Source'
                 passage: '章节'
                 start_line: '起始行'
                 start_page: '起始页'
+                taken_on: 'Source Date'
                 volume_number: '卷号'
             translated_source:
                 author: '作者'
