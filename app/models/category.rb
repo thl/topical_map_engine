@@ -65,7 +65,7 @@ class Category < ActiveRecord::Base
     
   def media_count(options = {})
     media_count_hash = Rails.cache.fetch("#{self.cache_key}/media_count", :expires_in => 1.day) do
-      media_category_count = MediaCategoryCount.find(:all, :params => {:category_id => self.id}).dup
+      media_category_count = MmsIntegration::MediaCategoryCount.find(:all, :params => {:category_id => self.id}).dup
       media_count_hash = { 'Medium' => media_category_count.shift.count.to_i }
       media_category_count.each{|count| media_count_hash[count.medium_type] = count.count.to_i }
       media_count_hash
@@ -125,7 +125,7 @@ class Category < ActiveRecord::Base
   end
   
   def self.find_all_by_medium_id(medium_id)
-    Medium.find(medium_id).category_ids.collect{|id| Category.find(id)}
+    MmsIntegration::Medium.find(medium_id).category_ids.collect{|id| Category.find(id)}
   end
   
   def self.human_name(*args)
