@@ -20,9 +20,8 @@ module Import
   end
   
   def self.level_and_title(line)
-    mb_line = line.mb_chars
     level = 0
-    while level<mb_line.size && mb_line[level]=="\t"
+    while level<line.size && line[level]=="\t"
       level+=1
     end
     return level, line[level...line.size].strip
